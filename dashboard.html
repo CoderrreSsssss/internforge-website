@@ -1,1 +1,93 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InternForge Dashboard</title><style>
+body{
+background:#0f172a;
+color:white;
+font-family:Arial,sans-serif;
+margin:0;
+}
 
+nav{
+background:#111827;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#3b82f6;
+}
+
+.logout{
+background:#ef4444;
+padding:10px 20px;
+border:none;
+border-radius:8px;
+color:white;
+cursor:pointer;
+}
+
+.container{
+padding:40px;
+}
+
+.card{
+background:#1e293b;
+padding:25px;
+border-radius:15px;
+margin-bottom:20px;
+}
+
+h2{
+margin-bottom:10px;
+}
+</style></head><body><nav>
+<div class="logo">InternForge</div>
+<button class="logout" id="logoutBtn">Logout</button>
+</nav><div class="container"><div class="card">
+<h2>Welcome Student 👋</h2>
+<p id="userEmail">Loading...</p>
+</div><div class="card">
+<h2>Internship Status</h2>
+<p>Assigned Program: Pending</p>
+<p>Progress: 0%</p>
+</div><div class="card">
+<h2>Certificate</h2>
+<p>No certificate issued yet.</p>
+</div></div><script type="module">
+
+import { auth } from "./firebase-config.js";
+
+import {
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+onAuthStateChanged(auth,(user)=>{
+
+if(user){
+document.getElementById("userEmail").innerText =
+user.email;
+}else{
+window.location.href="login.html";
+}
+
+});
+
+document.getElementById("logoutBtn")
+.addEventListener("click",async()=>{
+
+await signOut(auth);
+
+window.location.href="login.html";
+
+});
+
+</script></body>
+</html>
