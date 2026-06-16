@@ -1,4 +1,4 @@
-<!DOCTYPE html><html>
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,35 +14,14 @@ h1{
 margin-bottom:20px;
 }
 
-.card{
-background:#1e293b;
-padding:20px;
-border-radius:12px;
-margin-bottom:15px;
-}
-
-input{
-width:100%;
-padding:12px;
-margin-bottom:20px;
-border-radius:8px;
-border:none;
-}
-
 .student{
-background:#111827;
+background:#1e293b;
 padding:15px;
 border-radius:10px;
 margin-bottom:10px;
 }
-</style></head><body><h1>InternForge Admin Panel</h1><input
-type="text"
-id="search"
-placeholder="Search student..."
-
-«»
-
-<div id="studentList"></div><script type="module">
+</style></head>
+<body><h1>InternForge Admin Panel</h1><div id="studentList">Loading students...</div><script type="module">
 
 import { db } from "./firebase-config.js";
 
@@ -51,28 +30,43 @@ collection,
 getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const studentList =
-document.getElementById("studentList");
+const studentList = document.getElementById("studentList");
 
 async function loadStudents(){
 
-const querySnapshot =
-await getDocs(collection(db,"students"));
+try{
 
-querySnapshot.forEach((doc)=>{
+studentList.innerHTML = "";
+
+const snapshot = await getDocs(collection(db,"students"));
+
+snapshot.forEach((doc)=>{
 
 const data = doc.data();
 
 studentList.innerHTML += `
 <div class="student">
-<h3>${data.name}</h3>
-<p>Email: ${data.email}</p>
-<p>College: ${data.college}</p>
-<p>Course: ${data.course}</p>
+<h3>${data.name || "No Name"}</h3>
+<p>Email: ${data.email || ""}</p>
+<p>College: ${data.college || ""}</p>
+<p>Course: ${data.course || ""}</p>
 </div>
 `;
 
 });
+
+if(snapshot.empty){
+studentList.innerHTML = "No students found";
+}
+
+}catch(error){
+
+studentList.innerHTML =
+"Error: " + error.message;
+
+console.error(error);
+
+}
 
 }
 
