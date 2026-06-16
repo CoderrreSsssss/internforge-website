@@ -6,11 +6,9 @@
 
 <title>InternForge | Student Dashboard</title>
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -24,8 +22,6 @@ color:#111827;
 display:flex;
 min-height:100vh;
 }
-
-/* SIDEBAR */
 
 .sidebar{
 width:270px;
@@ -100,22 +96,14 @@ width:20px;
 text-align:center;
 }
 
-/* MAIN */
-
 .main{
 margin-left:270px;
 width:calc(100% - 270px);
 padding:30px;
 }
 
-/* HERO */
-
 .hero{
-background:linear-gradient(
-135deg,
-#0056d2,
-#3b82f6
-);
+background:linear-gradient(135deg,#0056d2,#3b82f6);
 color:white;
 padding:34px;
 border-radius:28px;
@@ -144,8 +132,6 @@ font-size:16px;
 color:#dbeafe;
 max-width:650px;
 }
-
-/* PROFILE COMPLETION */
 
 .profile-box{
 background:white;
@@ -181,12 +167,9 @@ background:#0056d2;
 border-radius:20px;
 }
 
-/* STATS */
-
 .stats{
 display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(220px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:18px;
 margin-top:24px;
 }
@@ -209,8 +192,6 @@ font-weight:700;
 margin-top:8px;
 font-size:28px;
 }
-
-/* SECTIONS */
 
 .section{
 display:none;
@@ -240,8 +221,6 @@ color:#6b7280;
 line-height:1.7;
 }
 
-/* TOAST */
-
 .toast{
 position:fixed;
 right:20px;
@@ -254,10 +233,7 @@ display:none;
 z-index:999;
 }
 
-/* MOBILE */
-
 @media(max-width:900px){
-
 .sidebar{
 width:80px;
 padding:16px 10px;
@@ -279,9 +255,7 @@ padding:18px;
 .hero h1{
 font-size:28px;
 }
-
 }
-
 </style>
 </head>
 
@@ -299,58 +273,49 @@ font-size:28px;
 
 <div class="menu-title">Workspace</div>
 
-<div class="nav-link active"
-onclick="showSection('homeSection',this)">
+<div class="nav-link active" onclick="showSection('homeSection',this)">
 <i class="fa-solid fa-table-columns"></i>
 <span>Dashboard</span>
 </div>
 
-<div class="nav-link"
-onclick="showSection('internshipSection',this)">
+<div class="nav-link" onclick="showSection('internshipSection',this)">
 <i class="fa-solid fa-briefcase"></i>
 <span>Internships</span>
 </div>
 
-<div class="nav-link"
-onclick="showSection('documentsSection',this)">
+<div class="nav-link" onclick="showSection('documentsSection',this)">
 <i class="fa-solid fa-folder-open"></i>
 <span>Documents</span>
 </div>
 
-<div class="nav-link"
-onclick="showSection('projectSection',this)">
+<div class="nav-link" onclick="showSection('projectSection',this)">
 <i class="fa-solid fa-code"></i>
 <span>Projects</span>
 </div>
 
-<div class="nav-link"
-onclick="showSection('certificateSection',this)">
+<div class="nav-link" onclick="showSection('certificateSection',this)">
 <i class="fa-solid fa-award"></i>
 <span>Certificate</span>
 </div>
 
 <div class="menu-title">Support</div>
 
-<div class="nav-link"
-onclick="showSection('announcementSection',this)">
+<div class="nav-link" onclick="showSection('announcementSection',this)">
 <i class="fa-solid fa-bell"></i>
 <span>Announcements</span>
 </div>
 
-<div class="nav-link"
-onclick="showSection('aiSection',this)">
+<div class="nav-link" onclick="showSection('aiSection',this)">
 <i class="fa-solid fa-robot"></i>
 <span>AI Assistant</span>
 </div>
 
-<div class="nav-link"
-onclick="showSection('profileSection',this)">
+<div class="nav-link" onclick="showSection('profileSection',this)">
 <i class="fa-solid fa-user"></i>
 <span>Profile</span>
 </div>
 
-<div class="nav-link"
-id="logoutBtn">
+<div class="nav-link" id="logoutBtn">
 <i class="fa-solid fa-right-from-bracket"></i>
 <span>Logout</span>
 </div>
@@ -359,73 +324,48 @@ id="logoutBtn">
 
 <div class="main">
 
-<div id="homeSection"
-class="section active">
+<div id="homeSection" class="section active">
 
 <div class="hero">
-
-<h1>
-Welcome,
-<span id="studentName">
-Student
-</span>
-👋
-</h1>
-
-<p>
-Track your internship progress,
-offer letter, projects and certificates
-all from one professional dashboard.
-</p>
-
+<h1>Welcome, <span id="studentName">Student</span> 👋</h1>
+<p>Track your internship progress, offer letter, projects and certificates all from one professional dashboard.</p>
 </div>
 
 <div class="profile-box">
-
 <div class="profile-top">
 <h3>Profile Completion</h3>
 <b>60%</b>
 </div>
-
 <div class="progress-bar">
 <div class="progress-fill"></div>
 </div>
-
 </div>
 
 <div class="stats">
-
 <div class="stat-card">
 <span>Internship Status</span>
-<h2 id="internshipStatusCard">
-Locked
-</h2>
+<h2 id="internshipStatusCard">Not Applied</h2>
 </div>
 
 <div class="stat-card">
 <span>Offer Letter</span>
-<h2 id="offerStatusCard">
-Pending
-</h2>
+<h2 id="offerStatusCard">Pending</h2>
 </div>
 
 <div class="stat-card">
 <span>Progress</span>
-<h2 id="progressCard">
-0%
-</h2>
+<h2 id="progressCard">0%</h2>
 </div>
 
 <div class="stat-card">
 <span>Certificate</span>
-<h2 id="certificateCard">
-Pending
-</h2>
+<h2 id="certificateCard">Pending</h2>
+</div>
 </div>
 
 </div>
 
-</div>
+
 
 <!-- INTERNSHIP SECTION -->
 
@@ -434,7 +374,7 @@ Pending
 <div class="card">
 <h2 class="card-title">Available Certified Internships</h2>
 <p class="card-text">
-Choose one internship. After ₹1 payment approval, your offer letter and internship workspace will unlock.
+Choose one internship and apply. After applying, complete enrollment payment from the payment section.
 </p>
 </div>
 
@@ -442,48 +382,63 @@ Choose one internship. After ₹1 payment approval, your offer letter and intern
 
 <div class="intern-card">
 <div class="intern-img ai-img">
-<span>Locked</span>
+<span>Available</span>
 </div>
+
 <div class="intern-body">
 <h3>AI & Prompt Engineering</h3>
 <p>4-week online internship with project, offer letter and certificate.</p>
+
 <div class="tags">
-<b>4 Weeks</b><b>Offer Letter</b><b>Certificate</b>
+<b>4 Weeks</b>
+<b>Offer Letter</b>
+<b>Certificate</b>
 </div>
+
 <button class="primary-btn unlockBtn" data-program="AI & Prompt Engineering">
-Unlock Internship ₹1
+Apply Now
 </button>
 </div>
 </div>
 
 <div class="intern-card">
 <div class="intern-img web-img">
-<span>Locked</span>
+<span>Available</span>
 </div>
+
 <div class="intern-body">
 <h3>Web Development</h3>
 <p>Build a portfolio project and submit it for internship completion.</p>
+
 <div class="tags">
-<b>4 Weeks</b><b>Project</b><b>Certificate</b>
+<b>4 Weeks</b>
+<b>Project</b>
+<b>Certificate</b>
 </div>
+
 <button class="primary-btn unlockBtn" data-program="Web Development">
-Unlock Internship ₹1
+Apply Now
 </button>
 </div>
 </div>
 
 <div class="intern-card">
 <div class="intern-img py-img">
-<span>Locked</span>
+<span>Available</span>
 </div>
+
 <div class="intern-body">
 <h3>Python Programming</h3>
 <p>Beginner-friendly Python internship with mini project submission.</p>
+
 <div class="tags">
-<b>4 Weeks</b><b>Beginner</b><b>Certificate</b>
+<b>4 Weeks</b>
+<b>Beginner</b>
+<b>Certificate</b>
 </div>
+
 <button class="primary-btn unlockBtn" data-program="Python Programming">
-Unlock Internship ₹1
+Apply Now
 </button>
 </div>
 </div>
@@ -493,6 +448,7 @@ Unlock Internship ₹1
 </div>
 
 <!-- DOCUMENTS SECTION -->
+
 <div id="documentsSection" class="section">
 
 <div class="card">
@@ -532,18 +488,21 @@ Your official internship documents will appear here after admin approval.
 </div>
 
 </div>
+
 <!-- PAYMENT SECTION -->
 
 <div id="paymentSection" class="section">
 
 <div class="card">
-<h2 class="card-title">Unlock Internship</h2>
+<h2 class="card-title">Complete Enrollment</h2>
+
 <p class="card-text">
-Selected Internship: <b id="selectedProgramText">Not Selected</b>
+Selected Internship:
+<b id="selectedProgramText">Not Selected</b>
 </p>
 
 <div class="payment-box">
-<h3>Scan QR to Pay ₹1</h3>
+<h3>Scan QR to Complete Enrollment</h3>
 <p>UPI ID is hidden for a clean payment experience.</p>
 
 <img src="qr.png"
@@ -571,6 +530,7 @@ Submit your internship project link for admin review.
 </p>
 
 <input class="input-field" id="projectTitle" placeholder="Project Title">
+
 <input class="input-field" id="projectLink" placeholder="GitHub / Google Drive Link">
 
 <button id="submitProjectBtn" class="primary-btn">
@@ -603,6 +563,8 @@ Verify Certificate
 </div>
 
 </div>
+
+
 
 <!-- ANNOUNCEMENT SECTION -->
 
@@ -789,6 +751,7 @@ font-weight:800;
 text-decoration:none;
 display:inline-block;
 margin-top:12px;
+margin-right:8px;
 }
 
 .payment-box{
@@ -871,6 +834,9 @@ color:#374151;
 }
 </style>
 
+
+
+
 <script type="module">
 
 import { auth, db } from "./firebase-config.js";
@@ -879,31 +845,27 @@ import {
 onAuthStateChanged,
 signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 import {
 doc,
 getDoc,
 setDoc,
 collection,
 addDoc,
-getDocs 
+getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 let currentUserId="";
 let selectedProgram="";
 
-/* TOAST */
-
 function toast(msg){
 const t=document.getElementById("toast");
 t.innerHTML=msg;
 t.style.display="block";
-
 setTimeout(()=>{
 t.style.display="none";
 },3000);
 }
-
-/* SIDEBAR NAVIGATION */
 
 window.showSection=function(sectionId,element){
 
@@ -923,8 +885,6 @@ element.classList.add("active");
 
 };
 
-/* AUTH */
-
 onAuthStateChanged(auth,async(user)=>{
 
 if(!user){
@@ -934,17 +894,14 @@ return;
 
 currentUserId=user.uid;
 
-const studentRef=
-doc(db,"students",user.uid);
-
 const snap=
-await getDoc(studentRef);
+await getDoc(
+doc(db,"students",user.uid)
+);
 
-if(!snap.exists()) return;
+if(snap.exists()){
 
 const data=snap.data();
-
-/* HOME */
 
 document.getElementById("studentName").innerText=
 data.name || "Student";
@@ -958,12 +915,10 @@ data.certificateStatus || "Pending";
 document.getElementById("offerStatusCard").innerText=
 data.offerLetterStatus || "Pending";
 
-document.getElementById("internshipStatusCard").innerText=
-data.paymentStatus==="Approved"
+document.getElementById("internshipStatusCard").innerText =
+data.paymentStatus === "Approved"
 ? "Active"
-: "Locked";
-
-/* PROFILE */
+: (data.applicationStatus === "Applied" ? "Payment Required" : "Not Applied");
 
 document.getElementById("profileName").innerText=
 data.name || "-";
@@ -977,8 +932,6 @@ data.college || "-";
 document.getElementById("profileCourse").innerText=
 data.course || "-";
 
-/* CERTIFICATE */
-
 document.getElementById("certificateStatusPage").innerText=
 data.certificateStatus || "Not Issued";
 
@@ -991,66 +944,67 @@ data.certificateStatus || "Not Issued";
 document.getElementById("docCertificateId").innerText=
 data.certificateId || "Not Generated";
 
-/* OFFER LETTER */
-
 document.getElementById("offerLetterStatus").innerText=
 data.offerLetterStatus || "Pending";
 
 document.getElementById("offerLetterId").innerText=
 data.offerLetterId || "Not Generated";
 
-/* COMPLETION LETTER */
-
 document.getElementById("completionLetterStatus").innerText=
 data.completionLetterStatus || "Pending";
-
-/* PROGRAM */
 
 if(data.selectedProgram){
 
 selectedProgram=data.selectedProgram;
 
-document.getElementById("selectedProgramText")
-.innerText=
+document.getElementById("selectedProgramText").innerText=
 selectedProgram;
 
 }
-loadAnnouncements();
-});
 
-/* INTERNSHIP SELECT */
+}
+
+loadAnnouncements();
+
+});
 
 document
 .querySelectorAll(".unlockBtn")
 .forEach(btn=>{
 
-btn.addEventListener("click",()=>{
+btn.addEventListener("click",async()=>{
 
 selectedProgram=
 btn.dataset.program;
 
-document
-.getElementById("selectedProgramText")
-.innerText=
+document.getElementById("selectedProgramText").innerText=
 selectedProgram;
 
-document
-.querySelectorAll(".section")
-.forEach(sec=>sec.classList.remove("active"));
+await setDoc(
+doc(db,"students",currentUserId),
+{
+selectedProgram:selectedProgram,
+applicationStatus:"Applied",
+paymentStatus:"Payment Required"
+},
+{ merge:true }
+);
 
-document
-.getElementById("paymentSection")
-.classList.add("active");
+document.getElementById("internshipStatusCard").innerText=
+"Payment Required";
+
+window.showSection(
+"paymentSection",
+document.querySelectorAll(".nav-link")[2]
+);
 
 toast(
-"Internship Selected: "+selectedProgram
+"Application submitted for " + selectedProgram + ". Complete enrollment payment."
 );
 
 });
 
 });
-
-/* PAYMENT SUBMIT */
 
 document
 .getElementById("submitPaymentBtn")
@@ -1063,13 +1017,17 @@ document
 .trim();
 
 if(!selectedProgram){
+
 toast("Select internship first.");
 return;
+
 }
 
 if(!txn){
+
 toast("Enter transaction ID.");
 return;
+
 }
 
 try{
@@ -1084,6 +1042,9 @@ offerLetterStatus:"Pending"
 },
 { merge:true }
 );
+
+document.getElementById("internshipStatusCard").innerText=
+"Pending Approval";
 
 toast(
 "Payment submitted successfully. Waiting for admin approval."
@@ -1100,8 +1061,6 @@ toast(error.message);
 }
 
 });
-
-/* PROJECT SUBMIT */
 
 document
 .getElementById("submitProjectBtn")
@@ -1120,8 +1079,10 @@ document
 .trim();
 
 if(!title || !link){
+
 toast("Fill all fields.");
 return;
+
 }
 
 try{
@@ -1138,9 +1099,7 @@ submittedAt:new Date()
 }
 );
 
-toast(
-"Project submitted successfully."
-);
+toast("Project submitted successfully.");
 
 document.getElementById("projectTitle").value="";
 document.getElementById("projectLink").value="";
@@ -1196,16 +1155,13 @@ container.innerHTML=
 
 }
 
-/* LOGOUT */
-
 document
 .getElementById("logoutBtn")
 .addEventListener("click",async()=>{
 
 await signOut(auth);
 
-window.location.href=
-"login.html";
+window.location.href="login.html";
 
 });
 
@@ -1213,5 +1169,7 @@ window.location.href=
 
 </body>
 </html>
+
+
 
 
