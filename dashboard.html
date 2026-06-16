@@ -1067,6 +1067,7 @@ doc(db,"students",user.uid)
 if(snap.exists()){
 
 const data=snap.data();
+updateInternshipCards(data);
 console.log("PAYMENT STATUS =", data.paymentStatus);
 
 document.getElementById("studentName").innerText=
@@ -1160,7 +1161,7 @@ document.getElementById("statusNextStep").innerText =
 nextStep;
 
 }
-updateInternshipCards(data);
+
 function updateInternshipCards(data){
 
 const selected =
