@@ -6,86 +6,265 @@
 <title>Completion Letter | InternForge</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#eef4ff;padding:35px;color:#111827}
-.paper{max-width:900px;margin:auto;background:white;padding:55px;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.10)}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:35px}
-.logo{display:flex;align-items:center;gap:12px}
-.logo img{height:58px}
-.logo h1{color:#0056d2;font-size:32px}
-.id{font-weight:900;color:#64748b}
-.title{text-align:center;font-size:38px;font-weight:900;margin:35px 0;color:#111827}
-.content{font-size:18px;line-height:1.9;color:#374151}
-.highlight{font-weight:900;color:#0056d2}
-.signature{display:flex;justify-content:space-between;align-items:end;margin-top:70px}
-.line{width:220px;border-top:2px solid #111827;margin-bottom:8px}
-.sign{text-align:center}
-.qr{width:120px;height:120px;border:2px dashed #cbd5e1;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#64748b}
-.footer{text-align:center;margin-top:45px;color:#64748b;font-size:14px}
-.actions{text-align:center;margin-top:25px}
-button{background:#0056d2;color:white;border:none;padding:12px 20px;border-radius:10px;font-weight:900;cursor:pointer}
-@media print{body{background:white;padding:0}.actions{display:none}.paper{box-shadow:none;border-radius:0}}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#eef4ff;
+padding:35px;
+color:#111827;
+}
+
+.letter{
+max-width:1000px;
+margin:auto;
+background:white;
+padding:50px;
+border-radius:22px;
+box-shadow:0 25px 70px rgba(0,0,0,.12);
+border:1px solid #e5e7eb;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:3px solid #0056d2;
+padding-bottom:20px;
+margin-bottom:35px;
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.brand img{
+width:70px;
+height:70px;
+}
+
+.brand h1{
+color:#0056d2;
+font-size:34px;
+}
+
+.badge{
+background:#ecfdf5;
+color:#166534;
+padding:10px 16px;
+border-radius:999px;
+font-weight:900;
+}
+
+.title{
+text-align:center;
+font-size:40px;
+font-weight:900;
+margin-bottom:30px;
+}
+
+.meta{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:16px;
+margin-bottom:30px;
+}
+
+.meta div{
+background:#f8fafc;
+padding:16px;
+border-radius:14px;
+border:1px solid #e5e7eb;
+}
+
+.meta span{
+display:block;
+color:#64748b;
+font-size:13px;
+font-weight:800;
+margin-bottom:6px;
+}
+
+.content{
+font-size:17px;
+line-height:1.9;
+color:#374151;
+}
+
+.highlight{
+color:#0056d2;
+font-weight:900;
+}
+
+.signature{
+display:flex;
+justify-content:space-between;
+align-items:end;
+margin-top:55px;
+gap:30px;
+}
+
+.sign-box{
+text-align:center;
+}
+
+.sign-text{
+font-family:"Brush Script MT","Segoe Script",cursive;
+font-size:34px;
+margin-bottom:4px;
+}
+
+.line{
+width:220px;
+border-top:2px solid #111827;
+margin:0 auto 10px;
+}
+
+.qr img{
+width:115px;
+height:115px;
+border:1px solid #e5e7eb;
+padding:8px;
+border-radius:12px;
+}
+
+.actions{
+text-align:center;
+margin-top:25px;
+}
+
+button{
+background:#0056d2;
+color:white;
+border:none;
+padding:13px 22px;
+border-radius:12px;
+font-weight:900;
+cursor:pointer;
+}
+
+@media print{
+body{background:white;padding:0}
+.actions{display:none}
+.letter{
+box-shadow:none;
+border-radius:0;
+max-width:100%;
+}
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="paper">
+<div class="letter">
 
 <div class="header">
-<div class="logo">
+
+<div class="brand">
 <img src="logo.png" onerror="this.style.display='none'">
+
+<div>
 <h1>InternForge</h1>
-</div>
-<div class="id">Completion ID: <span id="completionId">Loading...</span></div>
+<p>Internship Completion Verification</p>
 </div>
 
-<div class="title">INTERNSHIP COMPLETION LETTER</div>
+</div>
+
+<div class="badge">
+Completion Letter
+</div>
+
+</div>
+
+<h2 class="title">
+Internship Completion Letter
+</h2>
+
+<div class="meta">
+
+<div>
+<span>Student Name</span>
+<b id="studentName">Loading...</b>
+</div>
+
+<div>
+<span>Internship Program</span>
+<b id="programName">Loading...</b>
+</div>
+
+<div>
+<span>Completion ID</span>
+<b id="completionId">Loading...</b>
+</div>
+
+<div>
+<span>Issue Date</span>
+<b id="issueDate">Loading...</b>
+</div>
+
+</div>
 
 <div class="content">
+
 <p>
 This is to certify that
-<span class="highlight" id="studentName">Student</span>
+<span class="highlight" id="studentNameText">Student</span>
 has successfully completed the
-<span class="highlight" id="programName">Internship Program</span>
-conducted by InternForge.
+<span class="highlight" id="programNameText">Internship Program</span>
+conducted by <b>InternForge</b>.
 </p>
 
 <br>
 
 <p>
-The intern successfully participated in assigned learning activities, completed required internship tasks, and submitted the project work for review during the internship period.
+The intern has completed the required learning tasks, submitted the assigned project work, and fulfilled the internship requirements as per the review process.
 </p>
 
 <br>
 
 <p>
-Based on the submitted work and completion status, the intern has fulfilled the requirements of the online certified internship program.
+Based on the project submission and completion status, this completion letter is issued as a formal record of internship participation and successful completion.
 </p>
 
 <br>
 
 <p>
-We appreciate the dedication, effort and commitment demonstrated throughout the internship journey and wish the intern success in future academic and professional endeavors.
+We appreciate the dedication, effort and commitment shown during the internship and wish the intern success in future academic and professional opportunities.
 </p>
+
 </div>
 
 <div class="signature">
-<div class="sign">
+
+<div class="sign-box">
+<div class="sign-text">Inderjot Singh</div>
 <div class="line"></div>
+<b>Inderjot Singh</b><br>
 Program Coordinator
 </div>
 
-<div class="qr">QR</div>
+<div class="qr">
+<img id="qrCode" src="">
+<p style="font-size:12px;color:#64748b;text-align:center;margin-top:6px;">
+Scan to Verify
+</p>
+</div>
 
-<div class="sign">
+<div class="sign-box">
+<div class="sign-text">Dhruv Khurana</div>
 <div class="line"></div>
-InternForge Director
-</div>
+<b>Dhruv Khurana</b><br>
+Director, InternForge
 </div>
 
-<div class="footer">
-© 2026 InternForge | India's Student Internship Platform
 </div>
 
 </div>
@@ -96,20 +275,61 @@ InternForge Director
 
 <script type="module">
 import { auth, db } from "./firebase-config.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+doc,
+getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 onAuthStateChanged(auth, async(user)=>{
-if(!user){ window.location.href="login.html"; return; }
 
-const snap = await getDoc(doc(db,"students",user.uid));
+if(!user){
+window.location.href="login.html";
+return;
+}
+
+const snap =
+await getDoc(
+doc(db,"students",user.uid)
+);
+
 if(!snap.exists()) return;
 
 const data = snap.data();
 
-document.getElementById("studentName").innerText = data.name || "Student";
-document.getElementById("programName").innerText = data.selectedProgram || "Internship Program";
-document.getElementById("completionId").innerText = data.completionLetterId || "Not Generated";
+const name =
+data.name || "Student";
+
+const program =
+data.selectedProgram || "Internship Program";
+
+const completionId =
+data.completionLetterId || "Not Generated";
+
+document.getElementById("studentName").innerText = name;
+document.getElementById("studentNameText").innerText = name;
+
+document.getElementById("programName").innerText = program;
+document.getElementById("programNameText").innerText = program;
+
+document.getElementById("completionId").innerText = completionId;
+
+document.getElementById("issueDate").innerText =
+new Date().toLocaleDateString("en-IN");
+
+const verifyLink =
+window.location.origin +
+"/verify.html?id=" +
+encodeURIComponent(completionId);
+
+document.getElementById("qrCode").src =
+"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" +
+encodeURIComponent(verifyLink);
+
 });
 </script>
 
