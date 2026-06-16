@@ -12,7 +12,12 @@ nav{background:#111827;padding:20px;display:flex;justify-content:space-between;a
 .logout{background:#ef4444;padding:10px 20px;border:none;border-radius:8px;color:white;cursor:pointer;}
 .container{padding:40px;}
 .card{background:#1e293b;padding:25px;border-radius:15px;margin-bottom:20px;}
-.status{color:#facc15;font-weight:bold;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
+.locked{opacity:.85;border:1px solid #334155;}
+.btn{background:#2563eb;color:white;border:none;padding:12px 18px;border-radius:8px;cursor:pointer;margin-top:10px;}
+input{width:100%;padding:12px;border:none;border-radius:8px;margin-top:10px;}
+.badge{color:#facc15;font-weight:bold;}
+.success{color:#22c55e;font-weight:bold;}
 </style>
 </head>
 
@@ -30,18 +35,65 @@ nav{background:#111827;padding:20px;display:flex;justify-content:space-between;a
 <p><b>Email:</b> <span id="studentEmail">Loading...</span></p>
 <p><b>College:</b> <span id="studentCollege">Loading...</span></p>
 <p><b>Course:</b> <span id="studentCourse">Loading...</span></p>
+<p><b>Payment Status:</b> <span id="paymentStatus" class="badge">Pending</span></p>
 </div>
 
 <div class="card">
-<h2>Internship Status</h2>
-<p><b>Assigned Program:</b> <span class="status">Pending</span></p>
-<p><b>Progress:</b> 0%</p>
-<p><b>Payment:</b> Launch Offer ₹1</p>
+<h2>Available Internships</h2>
+
+<div class="grid">
+
+<div class="card locked">
+<h3>AI & Prompt Engineering 🔒</h3>
+<p>Learn AI tools, prompting, and build real projects.</p>
+<button class="btn" onclick="selectProgram('AI & Prompt Engineering')">Unlock for ₹1</button>
 </div>
 
-<div class="card">
-<h2>Certificate</h2>
-<p>No certificate issued yet.</p>
+<div class="card locked">
+<h3>Web Development 🔒</h3>
+<p>Build websites using HTML, CSS and JavaScript.</p>
+<button class="btn" onclick="selectProgram('Web Development')">Unlock for ₹1</button>
+</div>
+
+<div class="card locked">
+<h3>Python Programming 🔒</h3>
+<p>Learn Python basics and complete a mini project.</p>
+<button class="btn" onclick="selectProgram('Python Programming')">Unlock for ₹1</button>
+</div>
+
+</div>
+</div>
+
+<div class="card" id="paymentBox" style="display:none;">
+<h2>Unlock Internship</h2>
+<p><b>Selected Program:</b> <span id="selectedProgramText"></span></p>
+
+<p>Pay ₹1 on this UPI ID:</p>
+<h3>9996265411@mbk</h3>
+
+<p>After payment, enter your UPI Transaction ID:</p>
+<input type="text" id="transactionId" placeholder="Enter UPI Transaction ID">
+
+<button class="btn" id="submitPaymentBtn">Submit Payment Proof</button>
+</div>
+
+<div class="card" id="courseBox" style="display:none;">
+<h2>Your Internship Access ✅</h2>
+<p><b>Program:</b> <span id="unlockedProgram"></span></p>
+
+<h3>Week 1</h3>
+<p>Introduction + basics learning resources</p>
+
+<h3>Week 2</h3>
+<p>Practice assignments</p>
+
+<h3>Week 3</h3>
+<p>Mini project</p>
+
+<h3>Week 4</h3>
+<p>Final project submission</p>
+
+<p><b>Certificate Status:</b> Not Issued</p>
 </div>
 
 </div>
@@ -56,8 +108,12 @@ signOut
 
 import {
 doc,
-getDoc
+getDoc,
+updateDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+let currentUserId = "";
+let selectedProgram = "";
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
@@ -65,16 +121,53 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
+  currentUserId = user.uid;
   document.getElementById("studentEmail").innerText = user.email;
 
   const userDoc = await getDoc(doc(db, "students", user.uid));
 
   if (userDoc.exists()) {
     const data = userDoc.data();
+
     document.getElementById("studentName").innerText = data.name || "Student";
     document.getElementById("studentCollege").innerText = data.college || "Not Added";
     document.getElementById("studentCourse").innerText = data.course || "Not Added";
+
+    if (data.paymentStatus) {
+      document.getElementById("paymentStatus").innerText = data.paymentStatus;
+    }
+
+    if (data.paymentStatus === "Approved") {
+      document.getElementById("paymentStatus").className = "success";
+      document.getElementById("courseBox").style.display = "block";
+      document.getElementById("unlockedProgram").innerText = data.selectedProgram || data.assignedProgram || "Internship";
+    }
   }
+});
+
+window.selectProgram = function(program){
+  selectedProgram = program;
+  document.getElementById("selectedProgramText").innerText = program;
+  document.getElementById("paymentBox").style.display = "block";
+  window.scrollTo(0, document.body.scrollHeight);
+};
+
+document.getElementById("submitPaymentBtn").addEventListener("click", async () => {
+  const transactionId = document.getElementById("transactionId").value;
+
+  if (!transactionId) {
+    alert("Please enter UPI Transaction ID");
+    return;
+  }
+
+  await updateDoc(doc(db, "students", currentUserId), {
+    selectedProgram: selectedProgram,
+    transactionId: transactionId,
+    paymentStatus: "Pending Approval"
+  });
+
+  alert("Payment proof submitted. Admin will verify and unlock your internship.");
+  location.reload();
 });
 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
