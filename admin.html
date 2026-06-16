@@ -457,7 +457,7 @@ function makeId(prefix){
 window.approvePayment = async function(id){
   await updateDoc(doc(db,"students",id),{
     paymentStatus:"Approved",
-    progress:25,
+    progress:40,
     offerLetterStatus:"Generated",
     offerLetterId:makeId("OL"),
     certificateStatus:"Not Issued",
