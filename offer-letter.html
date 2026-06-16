@@ -3,113 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>InternForge Offer Letter</title>
+<title>Offer Letter | InternForge</title>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,Arial,sans-serif;
-}
-
-body{
-background:#eef4ff;
-padding:40px;
-}
-
-.paper{
-max-width:900px;
-margin:auto;
-background:white;
-padding:60px;
-border-radius:24px;
-box-shadow:0 15px 50px rgba(0,0,0,.08);
-}
-
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:40px;
-}
-
-.logo{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.logo img{
-height:60px;
-}
-
-.logo h1{
-color:#0056d2;
-font-size:32px;
-}
-
-.doc-id{
-font-weight:800;
-color:#64748b;
-}
-
-.title{
-text-align:center;
-font-size:38px;
-font-weight:900;
-margin-bottom:30px;
-color:#111827;
-}
-
-.content{
-font-size:18px;
-line-height:1.8;
-color:#374151;
-}
-
-.highlight{
-font-weight:900;
-color:#0056d2;
-}
-
-.signature{
-margin-top:70px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.sign-box{
-text-align:center;
-}
-
-.sign-line{
-width:220px;
-border-top:2px solid #111827;
-margin-bottom:10px;
-}
-
-.qr{
-width:120px;
-height:120px;
-border:2px dashed #cbd5e1;
-display:flex;
-justify-content:center;
-align-items:center;
-border-radius:14px;
-color:#64748b;
-}
-
-.footer{
-margin-top:50px;
-text-align:center;
-color:#64748b;
-font-size:14px;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#eef4ff;padding:35px;color:#111827}
+.paper{max-width:900px;margin:auto;background:white;padding:55px;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.10)}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:35px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo img{height:58px}
+.logo h1{color:#0056d2;font-size:32px}
+.id{font-weight:900;color:#64748b}
+.title{text-align:center;font-size:38px;font-weight:900;margin:35px 0;color:#111827}
+.content{font-size:18px;line-height:1.85;color:#374151}
+.highlight{font-weight:900;color:#0056d2}
+.signature{display:flex;justify-content:space-between;align-items:end;margin-top:70px}
+.line{width:220px;border-top:2px solid #111827;margin-bottom:8px}
+.sign{text-align:center}
+.qr{width:120px;height:120px;border:2px dashed #cbd5e1;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#64748b}
+.footer{text-align:center;margin-top:45px;color:#64748b;font-size:14px}
+.actions{text-align:center;margin-top:25px}
+button{background:#0056d2;color:white;border:none;padding:12px 20px;border-radius:10px;font-weight:900;cursor:pointer}
+@media print{body{background:white;padding:0}.actions{display:none}.paper{box-shadow:none;border-radius:0}}
 </style>
 </head>
 
@@ -118,100 +33,79 @@ font-size:14px;
 <div class="paper">
 
 <div class="top">
-
 <div class="logo">
-<img src="logo.png">
+<img src="logo.png" onerror="this.style.display='none'">
 <h1>InternForge</h1>
 </div>
-
-<div class="doc-id">
-Offer ID:
-<span id="offerId">
-OL-2026-0001
-</span>
+<div class="id">Offer ID: <span id="offerId">Loading...</span></div>
 </div>
 
-</div>
-
-<div class="title">
-INTERNSHIP OFFER LETTER
-</div>
+<div class="title">INTERNSHIP OFFER LETTER</div>
 
 <div class="content">
-
-<p>
-Dear
-<span class="highlight" id="studentName">
-Student Name
-</span>,
-</p>
-
+<p>Dear <span class="highlight" id="studentName">Student</span>,</p>
 <br>
-
 <p>
-
-We are pleased to offer you an internship opportunity with
-<span class="highlight">
-InternForge
-</span>
-
-under the
-
-<span class="highlight" id="programName">
-AI & Prompt Engineering Internship
-</span>
-
-program.
-
+We are pleased to offer you an online certified internship opportunity with
+<span class="highlight">InternForge</span> under the
+<span class="highlight" id="programName">Internship Program</span>.
 </p>
-
 <br>
-
 <p>
-
-Your internship has been approved and you are now eligible to access internship resources, assignments, projects, mentorship support and completion benefits.
-
+Your internship access has been approved. You are eligible to access assigned internship tasks, project submissions, document benefits and completion certification after successful evaluation.
 </p>
-
 <br>
-
-<p>
-
-Successful completion of the internship will make you eligible for:
-
-</p>
-
+<p>This offer includes:</p>
 <br>
-
-<ul style="margin-left:25px;">
-<li>Internship Completion Certificate</li>
-<li>Completion Letter</li>
-<li>Project Experience</li>
-<li>Verified Internship Record</li>
+<ul style="margin-left:25px">
+<li>Online Internship Access</li>
+<li>Offer Letter</li>
+<li>Project Submission Review</li>
+<li>Completion Letter after successful completion</li>
+<li>Verified Internship Certificate</li>
 </ul>
-
 </div>
 
 <div class="signature">
+<div class="sign">
+<div class="line"></div>
+Program Coordinator
+</div>
 
-<div class="sign-box">
-<div class="sign-line"></div>
+<div class="qr">QR</div>
+
+<div class="sign">
+<div class="line"></div>
 InternForge Director
 </div>
-
-<div class="qr">
-QR
 </div>
 
-</div>
-
-<div class="footer">
-© 2026 InternForge | Forge Your Future
-</div>
+<div class="footer">© 2026 InternForge | India's Student Internship Platform</div>
 
 </div>
+
+<div class="actions">
+<button onclick="window.print()">Download / Print Offer Letter</button>
+</div>
+
+<script type="module">
+import { auth, db } from "./firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+onAuthStateChanged(auth, async(user)=>{
+if(!user){ window.location.href="login.html"; return; }
+
+const snap = await getDoc(doc(db,"students",user.uid));
+if(!snap.exists()) return;
+
+const data = snap.data();
+
+document.getElementById("studentName").innerText = data.name || "Student";
+document.getElementById("programName").innerText = data.selectedProgram || "Internship Program";
+document.getElementById("offerId").innerText = data.offerLetterId || "Not Generated";
+});
+</script>
 
 </body>
 </html>
-
-<!--part 2-->
