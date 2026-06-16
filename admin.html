@@ -6,40 +6,18 @@
 <title>InternForge Admin Panel</title>
 
 <style>
-body{
-background:#0f172a;
-color:white;
-font-family:Arial,sans-serif;
-padding:20px;
-}
-
-h1{
-margin-bottom:20px;
-}
-
-.student{
-background:#1e293b;
-padding:15px;
-border-radius:10px;
-margin-bottom:10px;
-}
-
-button{
-background:#ef4444;
-color:white;
-border:none;
-padding:10px 18px;
-border-radius:8px;
-margin-bottom:20px;
-cursor:pointer;
-}
+body{background:#0f172a;color:white;font-family:Arial,sans-serif;padding:20px;}
+.student{background:#1e293b;padding:15px;border-radius:10px;margin-bottom:15px;}
+button{background:#2563eb;color:white;border:none;padding:10px 15px;border-radius:8px;cursor:pointer;margin-top:10px;}
+.logout{background:#ef4444;}
+select{padding:10px;border-radius:8px;margin-top:10px;width:100%;}
 </style>
 </head>
 
 <body>
 
 <h1>InternForge Admin Panel</h1>
-<button id="logoutBtn">Logout</button>
+<button class="logout" id="logoutBtn">Logout</button>
 
 <div id="studentList">Checking admin access...</div>
 
@@ -53,7 +31,9 @@ signOut
 
 import {
 collection,
-getDocs
+getDocs,
+doc,
+updateDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const ADMIN_EMAIL = "dhruvkhuranaa2006@gmail.com";
@@ -76,33 +56,52 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 async function loadStudents(){
-  try{
-    studentList.innerHTML = "";
+  studentList.innerHTML = "";
 
-    const snapshot = await getDocs(collection(db,"students"));
+  const snapshot = await getDocs(collection(db,"students"));
 
-    if(snapshot.empty){
-      studentList.innerHTML = "No students found";
-      return;
-    }
-
-    snapshot.forEach((doc)=>{
-      const data = doc.data();
-
-      studentList.innerHTML += `
-        <div class="student">
-          <h3>${data.name || "No Name"}</h3>
-          <p>Email: ${data.email || ""}</p>
-          <p>College: ${data.college || ""}</p>
-          <p>Course: ${data.course || ""}</p>
-        </div>
-      `;
-    });
-
-  }catch(error){
-    studentList.innerHTML = "Error: " + error.message;
+  if(snapshot.empty){
+    studentList.innerHTML = "No students found";
+    return;
   }
+
+  snapshot.forEach((studentDoc)=>{
+    const data = studentDoc.data();
+    const id = studentDoc.id;
+
+    studentList.innerHTML += `
+      <div class="student">
+        <h3>${data.name || "No Name"}</h3>
+        <p><b>Email:</b> ${data.email || ""}</p>
+        <p><b>College:</b> ${data.college || ""}</p>
+        <p><b>Course:</b> ${data.course || ""}</p>
+        <p><b>Assigned Program:</b> ${data.assignedProgram || "Pending"}</p>
+
+        <select id="program-${id}">
+          <option value="AI & Prompt Engineering">AI & Prompt Engineering</option>
+          <option value="Web Development">Web Development</option>
+          <option value="Python Programming">Python Programming</option>
+          <option value="Data Science">Data Science</option>
+        </select>
+
+        <button onclick="assignProgram('${id}')">Assign Internship</button>
+      </div>
+    `;
+  });
 }
+
+window.assignProgram = async function(id){
+  const program = document.getElementById("program-" + id).value;
+
+  await updateDoc(doc(db, "students", id), {
+    assignedProgram: program,
+    progress: 0,
+    certificateStatus: "Not Issued"
+  });
+
+  alert("Internship assigned successfully!");
+  loadStudents();
+};
 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
   await signOut(auth);
