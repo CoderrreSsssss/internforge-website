@@ -365,7 +365,29 @@ font-size:28px;
 
 </div>
 
+<div class="card" style="margin-top:24px;">
+<h2 class="card-title">Current Application Status</h2>
 
+<div class="info-row">
+<span>Selected Internship</span>
+<b id="statusProgram">Not Selected</b>
+</div>
+
+<div class="info-row">
+<span>Application Status</span>
+<b id="statusApplication">Not Applied</b>
+</div>
+
+<div class="info-row">
+<span>Payment Status</span>
+<b id="statusPayment">Not Paid</b>
+</div>
+
+<div class="info-row">
+<span>Next Step</span>
+<b id="statusNextStep">Apply for an internship</b>
+</div>
+</div>
 
 <!-- INTERNSHIP SECTION -->
 
@@ -961,6 +983,37 @@ document.getElementById("selectedProgramText").innerText=
 selectedProgram;
 
 }
+
+  document.getElementById("statusProgram").innerText =
+data.selectedProgram || "Not Selected";
+
+document.getElementById("statusApplication").innerText =
+data.applicationStatus || "Not Applied";
+
+document.getElementById("statusPayment").innerText =
+data.paymentStatus || "Not Paid";
+
+let nextStep = "Apply for an internship";
+
+if(data.applicationStatus === "Applied" &&
+data.paymentStatus === "Payment Required"){
+nextStep = "Complete enrollment payment";
+}
+
+if(data.paymentStatus === "Pending Approval"){
+nextStep = "Wait for admin approval";
+}
+
+if(data.paymentStatus === "Approved"){
+nextStep = "Submit your internship project";
+}
+
+if(data.progress === 100){
+nextStep = "Download certificate and completion letter";
+}
+
+document.getElementById("statusNextStep").innerText =
+nextStep;
 
 }
 
