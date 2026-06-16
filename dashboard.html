@@ -1232,7 +1232,8 @@ doc(db,"students",currentUserId),
 {
 selectedProgram:selectedProgram,
 applicationStatus:"Applied",
-paymentStatus:"Payment Required"
+paymentStatus:"Payment Required",
+progress:10
 },
 { merge:true }
 );
@@ -1286,6 +1287,7 @@ selectedProgram:selectedProgram,
 transactionId:txn,
 paymentStatus:"Pending Approval",
 offerLetterStatus:"Pending"
+progress:20
 },
 { merge:true }
 );
