@@ -492,14 +492,20 @@ window.generateCompletion = async function(id){
 };
 
 window.approveProject = async function(studentId){
-  await updateDoc(doc(db,"students",studentId),{
-    progress:100,
-    certificateStatus:"Eligible for Review"
-  });
-  toast("Project approved. Student eligible for certificate.");
-  await loadAll();
-};
 
+await updateDoc(doc(db,"students",studentId),{
+progress:100,
+certificateStatus:"Issued",
+certificateId:makeId("IF"),
+completionLetterStatus:"Generated",
+completionLetterId:makeId("CL")
+});
+
+toast("Project approved. Certificate and completion letter generated.");
+
+await loadAll();
+
+};
 window.issueCertificate = async function(id){
   await updateDoc(doc(db,"students",id),{
     certificateStatus:"Issued",
