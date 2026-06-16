@@ -703,21 +703,50 @@ Loading announcements...
 
 <!-- AI ASSISTANT SECTION -->
 
-<div id="aiSection" class="section">
+<div style="display:grid;gap:15px;">
 
-<div class="card">
-<h2 class="card-title">AI Internship Assistant</h2>
-<p class="card-text">
-Coming soon: resume help, project guidance, doubt solving and interview preparation.
-</p>
+<button class="primary-btn" id="resumeReviewBtn">
+📄 Resume Review
+</button>
 
-<div class="notice">
-🤖 AI Assistant will be activated in the next platform upgrade.
+<button class="primary-btn" id="projectIdeaBtn">
+💡 Project Ideas
+</button>
+
+<button class="primary-btn" id="interviewBtn">
+🎤 Interview Questions
+</button>
+
+<button class="primary-btn" id="careerBtn">
+🚀 Career Guidance
+</button>
+
+<textarea
+id="aiQuestion"
+placeholder="Ask anything..."
+style="
+width:100%;
+height:120px;
+padding:12px;
+border-radius:12px;
+border:1px solid #ddd;
+"></textarea>
+
+<button class="primary-btn" id="askAiBtn">
+🤖 Ask AI
+</button>
+
+<div id="aiResponse"
+style="
+margin-top:15px;
+padding:15px;
+background:#f8fafc;
+border-radius:12px;
+">
+AI response will appear here...
 </div>
-</div>
 
 </div>
-
 <!-- PROFILE SECTION -->
 
 <div id="profileSection" class="section">
