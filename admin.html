@@ -1,8 +1,11 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InternForge Admin Panel</title><style>
+<title>InternForge Admin Panel</title>
+
+<style>
 body{
 background:#0f172a;
 color:white;
@@ -20,57 +23,92 @@ padding:15px;
 border-radius:10px;
 margin-bottom:10px;
 }
-</style></head>
-<body><h1>InternForge Admin Panel</h1><div id="studentList">Loading students...</div><script type="module">
 
-import { db } from "./firebase-config.js";
+button{
+background:#ef4444;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:8px;
+margin-bottom:20px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>InternForge Admin Panel</h1>
+<button id="logoutBtn">Logout</button>
+
+<div id="studentList">Checking admin access...</div>
+
+<script type="module">
+import { auth, db } from "./firebase-config.js";
+
+import {
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
 collection,
 getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+const ADMIN_EMAIL = "dhruvkhuranaa2006@gmail.com";
 const studentList = document.getElementById("studentList");
 
-async function loadStudents(){
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    alert("Please login first");
+    window.location.href = "login.html";
+    return;
+  }
 
-try{
+  if (user.email !== ADMIN_EMAIL) {
+    alert("Access Denied. You are not admin.");
+    window.location.href = "dashboard.html";
+    return;
+  }
 
-studentList.innerHTML = "";
-
-const snapshot = await getDocs(collection(db,"students"));
-
-snapshot.forEach((doc)=>{
-
-const data = doc.data();
-
-studentList.innerHTML += `
-<div class="student">
-<h3>${data.name || "No Name"}</h3>
-<p>Email: ${data.email || ""}</p>
-<p>College: ${data.college || ""}</p>
-<p>Course: ${data.course || ""}</p>
-</div>
-`;
-
+  loadStudents();
 });
 
-if(snapshot.empty){
-studentList.innerHTML = "No students found";
+async function loadStudents(){
+  try{
+    studentList.innerHTML = "";
+
+    const snapshot = await getDocs(collection(db,"students"));
+
+    if(snapshot.empty){
+      studentList.innerHTML = "No students found";
+      return;
+    }
+
+    snapshot.forEach((doc)=>{
+      const data = doc.data();
+
+      studentList.innerHTML += `
+        <div class="student">
+          <h3>${data.name || "No Name"}</h3>
+          <p>Email: ${data.email || ""}</p>
+          <p>College: ${data.college || ""}</p>
+          <p>Course: ${data.course || ""}</p>
+        </div>
+      `;
+    });
+
+  }catch(error){
+    studentList.innerHTML = "Error: " + error.message;
+  }
 }
 
-}catch(error){
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+  await signOut(auth);
+  window.location.href = "login.html";
+});
+</script>
 
-studentList.innerHTML =
-"Error: " + error.message;
-
-console.error(error);
-
-}
-
-}
-
-loadStudents();
-
-</script></body>
+</body>
 </html>
