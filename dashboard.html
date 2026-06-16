@@ -1456,12 +1456,11 @@ reply("Please type your question first.");
 return;
 }
 
-reply(`
-<b>Your Question:</b> ${q}<br><br>
-<b>AI Assistant:</b><br>
-This assistant can currently guide you with resumes, projects, interviews and internship preparation. For best help, choose one quick action above or ask a specific question.
-`);
-
+ reply(
+"<b>Your Question:</b> " + q + "<br><br>" +
+"<b>AI Assistant:</b><br>" +
+"This assistant can guide you with resumes, projects, interviews and internship preparation. Please choose a quick action above or ask a specific question."
+);
 });
 
 }
