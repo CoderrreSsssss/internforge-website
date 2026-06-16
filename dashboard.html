@@ -1397,7 +1397,74 @@ toast(error.message);
 }
 
 });
+function setupAIAssistant(){
 
+const responseBox = document.getElementById("aiResponse");
+const questionBox = document.getElementById("aiQuestion");
+
+function reply(text){
+responseBox.innerHTML = text;
+}
+
+document.getElementById("resumeReviewBtn")?.addEventListener("click",()=>{
+reply(`
+<b>Resume Review Tips:</b><br><br>
+✅ Add your name, email and LinkedIn/GitHub.<br>
+✅ Mention your BCA / course details clearly.<br>
+✅ Add 2-3 projects with tech stack.<br>
+✅ Use keywords like HTML, CSS, JavaScript, Python, Firebase, AI tools.<br>
+✅ Keep resume to 1 page.
+`);
+});
+
+document.getElementById("projectIdeaBtn")?.addEventListener("click",()=>{
+reply(`
+<b>Project Ideas:</b><br><br>
+1. AI Resume Analyzer<br>
+2. Student Internship Portal<br>
+3. Smart Library Management System<br>
+4. Certificate Verification System<br>
+5. AI Chatbot for Career Guidance
+`);
+});
+
+document.getElementById("interviewBtn")?.addEventListener("click",()=>{
+reply(`
+<b>Common Interview Questions:</b><br><br>
+1. Tell me about yourself.<br>
+2. Explain your best project.<br>
+3. What is HTML, CSS and JavaScript?<br>
+4. What is Firebase?<br>
+5. Why should we select you for this internship?
+`);
+});
+
+document.getElementById("careerBtn")?.addEventListener("click",()=>{
+reply(`
+<b>Career Guidance:</b><br><br>
+Focus on one track first: Web Development, Python, AI tools, or Data Analytics.<br><br>
+Build 2 strong projects, upload them on GitHub, and add them to your resume.
+`);
+});
+
+document.getElementById("askAiBtn")?.addEventListener("click",()=>{
+
+const q = questionBox.value.trim();
+
+if(!q){
+reply("Please type your question first.");
+return;
+}
+
+reply(`
+<b>Your Question:</b> ${q}<br><br>
+<b>AI Assistant:</b><br>
+This assistant can currently guide you with resumes, projects, interviews and internship preparation. For best help, choose one quick action above or ask a specific question.
+`);
+
+});
+
+}
 async function loadAnnouncements(){
 
 const container=
