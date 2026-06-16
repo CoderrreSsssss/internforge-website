@@ -391,20 +391,42 @@ font-size:28px;
 
 <!-- INTERNSHIP SECTION -->
 
+<!-- INTERNSHIP SECTION -->
+
 <div id="internshipSection" class="section">
 
 <div class="card">
-<h2 class="card-title">Available Certified Internships</h2>
+<h2 class="card-title">My Internship Program</h2>
 <p class="card-text">
-Choose one internship and apply. After applying, complete enrollment payment from the payment section.
+Your selected internship and enrollment status.
+</p>
+
+<div class="info-row">
+<span>Selected Program</span>
+<b id="selectedProgramDisplay">Not Selected</b>
+</div>
+
+<div class="info-row">
+<span>Status</span>
+<b id="selectedProgramStatus">Not Applied</b>
+</div>
+
+</div>
+
+<div class="card">
+<h2 class="card-title">Available Internship Programs</h2>
+<p class="card-text">
+Choose one internship program to begin your journey.
 </p>
 </div>
 
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;">
 
+<!-- AI -->
+
 <div class="intern-card">
 <div class="intern-img ai-img">
-<span>Available</span>
+<span id="aiBadge">Available</span>
 </div>
 
 <div class="intern-body">
@@ -417,15 +439,21 @@ Choose one internship and apply. After applying, complete enrollment payment fro
 <b>Certificate</b>
 </div>
 
-<button class="primary-btn unlockBtn" data-program="AI & Prompt Engineering">
+<button
+id="aiBtn"
+class="primary-btn unlockBtn"
+data-program="AI & Prompt Engineering">
 Apply Now
 </button>
+
 </div>
 </div>
 
+<!-- WEB -->
+
 <div class="intern-card">
 <div class="intern-img web-img">
-<span>Available</span>
+<span id="webBadge">Available</span>
 </div>
 
 <div class="intern-body">
@@ -438,15 +466,21 @@ Apply Now
 <b>Certificate</b>
 </div>
 
-<button class="primary-btn unlockBtn" data-program="Web Development">
+<button
+id="webBtn"
+class="primary-btn unlockBtn"
+data-program="Web Development">
 Apply Now
 </button>
+
 </div>
 </div>
 
+<!-- PYTHON -->
+
 <div class="intern-card">
 <div class="intern-img py-img">
-<span>Available</span>
+<span id="pythonBadge">Available</span>
 </div>
 
 <div class="intern-body">
@@ -459,15 +493,20 @@ Apply Now
 <b>Certificate</b>
 </div>
 
-<button class="primary-btn unlockBtn" data-program="Python Programming">
+<button
+id="pythonBtn"
+class="primary-btn unlockBtn"
+data-program="Python Programming">
 Apply Now
 </button>
+
 </div>
 </div>
 
 </div>
 
 </div>
+
 
 <!-- DOCUMENTS SECTION -->
 
@@ -1016,7 +1055,106 @@ document.getElementById("statusNextStep").innerText =
 nextStep;
 
 }
+updateInternshipCards(data);
+function updateInternshipCards(data){
 
+const selected =
+data.selectedProgram || "";
+
+const payment =
+data.paymentStatus || "Not Paid";
+
+const application =
+data.applicationStatus || "Not Applied";
+
+document.getElementById("selectedProgramDisplay").innerText =
+selected || "Not Selected";
+
+document.getElementById("selectedProgramStatus").innerText =
+payment === "Approved"
+? "Active"
+: (application === "Applied" ? payment : "Not Applied");
+
+const programs = [
+{
+name:"AI & Prompt Engineering",
+badge:"aiBadge",
+btn:"aiBtn"
+},
+{
+name:"Web Development",
+badge:"webBadge",
+btn:"webBtn"
+},
+{
+name:"Python Programming",
+badge:"pythonBadge",
+btn:"pythonBtn"
+}
+];
+
+programs.forEach(item=>{
+
+const badge =
+document.getElementById(item.badge);
+
+const btn =
+document.getElementById(item.btn);
+
+if(!badge || !btn) return;
+
+if(!selected){
+
+badge.innerText="Available";
+btn.innerText="Apply Now";
+btn.disabled=false;
+btn.style.opacity="1";
+return;
+
+}
+
+if(selected === item.name){
+
+if(payment === "Approved"){
+badge.innerText="Active";
+btn.innerText="Active Internship";
+btn.disabled=true;
+btn.style.opacity=".75";
+return;
+}
+
+if(payment === "Pending Approval"){
+badge.innerText="Pending Approval";
+btn.innerText="Waiting Approval";
+btn.disabled=true;
+btn.style.opacity=".75";
+return;
+}
+
+if(payment === "Payment Required"){
+badge.innerText="Payment Required";
+btn.innerText="Complete Payment";
+btn.disabled=false;
+btn.style.opacity="1";
+return;
+}
+
+badge.innerText="Applied";
+btn.innerText="Continue";
+btn.disabled=false;
+btn.style.opacity="1";
+return;
+
+}
+
+badge.innerText="Locked";
+btn.innerText="Locked";
+btn.disabled=true;
+btn.style.opacity=".55";
+
+});
+
+}
 loadAnnouncements();
 
 });
