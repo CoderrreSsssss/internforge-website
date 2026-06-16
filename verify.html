@@ -1,60 +1,214 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verify Certificate | InternForge</title><style>
+<title>Verify Certificate | InternForge</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
 body{
-background:#0b1120;
-color:white;
-font-family:Segoe UI,sans-serif;
+background:#eef4ff;
+min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
-margin:0;
+padding:20px;
 }
 
-.box{
-background:#1e293b;
-padding:35px;
-border-radius:20px;
-width:400px;
+.container{
+width:100%;
+max-width:700px;
+background:white;
+padding:40px;
+border-radius:28px;
+box-shadow:0 25px 70px rgba(0,86,210,.15);
+}
+
+.logo{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:12px;
+margin-bottom:25px;
+}
+
+.logo img{
+height:55px;
+}
+
+.logo h1{
+font-size:30px;
+color:#0056d2;
+}
+
+.title{
 text-align:center;
+margin-bottom:10px;
+font-size:34px;
+font-weight:900;
+}
+
+.sub{
+text-align:center;
+color:#64748b;
+margin-bottom:25px;
+}
+
+.search-box{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
 }
 
 input{
-width:100%;
-padding:14px;
-margin-top:15px;
-border:none;
-border-radius:10px;
+flex:1;
+padding:15px;
+border:1px solid #cbd5e1;
+border-radius:12px;
+font-size:15px;
+}
+
+input:focus{
+outline:none;
+border-color:#0056d2;
 }
 
 button{
-margin-top:15px;
-width:100%;
-padding:14px;
+padding:15px 25px;
 border:none;
-border-radius:10px;
-background:#2563eb;
+background:#0056d2;
 color:white;
-font-weight:700;
+font-weight:900;
+border-radius:12px;
 cursor:pointer;
 }
 
-#result{
-margin-top:20px;
+button:hover{
+background:#0046ad;
 }
-</style></head><body><div class="box"><h2>Certificate Verification</h2><p>Enter Certificate ID</p><input
+
+.loader{
+display:none;
+text-align:center;
+margin-top:20px;
+font-weight:700;
+color:#0056d2;
+}
+
+.result{
+display:none;
+margin-top:25px;
+border-radius:20px;
+padding:25px;
+}
+
+.success{
+background:#ecfdf5;
+border:2px solid #22c55e;
+}
+
+.error{
+background:#fef2f2;
+border:2px solid #ef4444;
+}
+
+.result h3{
+margin-bottom:15px;
+}
+
+.data{
+margin-top:10px;
+padding:12px;
+background:white;
+border-radius:12px;
+}
+
+.data b{
+color:#0056d2;
+}
+
+.home{
+display:block;
+margin-top:25px;
+text-align:center;
+text-decoration:none;
+font-weight:800;
+color:#0056d2;
+}
+
+@media(max-width:600px){
+
+.container{
+padding:25px;
+}
+
+.search-box{
+flex-direction:column;
+}
+
+button{
+width:100%;
+}
+
+.title{
+font-size:28px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+<img src="logo.png" alt="logo" onerror="this.style.display='none'">
+<h1>InternForge</h1>
+</div>
+
+<h2 class="title">
+Certificate Verification
+</h2>
+
+<p class="sub">
+Verify the authenticity of an InternForge certificate.
+</p>
+
+<div class="search-box">
+
+<input
 type="text"
 id="certificateId"
-placeholder="IF-2026-001"
-
-«»
+placeholder="Enter Certificate ID (Example: IF-2026-001)"
+>
 
 <button onclick="verifyCertificate()">
-Verify Certificate
-</button><div id="result"></div></div><script type="module">
+Verify
+</button>
+
+</div>
+
+<div id="loader" class="loader">
+Checking Certificate...
+</div>
+
+<div id="result" class="result"></div>
+
+<a href="index.html" class="home">
+← Back to Homepage
+</a>
+
+</div>
+
+<script type="module">
 
 import { db } from "./firebase-config.js";
 
@@ -63,42 +217,137 @@ collection,
 query,
 where,
 getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 window.verifyCertificate = async function(){
 
 const certId =
-document.getElementById("certificateId").value;
+document.getElementById("certificateId")
+.value
+.trim();
+
+const result =
+document.getElementById("result");
+
+const loader =
+document.getElementById("loader");
+
+if(!certId){
+
+result.style.display="block";
+
+result.className =
+"result error";
+
+result.innerHTML =
+`
+<h3>Certificate ID Required</h3>
+<p>Please enter a certificate ID.</p>
+`;
+
+return;
+}
+
+loader.style.display="block";
+result.style.display="none";
+
+try{
 
 const q = query(
 collection(db,"students"),
-where("certificateId","==",certId)
+where(
+"certificateId",
+"==",
+certId
+)
 );
 
-const snapshot = await getDocs(q);
+const snapshot =
+await getDocs(q);
+
+loader.style.display="none";
 
 if(snapshot.empty){
 
-document.getElementById("result").innerHTML =
-"<p style='color:red;'>Certificate Not Found</p>";
+result.style.display="block";
+
+result.className =
+"result error";
+
+result.innerHTML =
+`
+<h3>❌ Certificate Not Found</h3>
+<p>
+The entered certificate ID
+does not exist.
+</p>
+`;
 
 }else{
 
-const data = snapshot.docs[0].data();
+const data =
+snapshot.docs[0].data();
 
-document.getElementById("result").innerHTML = `
-<p style="color:#22c55e;">
-✅ Verified Certificate
-</p>
+result.style.display="block";
 
-<p><b>Name:</b> ${data.name}</p>
-<p><b>Course:</b> ${data.course}</p>
-<p><b>Program:</b> ${data.selectedProgram || "Internship"}</p>
+result.className =
+"result success";
+
+result.innerHTML =
+`
+<h3>
+✅ Certificate Verified
+</h3>
+
+<div class="data">
+<b>Name:</b>
+${data.name}
+</div>
+
+<div class="data">
+<b>Course:</b>
+${data.course}
+</div>
+
+<div class="data">
+<b>Program:</b>
+${data.selectedProgram || "Internship"}
+</div>
+
+<div class="data">
+<b>Certificate ID:</b>
+${certId}
+</div>
+
+<div class="data">
+<b>Status:</b>
+Verified
+</div>
+`;
+
+}
+
+}catch(error){
+
+loader.style.display="none";
+
+result.style.display="block";
+
+result.className =
+"result error";
+
+result.innerHTML =
+`
+<h3>Error</h3>
+<p>${error.message}</p>
 `;
 
 }
 
 }
 
-</script></body>
+</script>
+
+</body>
 </html>
