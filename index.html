@@ -1,153 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InternForge | Forge Your Future</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>InternForge</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#f8fafc;color:#111827}
-nav{height:75px;background:white;display:flex;justify-content:space-between;align-items:center;padding:0 7%;box-shadow:0 2px 12px rgba(0,0,0,.08);position:sticky;top:0;z-index:10}
-.logo{display:flex;align-items:center;gap:12px;font-size:28px;font-weight:900;color:#0056d2}
+nav{height:75px;background:white;display:flex;justify-content:space-between;align-items:center;padding:0 7%;box-shadow:0 2px 12px #ddd;position:sticky;top:0}
+.logo{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:900;color:#0056d2}
 .logo img{height:45px}
-nav a{text-decoration:none;color:#111827;margin-left:18px;font-weight:700}
-.btn{background:#0056d2;color:white!important;padding:12px 22px;border-radius:8px;display:inline-block;text-decoration:none;font-weight:800}
+nav a{margin-left:18px;text-decoration:none;color:#374151;font-weight:800}
+.btn{background:#0056d2;color:white!important;padding:12px 20px;border-radius:10px;text-decoration:none;display:inline-block;font-weight:900}
 .hero{padding:80px 7%;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;background:#eef4ff}
-.hero h1{font-size:55px;line-height:1.1;margin-bottom:20px}
+.hero h1{font-size:54px;line-height:1.1;margin-bottom:18px}
 .hero p{font-size:20px;color:#4b5563;line-height:1.6;margin-bottom:25px}
-.box{background:white;padding:30px;border-radius:20px;box-shadow:0 20px 50px rgba(0,86,210,.15)}
-.item{padding:14px;border:1px solid #e5e7eb;border-radius:12px;margin:12px 0;font-weight:700}
+.badge{display:inline-block;background:#dbeafe;color:#0056d2;padding:9px 14px;border-radius:30px;font-weight:900;margin-bottom:18px}
+.box{background:white;padding:28px;border-radius:22px;box-shadow:0 20px 55px rgba(0,86,210,.15)}
+.point{background:#f8fafc;padding:14px;border-radius:12px;margin:10px 0;font-weight:800}
 .section{padding:70px 7%}
-.section h2{font-size:38px;margin-bottom:12px}
-.sub{color:#6b7280;margin-bottom:30px;font-size:18px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
-.card{background:white;border:1px solid #e5e7eb;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.06)}
-.img{height:150px;background:linear-gradient(rgba(0,86,210,.75),rgba(0,0,0,.65)),url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80');background-size:cover;background-position:center;position:relative}
-.card:nth-child(2) .img{background:linear-gradient(rgba(0,86,210,.75),rgba(0,0,0,.65)),url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=900&q=80');background-size:cover;background-position:center}
-.card:nth-child(3) .img{background:linear-gradient(rgba(0,86,210,.75),rgba(0,0,0,.65)),url('https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=900&q=80');background-size:cover;background-position:center}
-.lock{position:absolute;top:14px;right:14px;background:white;color:#111827;padding:7px 12px;border-radius:20px;font-size:13px;font-weight:900}
-.content{padding:24px}
-.content h3{font-size:22px;margin-bottom:10px}
-.content p{color:#6b7280;line-height:1.5;margin-bottom:18px}
-.price{font-size:32px;font-weight:900;color:#0056d2;margin-bottom:15px}
+.section h2{font-size:38px;margin-bottom:10px}
+.sub{color:#6b7280;margin-bottom:28px;font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+.card{background:white;border:1px solid #e5e7eb;border-radius:20px;padding:24px;box-shadow:0 10px 25px rgba(0,0,0,.05)}
+.card h3{font-size:22px;margin-bottom:10px}
+.card p{color:#6b7280;line-height:1.6}
+.price{font-size:32px;color:#0056d2;font-weight:900;margin:15px 0}
 .dark{background:#0f172a;color:white}
-.dark .sub{color:#cbd5e1}
-.dark-card{background:#1e293b;border:1px solid #334155;padding:25px;border-radius:18px}
-.dark-card p{color:#cbd5e1;line-height:1.5}
-footer{background:#020617;color:#94a3b8;text-align:center;padding:35px}
-@media(max-width:800px){
-.hero{grid-template-columns:1fr;padding:55px 5%}
-.hero h1{font-size:38px}
-nav{padding:0 5%}
-nav a:not(.btn){display:none}
-.logo{font-size:22px}
-.logo img{height:38px}
-.section{padding:55px 5%}
-}
+.dark .card{background:#1e293b;border-color:#334155}
+.dark p,.dark .sub{color:#cbd5e1}
+footer{background:#020617;color:#94a3b8;padding:35px 7%;text-align:center}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding:55px 5%}.hero h1{font-size:38px}nav{padding:0 5%}nav a:not(.btn){display:none}.section{padding:55px 5%}}
 </style>
 </head>
-
 <body>
 
 <nav>
 <div class="logo">
-<img src="logo.png" alt="InternForge Logo" onerror="this.style.display='none'">
+<img src="logo.png" onerror="this.style.display='none'">
 <span>InternForge</span>
 </div>
 <div>
 <a href="verify.html">Verify</a>
 <a href="login.html">Login</a>
-<a href="signup.html" class="btn">Sign Up</a>
+<a href="signup.html" class="btn">Apply Now</a>
 </div>
 </nav>
 
 <section class="hero">
 <div>
-<h1>Build Skills With Real Internship Projects</h1>
-<p>Join InternForge to unlock practical internships, weekly learning, project tasks, and verified certificates.</p>
-<a href="signup.html" class="btn">Start for ₹1</a>
+<div class="badge">₹1 Launch Offer • Online Certified Internships</div>
+<h1>India's Student Internship Platform</h1>
+<p>Get online internships with offer letter, project submission, completion letter and verified certificate.</p>
+<a href="signup.html" class="btn">Start Internship for ₹1</a>
 </div>
 
 <div class="box">
 <h2>What You Get</h2>
-<div class="item">✅ 4 Week Internship Roadmap</div>
-<div class="item">✅ Locked Course Dashboard</div>
-<div class="item">✅ Project Based Learning</div>
-<div class="item">✅ Certificate Verification</div>
-<div class="item">✅ Admin Approved Access</div>
+<div class="point">✅ Internship Offer Letter</div>
+<div class="point">✅ Student Dashboard</div>
+<div class="point">✅ Project Submission</div>
+<div class="point">✅ Completion Letter</div>
+<div class="point">✅ Verified Certificate ID</div>
 </div>
 </section>
 
 <section class="section">
-<h2>Popular Internship Tracks</h2>
-<p class="sub">Choose a domain and unlock it from your student dashboard.</p>
+<h2>Available Internships</h2>
+<p class="sub">Beginner friendly online internships for students.</p>
 
 <div class="grid">
-
 <div class="card">
-<div class="img"><span class="lock">LOCKED</span></div>
-<div class="content">
 <h3>AI & Prompt Engineering</h3>
-<p>Learn ChatGPT, Gemini, prompt writing and AI productivity workflows.</p>
+<p>Learn AI tools, prompting and automation with a practical project.</p>
 <div class="price">₹1</div>
-<a href="signup.html" class="btn">Unlock</a>
-</div>
+<a href="signup.html" class="btn">Apply Now</a>
 </div>
 
 <div class="card">
-<div class="img"><span class="lock">LOCKED</span></div>
-<div class="content">
 <h3>Web Development</h3>
-<p>Learn HTML, CSS, JavaScript and build your portfolio project.</p>
+<p>Build websites using HTML, CSS and JavaScript with portfolio project.</p>
 <div class="price">₹1</div>
-<a href="signup.html" class="btn">Unlock</a>
-</div>
+<a href="signup.html" class="btn">Apply Now</a>
 </div>
 
 <div class="card">
-<div class="img"><span class="lock">LOCKED</span></div>
-<div class="content">
 <h3>Python Programming</h3>
-<p>Learn Python basics and complete a resume-ready mini project.</p>
+<p>Learn Python basics and submit a beginner mini project.</p>
 <div class="price">₹1</div>
-<a href="signup.html" class="btn">Unlock</a>
+<a href="signup.html" class="btn">Apply Now</a>
 </div>
-</div>
-
 </div>
 </section>
 
 <section class="section dark">
-<h2>Trust & Verification</h2>
-<p class="sub">InternForge is built with transparent certificate verification and admin-reviewed access.</p>
+<h2>Internship Documents</h2>
+<p class="sub">Approved interns can access documents from their dashboard.</p>
 
 <div class="grid">
-<div class="dark-card">
-<h3>Verified Certificates</h3>
-<p>Students will receive certificate IDs that can be checked on the verification page.</p>
-</div>
-
-<div class="dark-card">
-<h3>MSME/Udyam Registration</h3>
-<p>Registration status will be updated only after actual completion. No fake approval claims.</p>
-</div>
-
-<div class="dark-card">
-<h3>Future Collaborations</h3>
-<p>College and company tie-ups can be added after real partnerships are created.</p>
-</div>
+<div class="card"><h3>Offer Letter</h3><p>Generated after payment verification.</p></div>
+<div class="card"><h3>Completion Letter</h3><p>Issued after successful project review.</p></div>
+<div class="card"><h3>Verified Certificate</h3><p>Certificate ID can be verified online.</p></div>
 </div>
 </section>
 
 <section class="section">
 <h2>How It Works</h2>
 <div class="grid">
-<div class="card"><div class="content"><h3>1. Sign Up</h3><p>Create your student account.</p></div></div>
-<div class="card"><div class="content"><h3>2. Verify Email</h3><p>Confirm your email address.</p></div></div>
-<div class="card"><div class="content"><h3>3. Pay ₹1</h3><p>Scan QR and submit transaction ID.</p></div></div>
-<div class="card"><div class="content"><h3>4. Learn & Get Certificate</h3><p>Complete tasks and get verified certificate.</p></div></div>
+<div class="card"><h3>1. Create Account</h3><p>Signup and verify email.</p></div>
+<div class="card"><h3>2. Select Internship</h3><p>Choose your internship from dashboard.</p></div>
+<div class="card"><h3>3. Unlock Access</h3><p>Pay ₹1 and submit transaction ID.</p></div>
+<div class="card"><h3>4. Submit Project</h3><p>Complete project and get certificate.</p></div>
 </div>
+</section>
+
+<section class="section">
+<h2>Trust & Transparency</h2>
+<p class="sub">No fake approvals. MSME/Udyam or collaborations will be shown only after actual completion.</p>
 </section>
 
 <footer>
