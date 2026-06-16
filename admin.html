@@ -304,7 +304,7 @@ margin-top:15px;
 <script type="module">
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, getDocs, doc, updateDoc , getDoc , addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const ADMIN_EMAIL = "dhruvkhuranaa2006@gmail.com";
 let students = [];
@@ -519,6 +519,45 @@ document.getElementById("searchInput")?.addEventListener("input", e=>{
     (s.selectedProgram || "").toLowerCase().includes(v)
   );
   renderStudents(filtered);
+});
+
+document
+.getElementById("postAnnouncementBtn")
+?.addEventListener("click",async()=>{
+
+const title=
+document
+.getElementById("announcementTitle")
+.value
+.trim();
+
+const message=
+document
+.getElementById("announcementMessage")
+.value
+.trim();
+
+if(!title || !message){
+
+toast("Fill all fields");
+return;
+
+}
+
+await addDoc(
+collection(db,"announcements"),
+{
+title,
+message,
+createdAt:new Date()
+}
+);
+
+document.getElementById("announcementTitle").value="";
+document.getElementById("announcementMessage").value="";
+
+toast("Announcement Posted");
+
 });
 
 document.getElementById("logoutBtn").addEventListener("click", async()=>{
