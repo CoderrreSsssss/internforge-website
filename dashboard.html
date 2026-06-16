@@ -884,11 +884,10 @@ import {
 onAuthStateChanged,
 signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
 import {
 doc,
 getDoc,
-updateDoc,
+setDoc,
 collection,
 addDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -1079,14 +1078,15 @@ return;
 
 try{
 
-await updateDoc(
+await setDoc(
 doc(db,"students",currentUserId),
 {
 selectedProgram:selectedProgram,
 transactionId:txn,
 paymentStatus:"Pending Approval",
 offerLetterStatus:"Pending"
-}
+},
+{ merge:true }
 );
 
 toast(
