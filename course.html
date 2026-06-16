@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Workspace | InternForge</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f8fafc;color:#0f172a}
+nav{height:75px;background:white;display:flex;justify-content:space-between;align-items:center;padding:0 7%;box-shadow:0 2px 15px rgba(0,0,0,.08)}
+.logo{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:900;color:#0056d2}
+.logo img{height:42px}
+.btn{background:#0056d2;color:white;border:none;padding:12px 18px;border-radius:10px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-block}
+.container{padding:35px 7%}
+.hero{background:linear-gradient(135deg,#0056d2,#0f172a);color:white;padding:32px;border-radius:24px;margin-bottom:30px}
+.hero h1{font-size:34px;margin-bottom:8px}
+.hero p{color:#dbeafe}
+.progress{background:#dbeafe;border-radius:20px;height:14px;margin-top:18px;overflow:hidden}
+.progress div{height:100%;width:25%;background:#22c55e}
+.grid{display:grid;grid-template-columns:280px 1fr;gap:25px}
+.sidebar,.content{background:white;border:1px solid #e5e7eb;border-radius:22px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+.week-btn{display:block;width:100%;text-align:left;padding:14px;border:none;background:#f8fafc;border-radius:12px;margin-bottom:10px;font-weight:800;cursor:pointer}
+.week-btn:hover{background:#eff6ff;color:#0056d2}
+.lesson{display:none}
+.lesson.active{display:block}
+.lesson h2{font-size:28px;margin-bottom:12px}
+.lesson p{color:#64748b;line-height:1.6;margin-bottom:16px}
+.video{width:100%;height:360px;border-radius:18px;border:none;margin:15px 0;background:#111827}
+.task{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;padding:16px;border-radius:14px;margin:15px 0}
+input,textarea{width:100%;padding:14px;border:1px solid #cbd5e1;border-radius:12px;margin:10px 0;font-size:15px}
+textarea{height:110px}
+.locked{background:#fef2f2;color:#991b1b;padding:20px;border-radius:18px}
+.toast{position:fixed;bottom:22px;right:22px;background:#0f172a;color:white;padding:14px 18px;border-radius:12px;display:none}
+@media(max-width:850px){
+.grid{grid-template-columns:1fr}
+.container{padding:24px 5%}
+.hero h1{font-size:27px}
+.video{height:220px}
+nav{padding:0 5%}
+.logo{font-size:22px}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">
+<img src="logo.png" onerror="this.style.display='none'">
+<span>InternForge</span>
+</div>
+<a href="dashboard.html" class="btn">Dashboard</a>
+</nav>
+
+<div class="container" id="main">
+<div class="hero">
+<h1 id="programTitle">Course Workspace</h1>
+<p>Complete weekly lessons, assignments and final project submission.</p>
+<div class="progress"><div id="progressBar"></div></div>
+</div>
+
+<div class="grid">
+<div class="sidebar">
+<button class="week-btn" onclick="showLesson('week1')">Week 1: Foundation</button>
+<button class="week-btn" onclick="showLesson('week2')">Week 2: Assignment</button>
+<button class="week-btn" onclick="showLesson('week3')">Week 3: Mini Project</button>
+<button class="week-btn" onclick="showLesson('week4')">Week 4: Final Submission</button>
+</div>
+
+<div class="content">
+
+<div id="week1" class="lesson active">
+<h2>Week 1: Foundation</h2>
+<p>Start with basics of your selected internship program.</p>
+<iframe class="video" src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
+<div class="task">
+<b>Notes:</b> Understand the basic concepts, tools and workflow of your domain.
+</div>
+<button class="btn" onclick="updateProgress(25)">Mark Week 1 Complete</button>
+</div>
+
+<div id="week2" class="lesson">
+<h2>Week 2: Practical Assignment</h2>
+<p>Complete a short assignment based on Week 1 learning.</p>
+<div class="task">
+<b>Assignment:</b> Create a short document explaining what you learned and how you will apply it.
+</div>
+<textarea id="assignmentText" placeholder="Write your assignment summary here..."></textarea>
+<button class="btn" onclick="updateProgress(50)">Submit Assignment</button>
+</div>
+
+<div id="week3" class="lesson">
+<h2>Week 3: Mini Project</h2>
+<p>Build a project related to your selected internship track.</p>
+<div class="task">
+<b>Project Idea:</b> Build a beginner-level practical project and upload it on GitHub or Google Drive.
+</div>
+<input type="text" id="projectTitle" placeholder="Project Title">
+<input type="text" id="projectLink" placeholder="GitHub / Drive Project Link">
+<button class="btn" onclick="submitProject()">Submit Project</button>
+</div>
+
+<div id="week4" class="lesson">
+<h2>Week 4: Final Submission</h2>
+<p>Submit final project and become eligible for certificate review.</p>
+<div class="task">
+<b>Final Task:</b> Improve your project, add README, screenshots and final explanation.
+</div>
+<input type="text" id="finalLink" placeholder="Final Project Link">
+<button class="btn" onclick="submitFinal()">Submit Final Project</button>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { auth, db } from "./firebase-config.js";
+
+import {
+onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+doc,
+getDoc,
+updateDoc,
+collection,
+addDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+let currentUserId="";
+let selectedProgram="";
+
+function toast(msg){
+const t=document.getElementById("toast");
+t.innerText=msg;
+t.style.display="block";
+setTimeout(()=>t.style.display="none",3000);
+}
+
+window.showLesson=function(id){
+document.querySelectorAll(".lesson").forEach(l=>l.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+}
+
+onAuthStateChanged(auth, async(user)=>{
+if(!user){
+window.location.href="login.html";
+return;
+}
+
+currentUserId=user.uid;
+
+const snap=await getDoc(doc(db,"students",user.uid));
+
+if(!snap.exists()){
+document.getElementById("main").innerHTML="<div class='locked'>Student record not found.</div>";
+return;
+}
+
+const data=snap.data();
+
+if(data.paymentStatus!=="Approved"){
+document.getElementById("main").innerHTML="<div class='locked'>Your internship is locked. Please complete payment and wait for admin approval.</div>";
+return;
+}
+
+selectedProgram=data.selectedProgram || data.assignedProgram || "Internship";
+document.getElementById("programTitle").innerText=selectedProgram;
+document.getElementById("progressBar").style.width=(data.progress || 25)+"%";
+});
+
+window.updateProgress=async function(value){
+await updateDoc(doc(db,"students",currentUserId),{
+progress:value
+});
+document.getElementById("progressBar").style.width=value+"%";
+toast("Progress updated successfully.");
+}
+
+window.submitProject=async function(){
+const title=document.getElementById("projectTitle").value.trim();
+const link=document.getElementById("projectLink").value.trim();
+
+if(!title || !link){
+toast("Please enter project title and link.");
+return;
+}
+
+await addDoc(collection(db,"projects"),{
+studentId:currentUserId,
+program:selectedProgram,
+projectTitle:title,
+projectLink:link,
+status:"Pending Review",
+submittedAt:new Date()
+});
+
+await updateProgress(75);
+toast("Project submitted for review.");
+}
+
+window.submitFinal=async function(){
+const link=document.getElementById("finalLink").value.trim();
+
+if(!link){
+toast("Please enter final project link.");
+return;
+}
+
+await addDoc(collection(db,"projects"),{
+studentId:currentUserId,
+program:selectedProgram,
+projectTitle:"Final Project Submission",
+projectLink:link,
+status:"Final Submitted",
+submittedAt:new Date()
+});
+
+await updateProgress(100);
+await updateDoc(doc(db,"students",currentUserId),{
+certificateStatus:"Eligible for Review"
+});
+
+toast("Final project submitted. Certificate review pending.");
+}
+</script>
+
+</body>
+</html>
