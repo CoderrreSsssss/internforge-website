@@ -1067,6 +1067,7 @@ doc(db,"students",user.uid)
 if(snap.exists()){
 
 const data=snap.data();
+console.log("PAYMENT STATUS =", data.paymentStatus);
 
 document.getElementById("studentName").innerText=
 data.name || "Student";
