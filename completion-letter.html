@@ -3,197 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>InternForge Completion Letter</title>
+<title>Certificate | InternForge</title>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,Arial,sans-serif;
-}
-
-body{
-background:#eef4ff;
-padding:40px;
-}
-
-.paper{
-max-width:900px;
-margin:auto;
-background:white;
-padding:60px;
-border-radius:24px;
-box-shadow:0 15px 50px rgba(0,0,0,.08);
-}
-
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:40px;
-}
-
-.logo{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.logo img{
-height:60px;
-}
-
-.logo h1{
-color:#0056d2;
-font-size:32px;
-}
-
-.doc-id{
-font-weight:800;
-color:#64748b;
-}
-
-.title{
-text-align:center;
-font-size:38px;
-font-weight:900;
-margin-bottom:30px;
-color:#111827;
-}
-
-.content{
-font-size:18px;
-line-height:1.9;
-color:#374151;
-}
-
-.highlight{
-font-weight:900;
-color:#0056d2;
-}
-
-.signature{
-margin-top:70px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.sign-box{
-text-align:center;
-}
-
-.sign-line{
-width:220px;
-border-top:2px solid #111827;
-margin-bottom:10px;
-}
-
-.qr{
-width:120px;
-height:120px;
-border:2px dashed #cbd5e1;
-display:flex;
-justify-content:center;
-align-items:center;
-border-radius:14px;
-color:#64748b;
-}
-
-.footer{
-margin-top:50px;
-text-align:center;
-font-size:14px;
-color:#64748b;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Georgia,serif}
+body{background:#eef4ff;padding:35px;color:#111827}
+.certificate{max-width:1000px;margin:auto;background:white;padding:60px;border:12px solid #0056d2;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.12);text-align:center}
+.logo{display:flex;justify-content:center;align-items:center;gap:12px;margin-bottom:22px}
+.logo img{height:70px}
+.logo h1{font-family:Arial,sans-serif;color:#0056d2;font-size:36px}
+.small{font-family:Arial,sans-serif;color:#64748b;font-weight:700;margin-bottom:20px}
+.title{font-size:52px;font-weight:900;color:#111827}
+.subtitle{font-size:24px;color:#374151;margin:25px 0}
+.name{font-size:42px;font-weight:900;color:#0056d2;border-bottom:2px solid #0056d2;display:inline-block;padding:0 40px 10px;margin-bottom:25px}
+.text{font-size:21px;line-height:1.7;color:#374151;max-width:800px;margin:auto}
+.program{font-weight:900;color:#111827}
+.bottom{display:flex;justify-content:space-between;align-items:end;margin-top:70px}
+.sign{text-align:center}
+.line{width:220px;border-top:2px solid #111827;margin-bottom:10px}
+.qr{width:125px;height:125px;border:2px dashed #cbd5e1;border-radius:14px;display:flex;justify-content:center;align-items:center;color:#64748b;font-family:Arial,sans-serif}
+.cert-id{font-family:Arial,sans-serif;margin-top:35px;font-weight:800;color:#64748b}
+.footer{font-family:Arial,sans-serif;margin-top:25px;font-size:14px;color:#64748b}
+.actions{text-align:center;margin-top:25px}
+button{background:#0056d2;color:white;border:none;padding:12px 20px;border-radius:10px;font-weight:900;cursor:pointer;font-family:Arial,sans-serif}
+@media print{body{background:white;padding:0}.actions{display:none}.certificate{box-shadow:none;border-radius:0}}
 </style>
 </head>
 
 <body>
 
-<div class="paper">
-
-<div class="header">
+<div class="certificate">
 
 <div class="logo">
-<img src="logo.png">
+<img src="logo.png" onerror="this.style.display='none'">
 <h1>InternForge</h1>
 </div>
 
-<div class="doc-id">
-Completion ID:
-<span id="completionId">
-CL-2026-0001
-</span>
+<div class="small">India's Student Internship Platform</div>
+
+<div class="title">Certificate of Completion</div>
+
+<div class="subtitle">This certificate is proudly presented to</div>
+
+<div class="name" id="studentName">Student Name</div>
+
+<div class="text">
+For successfully completing the
+<span class="program" id="programName">Internship Program</span>
+offered by InternForge with practical project submission, participation and evaluation.
 </div>
 
+<div class="bottom">
+<div class="sign">
+<div class="line"></div>
+Authorized Signature
 </div>
 
-<div class="title">
-INTERNSHIP COMPLETION LETTER
-</div>
+<div class="qr">QR</div>
 
-<div class="content">
-
-<p>
-This is to certify that
-<span class="highlight" id="studentName">
-Student Name
-</span>
-has successfully completed the
-<span class="highlight" id="programName">
-AI & Prompt Engineering Internship
-</span>
-conducted by InternForge.
-</p>
-
-<br>
-
-<p>
-The intern successfully participated in learning activities, completed assigned tasks, and submitted the required internship project during the internship period.
-</p>
-
-<br>
-
-<p>
-Based on the evaluation of performance and project work, the intern has fulfilled the requirements of the internship program and is hereby awarded this completion letter.
-</p>
-
-<br>
-
-<p>
-We appreciate the dedication, commitment, and effort demonstrated throughout the internship journey and wish them success in future academic and professional endeavors.
-</p>
-
-</div>
-
-<div class="signature">
-
-<div class="sign-box">
-<div class="sign-line"></div>
-Program Coordinator
-</div>
-
-<div class="qr">
-QR
-</div>
-
-<div class="sign-box">
-<div class="sign-line"></div>
+<div class="sign">
+<div class="line"></div>
 InternForge Director
 </div>
+</div>
 
+<div class="cert-id">
+Certificate ID:
+<span id="certificateId">Loading...</span>
 </div>
 
 <div class="footer">
-© 2026 InternForge | Internship Completion Verification Available Online
+Verify this certificate through InternForge Certificate Verification Portal.
 </div>
 
 </div>
+
+<div class="actions">
+<button onclick="window.print()">Download / Print Certificate</button>
+</div>
+
+<script type="module">
+import { auth, db } from "./firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+onAuthStateChanged(auth, async(user)=>{
+if(!user){ window.location.href="login.html"; return; }
+
+const snap = await getDoc(doc(db,"students",user.uid));
+if(!snap.exists()) return;
+
+const data = snap.data();
+
+document.getElementById("studentName").innerText = data.name || "Student";
+document.getElementById("programName").innerText = data.selectedProgram || "Internship Program";
+document.getElementById("certificateId").innerText = data.certificateId || "Not Issued";
+});
+</script>
 
 </body>
 </html>
