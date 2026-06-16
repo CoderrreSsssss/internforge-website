@@ -885,7 +885,8 @@ doc,
 getDoc,
 setDoc,
 collection,
-addDoc
+addDoc,
+getDocs 
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 let currentUserId="";
@@ -1015,7 +1016,7 @@ document.getElementById("selectedProgramText")
 selectedProgram;
 
 }
-
+loadAnnouncements();
 });
 
 /* INTERNSHIP SELECT */
@@ -1152,7 +1153,56 @@ toast(error.message);
 }
 
 });
+});
 
+async function loadAnnouncements(){
+
+const container=
+document.getElementById("announcementList");
+
+if(!container) return;
+
+const snapshot=
+await getDocs(
+collection(db,"announcements")
+);
+
+container.innerHTML="";
+
+snapshot.forEach(doc=>{
+
+const data=doc.data();
+
+container.innerHTML+=`
+
+<div class="notice">
+
+<h3 style="margin-bottom:8px;">
+${data.title}
+</h3>
+
+<p>
+${data.message}
+</p>
+
+</div>
+
+`;
+
+});
+
+if(container.innerHTML===""){
+container.innerHTML=
+"<p>No announcements available.</p>";
+}
+
+}
+
+/* LOGOUT */
+
+document
+.getElementById("logoutBtn")
+.addEventListener("click",async()=>{
 /* LOGOUT */
 
 document
