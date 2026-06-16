@@ -3,97 +3,277 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel | InternForge</title>
+
+<title>InternForge Admin V4</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f8fafc;color:#0f172a}
-nav{height:75px;background:white;display:flex;justify-content:space-between;align-items:center;padding:0 7%;box-shadow:0 2px 15px rgba(0,0,0,.08);position:sticky;top:0;z-index:10}
-.logo{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:900;color:#0056d2}
-.logo img{height:42px}
-.logout{background:#fee2e2;color:#dc2626;border:none;padding:11px 18px;border-radius:10px;font-weight:800;cursor:pointer}
-.container{padding:35px 7%}
-.hero{background:linear-gradient(135deg,#0056d2,#0f172a);color:white;padding:32px;border-radius:24px;margin-bottom:28px}
-.hero p{color:#dbeafe;margin-top:8px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:24px}
-.stat{background:rgba(255,255,255,.14);padding:18px;border-radius:16px}
-.stat span{font-size:13px;color:#dbeafe}
-.stat h2{font-size:32px;margin-top:8px}
-.tabs{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px}
-.tab{padding:12px 18px;border:none;border-radius:12px;background:white;border:1px solid #e5e7eb;font-weight:900;cursor:pointer}
-.tab.active{background:#0056d2;color:white}
-.search{width:100%;padding:14px;border:1px solid #cbd5e1;border-radius:12px;margin-bottom:22px;font-size:15px}
-.panel{display:none}
-.panel.active{display:block}
-.card{background:white;border:1px solid #e5e7eb;border-radius:20px;padding:22px;margin-bottom:18px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif}
+body{background:#f5f7fb;color:#111827;display:flex;min-height:100vh}
+
+.sidebar{width:270px;background:white;border-right:1px solid #e5e7eb;padding:24px;position:fixed;height:100vh;overflow:auto}
+.logo{display:flex;align-items:center;gap:12px;margin-bottom:35px}
+.logo img{height:48px;width:48px;border-radius:12px}
+.logo h2{font-size:24px;color:#0056d2}
+.logo span{display:block;font-size:12px;color:#64748b;font-weight:700}
+.menu-title{font-size:11px;font-weight:800;letter-spacing:1px;color:#9ca3af;text-transform:uppercase;margin:22px 0 12px}
+.nav-link{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;cursor:pointer;font-weight:700;color:#374151;margin-bottom:6px}
+.nav-link:hover{background:#eef4ff;color:#0056d2}
+.nav-link.active{background:#0056d2;color:white}
+.nav-link i{width:20px;text-align:center}
+
+.main{margin-left:270px;width:calc(100% - 270px);padding:30px}
+.hero{background:linear-gradient(135deg,#0056d2,#3b82f6);color:white;padding:34px;border-radius:28px;margin-bottom:24px}
+.hero h1{font-size:36px;margin-bottom:8px}
+.hero p{color:#dbeafe}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin-bottom:24px}
+.stat-card{background:white;border:1px solid #e5e7eb;border-radius:22px;padding:22px;box-shadow:0 8px 20px rgba(0,0,0,.04)}
+.stat-card span{font-size:13px;color:#6b7280;font-weight:700}
+.stat-card h2{font-size:30px;margin-top:8px;color:#111827}
+
+.section{display:none}
+.section.active{display:block}
+.card{background:white;border:1px solid #e5e7eb;border-radius:24px;padding:24px;box-shadow:0 8px 20px rgba(0,0,0,.04);margin-bottom:20px}
 .card h3{font-size:22px;margin-bottom:10px}
-.card p{color:#475569;margin:7px 0}
-.badge{display:inline-block;padding:7px 12px;border-radius:20px;font-size:13px;font-weight:900;background:#fef3c7;color:#92400e}
+.card p{color:#4b5563;margin:8px 0;line-height:1.5}
+
+.search{width:100%;padding:15px;border:1px solid #cbd5e1;border-radius:14px;margin-bottom:20px;font-size:15px}
+.badge{display:inline-block;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:900;background:#fef3c7;color:#92400e}
 .approved{background:#dcfce7;color:#166534}
 .rejected{background:#fee2e2;color:#991b1b}
-.btn{background:#0056d2;color:white;border:none;padding:11px 16px;border-radius:10px;font-weight:900;cursor:pointer;margin-top:10px;margin-right:8px}
+.issued{background:#dbeafe;color:#1d4ed8}
+
+.btn{background:#0056d2;color:white;border:none;padding:11px 15px;border-radius:11px;font-weight:900;cursor:pointer;margin-top:10px;margin-right:8px}
+.btn:hover{background:#0046ad}
 .green{background:#16a34a}
 .red{background:#dc2626}
-.dark{background:#0f172a}
-.toast{position:fixed;right:22px;bottom:22px;background:#0f172a;color:white;padding:14px 18px;border-radius:12px;display:none;box-shadow:0 15px 40px rgba(0,0,0,.25);z-index:100}
-.empty{background:white;border:1px dashed #cbd5e1;padding:30px;border-radius:18px;text-align:center;color:#64748b}
-@media(max-width:700px){
-nav{padding:0 5%}
-.container{padding:24px 5%}
-.logo{font-size:22px}
-.logo img{height:36px}
+.dark{background:#111827}
+.orange{background:#f59e0b;color:#111827}
+
+.empty{background:white;border:1px dashed #cbd5e1;padding:28px;border-radius:18px;text-align:center;color:#64748b}
+.toast{position:fixed;right:22px;bottom:22px;background:#111827;color:white;padding:14px 18px;border-radius:12px;display:none;z-index:999}
+.info-row{display:flex;justify-content:space-between;border-bottom:1px solid #e5e7eb;padding:10px 0;gap:12px}
+.info-row span{color:#6b7280;font-weight:700}
+
+@media(max-width:900px){
+.sidebar{width:80px;padding:16px 10px}
+.logo h2,.logo span,.menu-title,.nav-link span{display:none}
+.main{margin-left:80px;width:calc(100% - 80px);padding:18px}
+.hero h1{font-size:27px}
 }
 </style>
 </head>
 
 <body>
 
-<nav>
+<div class="sidebar">
+
 <div class="logo">
 <img src="logo.png" onerror="this.style.display='none'">
-<span>InternForge Admin</span>
+<div>
+<h2>InternForge</h2>
+<span>Admin Control Panel</span>
 </div>
-<button class="logout" id="logoutBtn">Logout</button>
-</nav>
+</div>
 
-<div class="container">
+<div class="menu-title">Admin</div>
+
+<div class="nav-link active" onclick="showSection('overviewSection',this)">
+<i class="fa-solid fa-chart-line"></i><span>Overview</span>
+</div>
+
+<div class="nav-link" onclick="showSection('studentsSection',this)">
+<i class="fa-solid fa-users"></i><span>Students</span>
+</div>
+
+<div class="nav-link" onclick="showSection('paymentsSection',this)">
+<i class="fa-solid fa-credit-card"></i><span>Payments</span>
+</div>
+
+<div class="nav-link" onclick="showSection('projectsSection',this)">
+<i class="fa-solid fa-code"></i><span>Projects</span>
+</div>
+
+<div class="nav-link" onclick="showSection('documentsSection',this)">
+<i class="fa-solid fa-folder-open"></i><span>Documents</span>
+</div>
+
+<div class="nav-link" onclick="showSection('certificatesSection',this)">
+<i class="fa-solid fa-award"></i><span>Certificates</span>
+</div>
+
+<div class="menu-title">System</div>
+
+<div class="nav-link" onclick="showSection('announcementsSection',this)">
+<i class="fa-solid fa-bell"></i><span>Announcements</span>
+</div>
+
+<div class="nav-link" id="logoutBtn">
+<i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>
+</div>
+
+</div>
+
+<div class="main">
 
 <div class="hero">
 <h1>Admin Dashboard</h1>
-<p>Manage students, payments, projects and certificates.</p>
+<p>Manage payments, offer letters, projects, certificates and student records.</p>
+</div>
+
+<div id="overviewSection" class="section active">
 
 <div class="stats">
-<div class="stat"><span>Total Students</span><h2 id="totalStudents">0</h2></div>
-<div class="stat"><span>Pending Payments</span><h2 id="pendingPayments">0</h2></div>
-<div class="stat"><span>Approved Students</span><h2 id="approvedStudents">0</h2></div>
-<div class="stat"><span>Projects Submitted</span><h2 id="totalProjects">0</h2></div>
-</div>
-</div>
-
-<div class="tabs">
-<button class="tab active" onclick="showTab('studentsPanel',this)">Students</button>
-<button class="tab" onclick="showTab('projectsPanel',this)">Projects</button>
-<button class="tab" onclick="showTab('certificatesPanel',this)">Certificates</button>
+<div class="stat-card"><span>Total Students</span><h2 id="totalStudents">0</h2></div>
+<div class="stat-card"><span>Pending Payments</span><h2 id="pendingPayments">0</h2></div>
+<div class="stat-card"><span>Active Interns</span><h2 id="activeInterns">0</h2></div>
+<div class="stat-card"><span>Certificates Issued</span><h2 id="issuedCertificates">0</h2></div>
 </div>
 
-<input class="search" id="searchInput" placeholder="Search students by name, email, college, course...">
-
-<div id="studentsPanel" class="panel active">
-<div id="studentList">Loading students...</div>
+<div class="card">
+<h3>InternForge Admin V4</h3>
+<p>Use this panel to approve payments, generate offer letters, review projects and issue verified certificates.</p>
 </div>
 
-<div id="projectsPanel" class="panel">
-<div id="projectList">Loading projects...</div>
 </div>
 
-<div id="certificatesPanel" class="panel">
-<div id="certificateList">Loading certificates...</div>
+<!-- STUDENTS SECTION -->
+
+<div id="studentsSection" class="section">
+
+<input
+class="search"
+id="searchInput"
+placeholder="Search by name, email, college, course or internship...">
+
+<div id="studentList">
+Loading students...
+</div>
+
+</div>
+
+<!-- PAYMENTS SECTION -->
+
+<div id="paymentsSection" class="section">
+
+<div class="card">
+<h3>Payment Verification</h3>
+<p>
+Approve or reject internship unlock payments.
+</p>
+</div>
+
+<div id="paymentList">
+Loading payments...
+</div>
+
+</div>
+
+<!-- PROJECTS SECTION -->
+
+<div id="projectsSection" class="section">
+
+<div class="card">
+<h3>Project Review Center</h3>
+<p>
+Review submitted projects and approve internship completion.
+</p>
+</div>
+
+<div id="projectList">
+Loading projects...
+</div>
+
+</div>
+
+<!-- DOCUMENTS SECTION -->
+
+<div id="documentsSection" class="section">
+
+<div class="card">
+<h3>Offer Letters & Completion Letters</h3>
+<p>
+Generate official internship documents.
+</p>
+</div>
+
+<div id="documentList">
+Loading documents...
+</div>
+
+</div>
+
+<!-- CERTIFICATES SECTION -->
+
+<div id="certificatesSection" class="section">
+
+<div class="card">
+<h3>Certificate Management</h3>
+<p>
+Issue verified internship certificates.
+</p>
+</div>
+
+<div id="certificateList">
+Loading certificates...
+</div>
+
+</div>
+
+<!-- ANNOUNCEMENTS SECTION -->
+
+<div id="announcementsSection" class="section">
+
+<div class="card">
+
+<h3>Announcements</h3>
+
+<p>
+Broadcast updates to all interns.
+</p>
+
+<div style="
+background:#f8fafc;
+padding:15px;
+border-left:4px solid #0056d2;
+border-radius:12px;
+margin-top:15px;
+">
+🚀 Welcome to InternForge Admin V4
+</div>
+
+<div style="
+background:#f8fafc;
+padding:15px;
+border-left:4px solid #16a34a;
+border-radius:12px;
+margin-top:15px;
+">
+📌 Offer letters can be generated after payment approval.
+</div>
+
+<div style="
+background:#f8fafc;
+padding:15px;
+border-left:4px solid #f59e0b;
+border-radius:12px;
+margin-top:15px;
+">
+🎓 Certificates are issued after project completion.
+</div>
+
+</div>
+
 </div>
 
 </div>
 
 <div class="toast" id="toast"></div>
+
 <script type="module">
+
 import { auth, db } from "./firebase-config.js";
 
 import {
@@ -106,233 +286,150 @@ collection,
 getDocs,
 doc,
 updateDoc,
-addDoc
+getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const ADMIN_EMAIL = "dhruvkhuranaa2006@gmail.com";
+const ADMIN_EMAIL="dhruvkhuranaa2006@gmail.com";
 
-let students = [];
-let projects = [];
+let students=[];
+let projects=[];
+
+/* TOAST */
 
 function toast(msg){
+
 const t=document.getElementById("toast");
-t.innerText=msg;
+
+t.innerHTML=msg;
 t.style.display="block";
-setTimeout(()=>t.style.display="none",3000);
+
+setTimeout(()=>{
+t.style.display="none";
+},3000);
+
 }
 
-window.showTab=function(panelId,btn){
-document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
-document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-document.getElementById(panelId).classList.add("active");
-btn.classList.add("active");
+/* SIDEBAR */
+
+window.showSection=function(sectionId,element){
+
+document
+.querySelectorAll(".section")
+.forEach(sec=>sec.classList.remove("active"));
+
+document
+.querySelectorAll(".nav-link")
+.forEach(nav=>nav.classList.remove("active"));
+
+document
+.getElementById(sectionId)
+.classList.add("active");
+
+element.classList.add("active");
+
 };
 
+/* AUTH CHECK */
+
 onAuthStateChanged(auth,async(user)=>{
+
 if(!user){
 window.location.href="login.html";
 return;
 }
 
 if(user.email!==ADMIN_EMAIL){
+
 window.location.href="dashboard.html";
 return;
+
 }
 
 await loadStudents();
 await loadProjects();
+
 });
+
+/* LOAD STUDENTS */
 
 async function loadStudents(){
-const snap=await getDocs(collection(db,"students"));
+
+const snapshot=
+await getDocs(collection(db,"students"));
+
 students=[];
-snap.forEach(d=>students.push({id:d.id,...d.data()}));
+
+snapshot.forEach(docSnap=>{
+
+students.push({
+id:docSnap.id,
+...docSnap.data()
+});
+
+});
+
 renderStats();
 renderStudents(students);
-renderCertificates(students);
+renderPayments();
+renderDocuments();
+renderCertificates();
+
 }
+
+/* LOAD PROJECTS */
 
 async function loadProjects(){
-const snap=await getDocs(collection(db,"projects"));
+
+const snapshot=
+await getDocs(collection(db,"projects"));
+
 projects=[];
-snap.forEach(d=>projects.push({id:d.id,...d.data()}));
-document.getElementById("totalProjects").innerText=projects.length;
-renderProjects(projects);
+
+snapshot.forEach(docSnap=>{
+
+projects.push({
+id:docSnap.id,
+...docSnap.data()
+});
+
+});
+
+renderProjects();
+
 }
+
+/* STATS */
 
 function renderStats(){
-document.getElementById("totalStudents").innerText=students.length;
-document.getElementById("pendingPayments").innerText=students.filter(s=>s.paymentStatus==="Pending Approval").length;
-document.getElementById("approvedStudents").innerText=students.filter(s=>s.paymentStatus==="Approved").length;
+
+document.getElementById("totalStudents")
+.innerText=students.length;
+
+document.getElementById("pendingPayments")
+.innerText=
+students.filter(
+s=>s.paymentStatus==="Pending Approval"
+).length;
+
+document.getElementById("activeInterns")
+.innerText=
+students.filter(
+s=>s.paymentStatus==="Approved"
+).length;
+
+document.getElementById("issuedCertificates")
+.innerText=
+students.filter(
+s=>s.certificateStatus==="Issued"
+).length;
+
 }
 
-function badge(status){
-let cls="badge";
-if(status==="Approved") cls+=" approved";
-if(status==="Rejected") cls+=" rejected";
-return `<span class="${cls}">${status || "Not Paid"}</span>`;
-}
+/* STUDENTS */
 
 function renderStudents(list){
-const box=document.getElementById("studentList");
+
+const container=
+document.getElementById("studentList");
+
 if(list.length===0){
-box.innerHTML=`<div class="empty">No students found</div>`;
-return;
-}
-
-box.innerHTML="";
-list.forEach(s=>{
-box.innerHTML+=`
-<div class="card">
-<h3>${s.name || "No Name"}</h3>
-<p><b>Email:</b> ${s.email || ""}</p>
-<p><b>College:</b> ${s.college || ""}</p>
-<p><b>Course:</b> ${s.course || ""}</p>
-<p><b>Program:</b> ${s.selectedProgram || s.assignedProgram || "Not Selected"}</p>
-<p><b>Transaction ID:</b> ${s.transactionId || "Not Submitted"}</p>
-<p><b>Payment:</b> ${badge(s.paymentStatus)}</p>
-<p><b>Progress:</b> ${s.progress || 0}%</p>
-<p><b>Certificate:</b> ${s.certificateStatus || "Not Issued"}</p>
-
-<button class="btn green" onclick="approvePayment('${s.id}')">Approve Payment</button>
-<button class="btn red" onclick="rejectPayment('${s.id}')">Reject</button>
-<button class="btn dark" onclick="setProgress('${s.id}',100)">Set Progress 100%</button>
-</div>
-`;
-});
-}
-
-function renderProjects(list){
-const box=document.getElementById("projectList");
-if(list.length===0){
-box.innerHTML=`<div class="empty">No projects submitted yet</div>`;
-return;
-}
-
-box.innerHTML="";
-list.forEach(p=>{
-const student=students.find(s=>s.id===p.studentId);
-box.innerHTML+=`
-<div class="card">
-<h3>${p.projectTitle || "Project Submission"}</h3>
-<p><b>Student:</b> ${student ? student.name : p.studentId}</p>
-<p><b>Program:</b> ${p.program || ""}</p>
-<p><b>Status:</b> ${p.status || "Pending Review"}</p>
-<p><b>Link:</b> <a href="${p.projectLink}" target="_blank">Open Project</a></p>
-
-<button class="btn green" onclick="approveProject('${p.studentId}')">Approve Project</button>
-</div>
-`;
-});
-}
-
-function renderCertificates(list){
-const box=document.getElementById("certificateList");
-box.innerHTML="";
-
-list.forEach(s=>{
-box.innerHTML+=`
-<div class="card">
-<h3>${s.name || "No Name"}</h3>
-<p><b>Email:</b> ${s.email || ""}</p>
-<p><b>Program:</b> ${s.selectedProgram || s.assignedProgram || "Not Selected"}</p>
-<p><b>Progress:</b> ${s.progress || 0}%</p>
-<p><b>Certificate Status:</b> ${s.certificateStatus || "Not Issued"}</p>
-<p><b>Certificate ID:</b> ${s.certificateId || "Not Generated"}</p>
-
-<button class="btn green" onclick="issueCertificate('${s.id}')">Issue Certificate</button>
-</div>
-`;
-});
-}
-
-window.approvePayment=async function(id){
-await updateDoc(doc(db,"students",id),{
-paymentStatus:"Approved",
-progress:25,
-certificateStatus:"Not Issued"
-});
-toast("Payment approved and internship unlocked.");
-await loadStudents();
-};
-
-window.rejectPayment=async function(id){
-await updateDoc(doc(db,"students",id),{
-paymentStatus:"Rejected"
-});
-toast("Payment rejected.");
-await loadStudents();
-};
-
-window.setProgress=async function(id,value){
-await updateDoc(doc(db,"students",id),{
-progress:value,
-certificateStatus:"Eligible for Review"
-});
-toast("Progress updated.");
-await loadStudents();
-};
-
-window.approveProject=async function(studentId){
-await updateDoc(doc(db,"students",studentId),{
-progress:100,
-certificateStatus:"Eligible for Review"
-});
-toast("Project approved. Student eligible for certificate.");
-await loadStudents();
-};
-
-window.issueCertificate=async function(id){
-const student=students.find(s=>s.id===id);
-
-if(!student){
-toast("Student not found.");
-return;
-}
-
-if((student.progress || 0)<100){
-toast("Student progress must be 100% before certificate.");
-return;
-}
-
-const issuedCount=students.filter(s=>s.certificateId).length + 1;
-const certId="IF-2026-" + String(issuedCount).padStart(3,"0");
-
-await updateDoc(doc(db,"students",id),{
-certificateStatus:"Issued",
-certificateId:certId,
-certificateIssuedAt:new Date()
-});
-
-await addDoc(collection(db,"certificates"),{
-certificateId:certId,
-studentId:id,
-studentName:student.name || "",
-studentEmail:student.email || "",
-program:student.selectedProgram || student.assignedProgram || "Internship",
-issuedAt:new Date()
-});
-
-toast("Certificate issued: " + certId);
-await loadStudents();
-};
-
-document.getElementById("searchInput").addEventListener("input",()=>{
-const v=document.getElementById("searchInput").value.toLowerCase();
-const filtered=students.filter(s =>
-(s.name || "").toLowerCase().includes(v) ||
-(s.email || "").toLowerCase().includes(v) ||
-(s.college || "").toLowerCase().includes(v) ||
-(s.course || "").toLowerCase().includes(v)
-);
-renderStudents(filtered);
-});
-
-document.getElementById("logoutBtn").addEventListener("click",async()=>{
-await signOut(auth);
-window.location.href="login.html";
-});
-</script>
-
-</body>
-</html>
