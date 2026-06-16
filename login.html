@@ -1,101 +1,334 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InternForge Login</title><style>
+<title>Login | InternForge</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{
-background:#0f172a;
-font-family:Arial,sans-serif;
+min-height:100vh;
+background:#eef4ff;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
-margin:0;
+padding:20px;
 }
 
-.container{
-background:#1e293b;
-padding:30px;
-border-radius:15px;
-width:350px;
+.wrapper{
+width:100%;
+max-width:950px;
+background:white;
+border-radius:28px;
+overflow:hidden;
+box-shadow:0 25px 70px rgba(0,86,210,.15);
+display:grid;
+grid-template-columns:1fr 1fr;
 }
 
-h2{
+.left{
+background:linear-gradient(135deg,#0056d2,#0f172a);
 color:white;
-text-align:center;
-margin-bottom:20px;
+padding:45px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:30px;
+}
+
+.logo img{
+height:50px;
+background:white;
+padding:4px;
+border-radius:10px;
+}
+
+.logo h2{
+font-size:28px;
+}
+
+.left h1{
+font-size:40px;
+margin-bottom:15px;
+}
+
+.left p{
+line-height:1.6;
+color:#dbeafe;
+}
+
+.right{
+padding:40px;
+}
+
+.right h2{
+font-size:30px;
+margin-bottom:8px;
+}
+
+.sub{
+color:#64748b;
+margin-bottom:24px;
 }
 
 input{
 width:100%;
-padding:12px;
-margin:8px 0;
-border:none;
-border-radius:8px;
+padding:14px;
+border:1px solid #cbd5e1;
+border-radius:12px;
+margin-bottom:14px;
+font-size:15px;
+}
+
+input:focus{
+outline:none;
+border-color:#0056d2;
 }
 
 button{
 width:100%;
-padding:12px;
-background:#2563eb;
-color:white;
+padding:14px;
 border:none;
-border-radius:8px;
-font-weight:bold;
+border-radius:12px;
+background:#0056d2;
+color:white;
+font-size:16px;
+font-weight:900;
 cursor:pointer;
 }
 
-p{
-text-align:center;
-margin-top:10px;
-color:white;
+button:hover{
+background:#0046ad;
 }
 
-a{
-color:#60a5fa;
+.msg{
+display:none;
+padding:14px;
+border-radius:12px;
+margin-top:14px;
+font-weight:700;
+line-height:1.5;
 }
-</style></head><body><div class="container">
-<h2>Login</h2><input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Password"><button id="loginBtn">Login</button>
+
+.success{
+background:#dcfce7;
+color:#166534;
+}
+
+.error{
+background:#fee2e2;
+color:#991b1b;
+}
+
+.signup{
+text-align:center;
+margin-top:18px;
+}
+
+.signup a{
+text-decoration:none;
+font-weight:800;
+color:#0056d2;
+}
+
+#resendBtn{
+display:none;
+margin-top:12px;
+background:#f59e0b;
+}
+
+@media(max-width:850px){
+.wrapper{
+grid-template-columns:1fr;
+}
+.left{
+padding:30px;
+}
+.left h1{
+font-size:30px;
+}
+.right{
+padding:28px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="left">
+
+<div class="logo">
+<img src="logo.png" alt="logo" onerror="this.style.display='none'">
+<h2>InternForge</h2>
+</div>
+
+<h1>Welcome Back</h1>
 
 <p>
-Don't have an account?
-<a href="signup.html">Sign Up</a>
+Login to continue your internship journey,
+track progress, submit projects and access
+your learning dashboard.
 </p>
-</div><script type="module">
+
+</div>
+
+<div class="right">
+
+<h2>Login</h2>
+<p class="sub">Enter your account details</p>
+
+<input type="email" id="email" placeholder="Email Address">
+
+<input type="password" id="password" placeholder="Password">
+
+<button id="loginBtn">
+Login
+</button>
+
+<button id="resendBtn">
+Resend Verification Email
+</button>
+
+<div id="message" class="msg"></div>
+
+<p class="signup">
+Don't have an account?
+<a href="signup.html">Create Account</a>
+</p>
+
+</div>
+
+</div>
+
+<script type="module">
 
 import { auth } from "./firebase-config.js";
 
 import {
-signInWithEmailAndPassword
+signInWithEmailAndPassword,
+sendEmailVerification
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+let currentUser = null;
+
+const message = document.getElementById("message");
+const resendBtn = document.getElementById("resendBtn");
+
+function showMessage(text,type){
+message.innerText = text;
+message.className = "msg " + type;
+message.style.display = "block";
+}
+
 document.getElementById("loginBtn")
-.addEventListener("click", async () => {
+.addEventListener("click", async ()=>{
 
 const email =
-document.getElementById("email").value;
+document.getElementById("email").value.trim();
 
 const password =
 document.getElementById("password").value;
 
+if(!email || !password){
+showMessage(
+"Please enter email and password.",
+"error"
+);
+return;
+}
+
 try{
 
+const userCredential =
 await signInWithEmailAndPassword(
 auth,
 email,
 password
 );
 
-alert("Login Successful!");
+currentUser = userCredential.user;
 
+await currentUser.reload();
+
+if(!currentUser.emailVerified){
+
+showMessage(
+"Please verify your email first. Check your inbox.",
+"error"
+);
+
+resendBtn.style.display="block";
+
+return;
+}
+
+showMessage(
+"Login successful. Redirecting...",
+"success"
+);
+
+setTimeout(()=>{
+
+if(
+currentUser.email ===
+"dhruvkhuranaa2006@gmail.com"
+){
+window.location.href="admin.html";
+}else{
 window.location.href="dashboard.html";
+}
+
+},1500);
 
 }catch(error){
-alert(error.message);
+
+showMessage(
+error.message,
+"error"
+);
+
 }
 
 });
 
-</script></body>
+resendBtn.addEventListener(
+"click",
+async ()=>{
+
+if(!currentUser) return;
+
+try{
+
+await sendEmailVerification(currentUser);
+
+showMessage(
+"Verification email sent again.",
+"success"
+);
+
+}catch(error){
+
+showMessage(
+error.message,
+"error"
+);
+
+}
+
+}
+);
+
+</script>
+
+</body>
 </html>
