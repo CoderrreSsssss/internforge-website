@@ -6,20 +6,181 @@
 <title>InternForge Admin Panel</title>
 
 <style>
-body{background:#0f172a;color:white;font-family:Arial,sans-serif;padding:20px;}
-.student{background:#1e293b;padding:15px;border-radius:10px;margin-bottom:15px;}
-button{background:#2563eb;color:white;border:none;padding:10px 15px;border-radius:8px;cursor:pointer;margin-top:10px;}
-.logout{background:#ef4444;}
-select{padding:10px;border-radius:8px;margin-top:10px;width:100%;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif;}
+
+body{
+background:linear-gradient(135deg,#020617,#0f172a,#111827);
+color:white;
+min-height:100vh;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:22px 8%;
+background:rgba(15,23,42,.9);
+border-bottom:1px solid rgba(148,163,184,.2);
+}
+
+.logo{
+font-size:28px;
+font-weight:800;
+color:#3b82f6;
+}
+
+.logout{
+background:#ef4444;
+color:white;
+border:none;
+padding:12px 22px;
+border-radius:12px;
+font-weight:700;
+cursor:pointer;
+}
+
+.container{
+padding:45px 8%;
+}
+
+.top-card{
+background:linear-gradient(135deg,#1e293b,#0f172a);
+border:1px solid rgba(59,130,246,.35);
+padding:30px;
+border-radius:24px;
+margin-bottom:30px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:20px;
+}
+
+.stat{
+background:#111827;
+border:1px solid rgba(148,163,184,.18);
+padding:22px;
+border-radius:18px;
+}
+
+.stat span{
+color:#94a3b8;
+font-size:14px;
+}
+
+.stat h2{
+margin-top:8px;
+font-size:30px;
+}
+
+.student{
+background:#111827;
+border:1px solid rgba(148,163,184,.18);
+padding:24px;
+border-radius:20px;
+margin-bottom:18px;
+}
+
+.student h3{
+font-size:22px;
+margin-bottom:10px;
+}
+
+.student p{
+color:#cbd5e1;
+margin:6px 0;
+}
+
+.badge{
+display:inline-block;
+padding:6px 12px;
+border-radius:20px;
+font-size:13px;
+font-weight:800;
+background:#facc15;
+color:#111827;
+}
+
+.approved{
+background:#22c55e;
+color:#052e16;
+}
+
+.pending{
+background:#facc15;
+color:#111827;
+}
+
+.btn{
+background:#2563eb;
+color:white;
+border:none;
+padding:12px 18px;
+border-radius:12px;
+font-weight:800;
+cursor:pointer;
+margin-top:12px;
+margin-right:8px;
+}
+
+.btn-green{
+background:#16a34a;
+}
+
+.btn-red{
+background:#dc2626;
+}
+
+.search{
+width:100%;
+padding:15px;
+border-radius:14px;
+border:none;
+background:#020617;
+color:white;
+border:1px solid rgba(148,163,184,.25);
+margin:25px 0;
+}
 </style>
 </head>
 
 <body>
 
-<h1>InternForge Admin Panel</h1>
+<nav>
+<div class="logo">InternForge Admin</div>
 <button class="logout" id="logoutBtn">Logout</button>
+</nav>
+
+<div class="container">
+
+<div class="top-card">
+<h1>Admin Dashboard</h1>
+<p style="color:#cbd5e1;margin-top:8px;">Manage students, payments, internships and certificate access.</p>
+
+<div class="grid" style="margin-top:25px;">
+<div class="stat">
+<span>Total Students</span>
+<h2 id="totalStudents">0</h2>
+</div>
+
+<div class="stat">
+<span>Pending Payments</span>
+<h2 id="pendingPayments">0</h2>
+</div>
+
+<div class="stat">
+<span>Approved Students</span>
+<h2 id="approvedStudents">0</h2>
+</div>
+</div>
+</div>
+
+<input class="search" id="searchInput" placeholder="Search by name, email, college or course...">
 
 <div id="studentList">Checking admin access...</div>
+
+</div>
 
 <script type="module">
 import { auth, db } from "./firebase-config.js";
@@ -37,7 +198,11 @@ updateDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const ADMIN_EMAIL = "dhruvkhuranaa2006@gmail.com";
+
 const studentList = document.getElementById("studentList");
+const searchInput = document.getElementById("searchInput");
+
+let students = [];
 
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
@@ -56,52 +221,103 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 async function loadStudents(){
-  studentList.innerHTML = "";
+  studentList.innerHTML = "Loading students...";
 
   const snapshot = await getDocs(collection(db,"students"));
 
-  if(snapshot.empty){
+  students = [];
+
+  snapshot.forEach((studentDoc)=>{
+    students.push({
+      id: studentDoc.id,
+      ...studentDoc.data()
+    });
+  });
+
+  renderStats();
+  renderStudents(students);
+}
+
+function renderStats(){
+  document.getElementById("totalStudents").innerText = students.length;
+
+  document.getElementById("pendingPayments").innerText =
+  students.filter(s => s.paymentStatus === "Pending Approval").length;
+
+  document.getElementById("approvedStudents").innerText =
+  students.filter(s => s.paymentStatus === "Approved").length;
+}
+
+function renderStudents(list){
+  if(list.length === 0){
     studentList.innerHTML = "No students found";
     return;
   }
 
-  snapshot.forEach((studentDoc)=>{
-    const data = studentDoc.data();
-    const id = studentDoc.id;
+  studentList.innerHTML = "";
 
+  list.forEach((data)=>{
     studentList.innerHTML += `
       <div class="student">
         <h3>${data.name || "No Name"}</h3>
+
         <p><b>Email:</b> ${data.email || ""}</p>
         <p><b>College:</b> ${data.college || ""}</p>
         <p><b>Course:</b> ${data.course || ""}</p>
-        <p><b>Assigned Program:</b> ${data.assignedProgram || "Pending"}</p>
+        <p><b>Selected Program:</b> ${data.selectedProgram || data.assignedProgram || "Not Selected"}</p>
+        <p><b>Transaction ID:</b> ${data.transactionId || "Not Submitted"}</p>
 
-        <select id="program-${id}">
-          <option value="AI & Prompt Engineering">AI & Prompt Engineering</option>
-          <option value="Web Development">Web Development</option>
-          <option value="Python Programming">Python Programming</option>
-          <option value="Data Science">Data Science</option>
-        </select>
+        <p>
+          <b>Payment Status:</b>
+          <span class="badge ${data.paymentStatus === "Approved" ? "approved" : "pending"}">
+            ${data.paymentStatus || "Not Paid"}
+          </span>
+        </p>
 
-        <button onclick="assignProgram('${id}')">Assign Internship</button>
+        <button class="btn btn-green" onclick="approvePayment('${data.id}')">
+          Approve & Unlock
+        </button>
+
+        <button class="btn btn-red" onclick="rejectPayment('${data.id}')">
+          Reject Payment
+        </button>
       </div>
     `;
   });
 }
 
-window.assignProgram = async function(id){
-  const program = document.getElementById("program-" + id).value;
-
-  await updateDoc(doc(db, "students", id), {
-    assignedProgram: program,
-    progress: 0,
-    certificateStatus: "Not Issued"
+window.approvePayment = async function(id){
+  await updateDoc(doc(db,"students",id),{
+    paymentStatus:"Approved",
+    progress:0,
+    certificateStatus:"Not Issued"
   });
 
-  alert("Internship assigned successfully!");
+  alert("Payment approved and internship unlocked.");
   loadStudents();
 };
+
+window.rejectPayment = async function(id){
+  await updateDoc(doc(db,"students",id),{
+    paymentStatus:"Rejected"
+  });
+
+  alert("Payment rejected.");
+  loadStudents();
+};
+
+searchInput.addEventListener("input",()=>{
+  const value = searchInput.value.toLowerCase();
+
+  const filtered = students.filter(s =>
+    (s.name || "").toLowerCase().includes(value) ||
+    (s.email || "").toLowerCase().includes(value) ||
+    (s.college || "").toLowerCase().includes(value) ||
+    (s.course || "").toLowerCase().includes(value)
+  );
+
+  renderStudents(filtered);
+});
 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
   await signOut(auth);
