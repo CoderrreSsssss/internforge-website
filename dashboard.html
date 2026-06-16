@@ -1171,13 +1171,6 @@ data.paymentStatus || "Not Paid";
 const application =
 data.applicationStatus || "Not Applied";
 
-document.getElementById("selectedProgramDisplay").innerText =
-selected || "Not Selected";
-
-document.getElementById("selectedProgramStatus").innerText =
-payment === "Approved"
-? "Active"
-: (application === "Applied" ? payment : "Not Applied");
 
 const programs = [
 {
