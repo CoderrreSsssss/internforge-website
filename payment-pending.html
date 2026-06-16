@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Payment Verification</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#f5f7fb;
+font-family:Arial;
+}
+
+.card{
+background:white;
+padding:40px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+width:450px;
+}
+
+.loader{
+width:70px;
+height:70px;
+border:6px solid #e5e7eb;
+border-top:6px solid #0056d2;
+border-radius:50%;
+margin:auto;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+.timer{
+font-size:40px;
+font-weight:900;
+color:#0056d2;
+margin:20px 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="loader"></div>
+
+<h2>Waiting For Payment Approval</h2>
+
+<p>
+Your payment proof has been submitted successfully.
+Admin verification is in progress.
+</p>
+
+<div class="timer" id="timer">
+05:00
+</div>
+
+<p>
+Do not close this page.
+</p>
+
+</div>
+
+<script>
+
+let seconds=300;
+
+setInterval(()=>{
+
+seconds--;
+
+let m=Math.floor(seconds/60);
+let s=seconds%60;
+
+document.getElementById("timer").innerText=
+String(m).padStart(2,"0")
++":"+
+String(s).padStart(2,"0");
+
+if(seconds<=0){
+
+window.location.href="dashboard.html";
+
+}
+
+},1000);
+
+</script>
+
+</body>
+</html>
