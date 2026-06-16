@@ -273,163 +273,230 @@ margin-top:15px;
 <div class="toast" id="toast"></div>
 
 <script type="module">
-
 import { auth, db } from "./firebase-config.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-import {
-onAuthStateChanged,
-signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-import {
-collection,
-getDocs,
-doc,
-updateDoc,
-getDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const ADMIN_EMAIL="dhruvkhuranaa2006@gmail.com";
-
-let students=[];
-let projects=[];
-
-/* TOAST */
+const ADMIN_EMAIL = "dhruvkhuranaa2006@gmail.com";
+let students = [];
+let projects = [];
 
 function toast(msg){
-
-const t=document.getElementById("toast");
-
-t.innerHTML=msg;
-t.style.display="block";
-
-setTimeout(()=>{
-t.style.display="none";
-},3000);
-
+  const t = document.getElementById("toast");
+  t.innerText = msg;
+  t.style.display = "block";
+  setTimeout(()=> t.style.display = "none", 3000);
 }
 
-/* SIDEBAR */
-
-window.showSection=function(sectionId,element){
-
-document
-.querySelectorAll(".section")
-.forEach(sec=>sec.classList.remove("active"));
-
-document
-.querySelectorAll(".nav-link")
-.forEach(nav=>nav.classList.remove("active"));
-
-document
-.getElementById(sectionId)
-.classList.add("active");
-
-element.classList.add("active");
-
+window.showSection = function(sectionId, element){
+  document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
+  document.querySelectorAll(".nav-link").forEach(nav => nav.classList.remove("active"));
+  document.getElementById(sectionId).classList.add("active");
+  element.classList.add("active");
 };
 
-/* AUTH CHECK */
+onAuthStateChanged(auth, async(user)=>{
+  if(!user){ window.location.href="login.html"; return; }
+  if(user.email !== ADMIN_EMAIL){ window.location.href="dashboard.html"; return; }
 
-onAuthStateChanged(auth,async(user)=>{
-
-if(!user){
-window.location.href="login.html";
-return;
-}
-
-if(user.email!==ADMIN_EMAIL){
-
-window.location.href="dashboard.html";
-return;
-
-}
-
-await loadStudents();
-await loadProjects();
-
+  await loadAll();
 });
 
-/* LOAD STUDENTS */
+async function loadAll(){
+  await loadStudents();
+  await loadProjects();
+}
 
 async function loadStudents(){
+  const snapshot = await getDocs(collection(db,"students"));
+  students = [];
+  snapshot.forEach(d => students.push({ id:d.id, ...d.data() }));
 
-const snapshot=
-await getDocs(collection(db,"students"));
-
-students=[];
-
-snapshot.forEach(docSnap=>{
-
-students.push({
-id:docSnap.id,
-...docSnap.data()
-});
-
-});
-
-renderStats();
-renderStudents(students);
-renderPayments();
-renderDocuments();
-renderCertificates();
-
+  renderStats();
+  renderStudents(students);
+  renderPayments();
+  renderDocuments();
+  renderCertificates();
 }
-
-/* LOAD PROJECTS */
 
 async function loadProjects(){
-
-const snapshot=
-await getDocs(collection(db,"projects"));
-
-projects=[];
-
-snapshot.forEach(docSnap=>{
-
-projects.push({
-id:docSnap.id,
-...docSnap.data()
-});
-
-});
-
-renderProjects();
-
+  const snapshot = await getDocs(collection(db,"projects"));
+  projects = [];
+  snapshot.forEach(d => projects.push({ id:d.id, ...d.data() }));
+  renderProjects();
 }
-
-/* STATS */
 
 function renderStats(){
-
-document.getElementById("totalStudents")
-.innerText=students.length;
-
-document.getElementById("pendingPayments")
-.innerText=
-students.filter(
-s=>s.paymentStatus==="Pending Approval"
-).length;
-
-document.getElementById("activeInterns")
-.innerText=
-students.filter(
-s=>s.paymentStatus==="Approved"
-).length;
-
-document.getElementById("issuedCertificates")
-.innerText=
-students.filter(
-s=>s.certificateStatus==="Issued"
-).length;
-
+  document.getElementById("totalStudents").innerText = students.length;
+  document.getElementById("pendingPayments").innerText = students.filter(s => s.paymentStatus === "Pending Approval").length;
+  document.getElementById("activeInterns").innerText = students.filter(s => s.paymentStatus === "Approved").length;
+  document.getElementById("issuedCertificates").innerText = students.filter(s => s.certificateStatus === "Issued").length;
 }
 
-/* STUDENTS */
-
 function renderStudents(list){
+  const container = document.getElementById("studentList");
+  if(list.length === 0){
+    container.innerHTML = '<div class="empty">No Students Found</div>';
+    return;
+  }
 
-const container=
-document.getElementById("studentList");
+  container.innerHTML = list.map(s => `
+    <div class="card">
+      <h3>${s.name || "Student"}</h3>
+      <div class="info-row"><span>Email</span><b>${s.email || "-"}</b></div>
+      <div class="info-row"><span>College</span><b>${s.college || "-"}</b></div>
+      <div class="info-row"><span>Course</span><b>${s.course || "-"}</b></div>
+      <div class="info-row"><span>Internship</span><b>${s.selectedProgram || "-"}</b></div>
+      <div class="info-row"><span>Payment</span><b>${s.paymentStatus || "Not Paid"}</b></div>
+      <div class="info-row"><span>Offer Letter</span><b>${s.offerLetterStatus || "Pending"}</b></div>
+      <div class="info-row"><span>Certificate</span><b>${s.certificateStatus || "Not Issued"}</b></div>
+    </div>
+  `).join("");
+}
 
-if(list.length===0){
+function renderPayments(){
+  const container = document.getElementById("paymentList");
+  container.innerHTML = students.map(s => `
+    <div class="card">
+      <h3>${s.name || "Student"}</h3>
+      <p><b>Email:</b> ${s.email || "-"}</p>
+      <p><b>Program:</b> ${s.selectedProgram || "-"}</p>
+      <p><b>Transaction ID:</b> ${s.transactionId || "Not Submitted"}</p>
+      <p><b>Status:</b> ${s.paymentStatus || "Not Paid"}</p>
+      <button class="btn green" onclick="approvePayment('${s.id}')">Approve Payment</button>
+      <button class="btn red" onclick="rejectPayment('${s.id}')">Reject Payment</button>
+    </div>
+  `).join("") || '<div class="empty">No payment records</div>';
+}
+
+function renderDocuments(){
+  const container = document.getElementById("documentList");
+  container.innerHTML = students.map(s => `
+    <div class="card">
+      <h3>${s.name || "Student"}</h3>
+      <p><b>Offer Letter:</b> ${s.offerLetterStatus || "Pending"}</p>
+      <p><b>Offer ID:</b> ${s.offerLetterId || "-"}</p>
+      <p><b>Completion Letter:</b> ${s.completionLetterStatus || "Pending"}</p>
+      <p><b>Completion ID:</b> ${s.completionLetterId || "-"}</p>
+      <button class="btn orange" onclick="generateOffer('${s.id}')">Generate Offer Letter</button>
+      <button class="btn dark" onclick="generateCompletion('${s.id}')">Generate Completion Letter</button>
+    </div>
+  `).join("") || '<div class="empty">No document records</div>';
+}
+
+function renderCertificates(){
+  const container = document.getElementById("certificateList");
+  container.innerHTML = students.map(s => `
+    <div class="card">
+      <h3>${s.name || "Student"}</h3>
+      <p><b>Program:</b> ${s.selectedProgram || "-"}</p>
+      <p><b>Progress:</b> ${s.progress || 0}%</p>
+      <p><b>Certificate Status:</b> ${s.certificateStatus || "Not Issued"}</p>
+      <p><b>Certificate ID:</b> ${s.certificateId || "-"}</p>
+      <button class="btn green" onclick="issueCertificate('${s.id}')">Issue Certificate</button>
+    </div>
+  `).join("") || '<div class="empty">No certificate records</div>';
+}
+
+function renderProjects(){
+  const container = document.getElementById("projectList");
+  if(projects.length === 0){
+    container.innerHTML = '<div class="empty">No projects submitted yet</div>';
+    return;
+  }
+
+  container.innerHTML = projects.map(p => {
+    const st = students.find(s => s.id === p.studentId);
+    return `
+      <div class="card">
+        <h3>${p.projectTitle || "Project"}</h3>
+        <p><b>Student:</b> ${st ? st.name : p.studentId}</p>
+        <p><b>Program:</b> ${p.program || "-"}</p>
+        <p><b>Status:</b> ${p.status || "Pending Review"}</p>
+        <p><a href="${p.projectLink || "#"}" target="_blank">Open Project</a></p>
+        <button class="btn green" onclick="approveProject('${p.studentId}')">Approve Project</button>
+      </div>
+    `;
+  }).join("");
+}
+
+function makeId(prefix){
+  const n = Math.floor(1000 + Math.random() * 9000);
+  return `${prefix}-2026-${n}`;
+}
+
+window.approvePayment = async function(id){
+  await updateDoc(doc(db,"students",id),{
+    paymentStatus:"Approved",
+    progress:25,
+    offerLetterStatus:"Generated",
+    offerLetterId:makeId("OL"),
+    certificateStatus:"Not Issued",
+    completionLetterStatus:"Pending"
+  });
+  toast("Payment approved + offer letter generated.");
+  await loadAll();
+};
+
+window.rejectPayment = async function(id){
+  await updateDoc(doc(db,"students",id),{ paymentStatus:"Rejected" });
+  toast("Payment rejected.");
+  await loadAll();
+};
+
+window.generateOffer = async function(id){
+  await updateDoc(doc(db,"students",id),{
+    offerLetterStatus:"Generated",
+    offerLetterId:makeId("OL")
+  });
+  toast("Offer letter generated.");
+  await loadAll();
+};
+
+window.generateCompletion = async function(id){
+  await updateDoc(doc(db,"students",id),{
+    completionLetterStatus:"Generated",
+    completionLetterId:makeId("CL")
+  });
+  toast("Completion letter generated.");
+  await loadAll();
+};
+
+window.approveProject = async function(studentId){
+  await updateDoc(doc(db,"students",studentId),{
+    progress:100,
+    certificateStatus:"Eligible for Review"
+  });
+  toast("Project approved. Student eligible for certificate.");
+  await loadAll();
+};
+
+window.issueCertificate = async function(id){
+  await updateDoc(doc(db,"students",id),{
+    certificateStatus:"Issued",
+    certificateId:makeId("IF")
+  });
+  toast("Certificate issued.");
+  await loadAll();
+};
+
+document.getElementById("searchInput")?.addEventListener("input", e=>{
+  const v = e.target.value.toLowerCase();
+  const filtered = students.filter(s =>
+    (s.name || "").toLowerCase().includes(v) ||
+    (s.email || "").toLowerCase().includes(v) ||
+    (s.college || "").toLowerCase().includes(v) ||
+    (s.course || "").toLowerCase().includes(v) ||
+    (s.selectedProgram || "").toLowerCase().includes(v)
+  );
+  renderStudents(filtered);
+});
+
+document.getElementById("logoutBtn").addEventListener("click", async()=>{
+  await signOut(auth);
+  window.location.href="login.html";
+});
+</script>
+
+</body>
+</html>
