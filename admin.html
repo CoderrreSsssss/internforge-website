@@ -336,6 +336,7 @@ onAuthStateChanged(auth, async(user)=>{
 async function loadAll(){
   await loadStudents();
   await loadProjects();
+  renderStats();
 }
 
 async function loadStudents(){
