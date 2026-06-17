@@ -344,7 +344,7 @@ async function loadStudents(){
   students = [];
   snapshot.forEach(d => students.push({ id:d.id, ...d.data() }));
 
-  renderStats();
+
   renderStudents(students);
   renderPayments();
   renderDocuments();
