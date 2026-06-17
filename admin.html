@@ -359,9 +359,21 @@ async function loadProjects(){
 
 function renderStats(){
   document.getElementById("totalStudents").innerText = students.length;
-  document.getElementById("pendingPayments").innerText = students.filter(s => s.paymentStatus === "Pending Approval").length;
-  document.getElementById("activeInterns").innerText = students.filter(s => s.paymentStatus === "Approved").length;
-  document.getElementById("issuedCertificates").innerText = students.filter(s => s.certificateStatus === "Issued").length;
+
+  document.getElementById("pendingPayments").innerText =
+  students.filter(s => s.paymentStatus === "Pending Approval").length;
+
+  document.getElementById("activeInterns").innerText =
+  students.filter(s => s.paymentStatus === "Approved").length;
+
+  document.getElementById("issuedCertificates").innerText =
+  students.filter(s => s.certificateStatus === "Issued").length;
+
+  document.getElementById("submittedProjects").innerText =
+  projects.length;
+
+  document.getElementById("rejectedPayments").innerText =
+  students.filter(s => s.paymentStatus === "Rejected").length;
 }
 
 function renderStudents(list){
