@@ -306,11 +306,12 @@ margin-top:15px;
 <script type="module">
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { collection, getDocs, doc, updateDoc , getDoc , addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, getDocs, doc, updateDoc , getDoc , addDoc , deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const ADMIN_EMAIL = "dhruvkhuranaa2006@gmail.com";
 let students = [];
 let projects = [];
+let announcements = [];
 
 function toast(msg){
   const t = document.getElementById("toast");
@@ -336,6 +337,7 @@ onAuthStateChanged(auth, async(user)=>{
 async function loadAll(){
   await loadStudents();
   await loadProjects();
+  await loadAnnouncements();
   renderStats();
 }
 
