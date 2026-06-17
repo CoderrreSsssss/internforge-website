@@ -1557,6 +1557,39 @@ await signOut(auth);
 window.location.href="login.html";
 
 });
+function startOfferTimer(){
+
+const timer =
+document.getElementById("offerTimer");
+
+if(!timer) return;
+
+const endTime =
+new Date("2026-06-18T23:59:59").getTime();
+
+setInterval(()=>{
+
+const now = new Date().getTime();
+const distance = endTime - now;
+
+if(distance <= 0){
+timer.innerText = "Offer Expired";
+return;
+}
+
+const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+timer.innerText =
+days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+
+},1000);
+
+}
+
+startOfferTimer();
 
 </script>
 
