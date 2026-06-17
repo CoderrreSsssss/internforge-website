@@ -359,7 +359,20 @@ async function loadProjects(){
   snapshot.forEach(d => projects.push({ id:d.id, ...d.data() }));
   renderProjects();
 }
+async function loadAnnouncements(){
 
+const snapshot = await getDocs(collection(db,"announcements"));
+
+announcements = [];
+
+snapshot.forEach(d => announcements.push({
+id:d.id,
+...d.data()
+}));
+
+renderAnnouncements();
+
+}
 function renderStats(){
   document.getElementById("totalStudents").innerText = students.length;
 
@@ -476,6 +489,42 @@ ${p.status || "Pending Review"}
       </div>
     `;
   }).join("");
+}
+
+function renderAnnouncements(){
+
+const box =
+document.getElementById("announcementListAdmin");
+
+if(!box) return;
+
+if(announcements.length === 0){
+
+box.innerHTML =
+'<div class="empty">No announcements found</div>';
+
+return;
+
+}
+
+box.innerHTML = announcements.map(a => `
+<div class="card">
+
+<h3>${a.title || "Announcement"}</h3>
+
+<p>${a.message || ""}</p>
+
+<button
+class="btn red"
+onclick="deleteAnnouncement('${a.id}')">
+
+Delete Announcement
+
+</button>
+
+</div>
+`).join("");
+
 }
 
 function makeId(prefix){
