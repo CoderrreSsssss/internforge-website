@@ -3,210 +3,178 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verify Certificate | InternForge</title>
+
+<title>Verify Document | InternForge</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:Inter,Arial,sans-serif;
 }
 
 body{
-background:#eef4ff;
+background:#f5f7fb;
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-padding:20px;
+padding:25px;
 }
 
-.container{
+.verify-card{
 width:100%;
 max-width:700px;
 background:white;
-padding:40px;
 border-radius:28px;
-box-shadow:0 25px 70px rgba(0,86,210,.15);
+padding:35px;
+box-shadow:0 25px 60px rgba(0,0,0,.08);
+border:1px solid #e5e7eb;
 }
 
 .logo{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:12px;
+text-align:center;
 margin-bottom:25px;
 }
 
 .logo img{
-height:55px;
+width:80px;
+height:80px;
+object-fit:contain;
 }
 
 .logo h1{
-font-size:30px;
 color:#0056d2;
+margin-top:10px;
 }
 
-.title{
-text-align:center;
-margin-bottom:10px;
-font-size:34px;
-font-weight:900;
-}
-
-.sub{
-text-align:center;
+.logo p{
 color:#64748b;
-margin-bottom:25px;
+font-size:14px;
 }
 
 .search-box{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
+margin-top:25px;
 }
 
 input{
-flex:1;
-padding:15px;
+width:100%;
+padding:16px;
 border:1px solid #cbd5e1;
-border-radius:12px;
-font-size:15px;
-}
-
-input:focus{
+border-radius:14px;
+font-size:16px;
 outline:none;
-border-color:#0056d2;
 }
 
 button{
-padding:15px 25px;
-border:none;
+width:100%;
+margin-top:14px;
 background:#0056d2;
 color:white;
+border:none;
+padding:16px;
+border-radius:14px;
 font-weight:900;
-border-radius:12px;
 cursor:pointer;
-}
-
-button:hover{
-background:#0046ad;
-}
-
-.loader{
-display:none;
-text-align:center;
-margin-top:20px;
-font-weight:700;
-color:#0056d2;
 }
 
 .result{
 display:none;
 margin-top:25px;
-border-radius:20px;
-padding:25px;
+padding:20px;
+border-radius:16px;
+background:#f8fafc;
+border:1px solid #e5e7eb;
 }
 
-.success{
-background:#ecfdf5;
-border:2px solid #22c55e;
-}
-
-.error{
-background:#fef2f2;
-border:2px solid #ef4444;
-}
-
-.result h3{
+.status{
+font-size:18px;
+font-weight:900;
 margin-bottom:15px;
 }
 
-.data{
-margin-top:10px;
-padding:12px;
-background:white;
-border-radius:12px;
+.valid{
+color:#16a34a;
 }
 
-.data b{
-color:#0056d2;
+.invalid{
+color:#dc2626;
 }
 
-.home{
-display:block;
-margin-top:25px;
-text-align:center;
-text-decoration:none;
-font-weight:800;
-color:#0056d2;
+.info-row{
+display:flex;
+justify-content:space-between;
+padding:12px 0;
+border-bottom:1px solid #e5e7eb;
 }
 
-@media(max-width:600px){
-
-.container{
-padding:25px;
+.info-row span{
+color:#64748b;
 }
 
-.search-box{
-flex-direction:column;
-}
-
-button{
-width:100%;
-}
-
-.title{
-font-size:28px;
-}
-
-}
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="verify-card">
 
 <div class="logo">
-<img src="logo.png" alt="logo" onerror="this.style.display='none'">
-<h1>InternForge</h1>
+<img src="logo.png" onerror="this.style.display='none'">
+<h1>InternForge Verification Portal</h1>
+<p>Verify Offer Letters, Certificates and Completion Letters</p>
 </div>
-
-<h2 class="title">
-Certificate Verification
-</h2>
-
-<p class="sub">
-Verify the authenticity of an InternForge certificate.
-</p>
 
 <div class="search-box">
 
 <input
-type="text"
-id="certificateId"
-placeholder="Enter Certificate ID (Example: IF-2026-001)"
->
+id="verifyId"
+placeholder="Enter Certificate / Offer Letter / Completion ID">
 
-<button onclick="verifyCertificate()">
-Verify
+<button id="verifyBtn">
+Verify Document
 </button>
 
 </div>
 
-<div id="loader" class="loader">
-Checking Certificate...
+<div id="resultBox" class="result">
+
+<div id="statusText" class="status">
+Checking...
 </div>
 
-<div id="result" class="result"></div>
+<div class="info-row">
+<span>Student Name</span>
+<b id="studentName">-</b>
+</div>
 
-<a href="index.html" class="home">
-← Back to Homepage
-</a>
+<div class="info-row">
+<span>Program</span>
+<b id="programName">-</b>
+</div>
+
+<div class="info-row">
+<span>Document Type</span>
+<b id="documentType">-</b>
+</div>
+
+<div class="info-row">
+<span>Document ID</span>
+<b id="documentId">-</b>
+</div>
+
+<div class="info-row">
+<span>Status</span>
+<b id="documentStatus">-</b>
+</div>
 
 </div>
+
+</div>
+
+
 
 <script type="module">
 
@@ -214,134 +182,127 @@ import { db } from "./firebase-config.js";
 
 import {
 collection,
-query,
-where,
 getDocs
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-window.verifyCertificate = async function(){
+const verifyBtn =
+document.getElementById("verifyBtn");
 
-const certId =
-document.getElementById("certificateId")
+verifyBtn.addEventListener("click", verifyDocument);
+
+async function verifyDocument(){
+
+const id =
+document.getElementById("verifyId")
 .value
 .trim();
 
-const result =
-document.getElementById("result");
-
-const loader =
-document.getElementById("loader");
-
-if(!certId){
-
-result.style.display="block";
-
-result.className =
-"result error";
-
-result.innerHTML =
-`
-<h3>Certificate ID Required</h3>
-<p>Please enter a certificate ID.</p>
-`;
-
+if(!id){
+alert("Enter Document ID");
 return;
 }
 
-loader.style.display="block";
-result.style.display="none";
+const resultBox =
+document.getElementById("resultBox");
 
-try{
+resultBox.style.display="block";
 
-const q = query(
-collection(db,"students"),
-where(
-"certificateId",
-"==",
-certId
-)
-);
+document.getElementById("statusText").innerHTML =
+"Checking...";
 
 const snapshot =
-await getDocs(q);
+await getDocs(collection(db,"students"));
 
-loader.style.display="none";
+let found = false;
 
-if(snapshot.empty){
+snapshot.forEach((docSnap)=>{
 
-result.style.display="block";
+const data = docSnap.data();
 
-result.className =
-"result error";
+const offerId =
+data.offerLetterId || "";
 
-result.innerHTML =
-`
-<h3>❌ Certificate Not Found</h3>
-<p>
-The entered certificate ID
-does not exist.
-</p>
-`;
+const certificateId =
+data.certificateId || "";
 
-}else{
+const completionId =
+data.completionLetterId || "";
 
-const data =
-snapshot.docs[0].data();
+if(
+id === offerId ||
+id === certificateId ||
+id === completionId
+){
 
-result.style.display="block";
+found = true;
 
-result.className =
-"result success";
+let docType = "Unknown";
 
-result.innerHTML =
-`
-<h3>
-✅ Certificate Verified
-</h3>
+if(id === offerId)
+docType = "Offer Letter";
 
-<div class="data">
-<b>Name:</b>
-${data.name}
-</div>
+if(id === certificateId)
+docType = "Certificate";
 
-<div class="data">
-<b>Course:</b>
-${data.course}
-</div>
+if(id === completionId)
+docType = "Completion Letter";
 
-<div class="data">
-<b>Program:</b>
-${data.selectedProgram || "Internship"}
-</div>
+document.getElementById("statusText")
+.innerHTML =
+"✅ VERIFIED";
 
-<div class="data">
-<b>Certificate ID:</b>
-${certId}
-</div>
+document.getElementById("statusText")
+.className =
+"status valid";
 
-<div class="data">
-<b>Status:</b>
-Verified
-</div>
-`;
+document.getElementById("studentName")
+.innerText =
+data.name || "-";
+
+document.getElementById("programName")
+.innerText =
+data.selectedProgram || "-";
+
+document.getElementById("documentType")
+.innerText =
+docType;
+
+document.getElementById("documentId")
+.innerText =
+id;
+
+document.getElementById("documentStatus")
+.innerText =
+"Valid";
 
 }
 
-}catch(error){
+});
 
-loader.style.display="none";
+if(!found){
 
-result.style.display="block";
+document.getElementById("statusText")
+.innerHTML =
+"❌ DOCUMENT NOT FOUND";
 
-result.className =
-"result error";
+document.getElementById("statusText")
+.className =
+"status invalid";
 
-result.innerHTML =
-`
-<h3>Error</h3>
-<p>${error.message}</p>
-`;
+document.getElementById("studentName")
+.innerText = "-";
+
+document.getElementById("programName")
+.innerText = "-";
+
+document.getElementById("documentType")
+.innerText = "-";
+
+document.getElementById("documentId")
+.innerText = "-";
+
+document.getElementById("documentStatus")
+.innerText = "Invalid";
 
 }
 
