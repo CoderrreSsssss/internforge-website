@@ -412,6 +412,13 @@ function renderStudents(list){
       <button class="btn" onclick="viewStudent('${s.id}')">
 View Full Details
 </button>
+<button
+class="btn red"
+onclick="deleteStudent('${s.id}')">
+
+Delete Student
+
+</button>
     </div>
   `).join("");
 }
@@ -560,6 +567,23 @@ Certificate ID: ${s.certificateId || "-"}
 Completion ID: ${s.completionLetterId || "-"}`
 
 );
+
+};
+  window.deleteStudent = async function(id){
+
+const ok = confirm(
+"Delete this student permanently?"
+);
+
+if(!ok) return;
+
+await deleteDoc(
+doc(db,"students",id)
+);
+
+toast("Student deleted.");
+
+await loadAll();
 
 };
 function makeId(prefix){
