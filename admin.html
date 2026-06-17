@@ -519,7 +519,7 @@ window.generateCompletion = async function(id){
 };
 
 window.approveProject = async function(studentId){
-
+const project = projects.find(p => p.studentId === studentId);
 await updateDoc(doc(db,"students",studentId),{
 progress:100,
 certificateStatus:"Issued",
@@ -527,7 +527,16 @@ certificateId:makeId("IF"),
 completionLetterStatus:"Generated",
 completionLetterId:makeId("CL")
 });
+if(project){
 
+await updateDoc(
+doc(db,"projects",project.id),
+{
+status:"Approved"
+}
+);
+
+}
 toast("Project approved. Certificate and completion letter generated.");
 
 await loadAll();
