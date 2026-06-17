@@ -529,7 +529,39 @@ Delete Announcement
 `).join("");
 
 }
+window.viewStudent = function(id){
 
+const s = students.find(st => st.id === id);
+
+if(!s) return;
+
+alert(
+
+`Name: ${s.name || "-"}
+
+Email: ${s.email || "-"}
+
+College: ${s.college || "-"}
+
+Course: ${s.course || "-"}
+
+Internship: ${s.selectedProgram || "-"}
+
+Payment: ${s.paymentStatus || "-"}
+
+Transaction ID: ${s.transactionId || "-"}
+
+Progress: ${s.progress || 0}%
+
+Offer ID: ${s.offerLetterId || "-"}
+
+Certificate ID: ${s.certificateId || "-"}
+
+Completion ID: ${s.completionLetterId || "-"}`
+
+);
+
+};
 function makeId(prefix){
   const n = Math.floor(1000 + Math.random() * 9000);
   return `${prefix}-2026-${n}`;
