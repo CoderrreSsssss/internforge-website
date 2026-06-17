@@ -294,7 +294,7 @@ margin-top:15px;
 ">
 🎓 Certificates are issued after project completion.
 </div>
-
+<div id="announcementListAdmin" style="margin-top:20px;"></div>
 </div>
 
 </div>
@@ -663,7 +663,23 @@ document.getElementById("announcementMessage").value="";
 toast("Announcement Posted");
 
 });
+window.deleteAnnouncement = async function(id){
 
+const ok = confirm(
+"Delete this announcement?"
+);
+
+if(!ok) return;
+
+await deleteDoc(
+doc(db,"announcements",id)
+);
+
+toast("Announcement deleted.");
+
+await loadAll();
+
+};
 document.getElementById("logoutBtn").addEventListener("click", async()=>{
   await signOut(auth);
   window.location.href="login.html";
