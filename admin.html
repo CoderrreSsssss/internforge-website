@@ -459,6 +459,7 @@ function renderProjects(){
         <p><b>Status:</b> ${p.status || "Pending Review"}</p>
         <p><a href="${p.projectLink || "#"}" target="_blank">Open Project</a></p>
         <button class="btn green" onclick="approveProject('${p.studentId}')">Approve Project</button>
+        <button class="btn red" onclick="rejectProject('${p.id}')">Reject Project</button>
       </div>
     `;
   }).join("");
@@ -517,6 +518,17 @@ completionLetterId:makeId("CL")
 });
 
 toast("Project approved. Certificate and completion letter generated.");
+
+await loadAll();
+
+};
+window.rejectProject = async function(projectId){
+
+await updateDoc(doc(db,"projects",projectId),{
+status:"Rejected"
+});
+
+toast("Project rejected.");
 
 await loadAll();
 
