@@ -409,6 +409,9 @@ function renderStudents(list){
       <div class="info-row"><span>Payment</span><b>${s.paymentStatus || "Not Paid"}</b></div>
       <div class="info-row"><span>Offer Letter</span><b>${s.offerLetterStatus || "Pending"}</b></div>
       <div class="info-row"><span>Certificate</span><b>${s.certificateStatus || "Not Issued"}</b></div>
+      <button class="btn" onclick="viewStudent('${s.id}')">
+View Full Details
+</button>
     </div>
   `).join("");
 }
