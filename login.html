@@ -1,200 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Log In – InternForge</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --blue: #2563eb; --blue-dark: #1d4ed8; --blue-light: #eff6ff; --blue-mid: #dbeafe;
-      --text: #0f172a; --text-2: #475569; --text-3: #94a3b8;
-      --border: #e2e8f0; --white: #ffffff; --red: #dc2626; --green: #16a34a;
-      --radius: 12px; --shadow: 0 4px 24px rgba(37,99,235,0.10);
-    }
-    body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #eff6ff 0%, #ffffff 50%, #eff6ff 100%); min-height: 100vh; display: flex; flex-direction: column; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | InternForge</title>
 
-    nav { background: white; border-bottom: 1px solid var(--border); padding: 0 5%; height: 60px; display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { font-size: 1.15rem; font-weight: 800; color: var(--blue); text-decoration: none; }
-    nav a.back { font-size: 0.85rem; color: var(--text-2); text-decoration: none; }
-    nav a.back:hover { color: var(--blue); }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    .auth-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 16px; }
-    .auth-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 48px 40px; width: 100%; max-width: 440px; box-shadow: var(--shadow); }
-    .auth-head { text-align: center; margin-bottom: 32px; }
-    .auth-head h1 { font-size: 1.8rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
-    .auth-head p { font-size: 0.9rem; color: var(--text-2); }
-
-    .form-group { margin-bottom: 18px; }
-    label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-    input {
-      width: 100%; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 9px;
-      font-family: inherit; font-size: 0.92rem; color: var(--text); background: white;
-      outline: none; transition: border-color 0.2s;
-    }
-    input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-mid); }
-
-    .label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    .label-row a { font-size: 0.8rem; color: var(--blue); text-decoration: none; font-weight: 500; }
-
-    .btn-submit {
-      width: 100%; padding: 13px; background: var(--blue); color: white; border: none;
-      border-radius: 9px; font-size: 1rem; font-weight: 700; cursor: pointer;
-      margin-top: 8px; transition: background 0.2s;
-    }
-    .btn-submit:hover { background: var(--blue-dark); }
-    .btn-submit:disabled { background: var(--text-3); cursor: not-allowed; }
-
-    .msg { padding: 12px 14px; border-radius: 9px; font-size: 0.88rem; font-weight: 500; margin-bottom: 16px; display: none; }
-    .msg.error { background: #fef2f2; color: var(--red); border: 1px solid #fecaca; display: block; }
-    .msg.success { background: #f0fdf4; color: var(--green); border: 1px solid #bbf7d0; display: block; }
-    .msg.info { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-mid); display: block; }
-
-    .auth-footer { text-align: center; margin-top: 24px; font-size: 0.87rem; color: var(--text-2); }
-    .auth-footer a { color: var(--blue); font-weight: 600; text-decoration: none; }
-
-    .admin-link { text-align: center; margin-top: 16px; }
-    .admin-link a { font-size: 0.8rem; color: var(--text-3); text-decoration: none; }
-    .admin-link a:hover { color: var(--blue); }
-
-    @media (max-width: 500px) { .auth-card { padding: 30px 20px; } }
-  </style>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif}
+body{min-height:100vh;background:linear-gradient(135deg,#eef4ff,#ffffff);display:flex;align-items:center;justify-content:center;padding:30px;color:#111827}
+.auth-box{width:100%;max-width:980px;background:white;border-radius:28px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;box-shadow:0 25px 70px rgba(0,86,210,.15);border:1px solid #e5e7eb}
+.left{background:linear-gradient(135deg,#0056d2,#0f172a);color:white;padding:50px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:45px}
+.brand img{height:48px;background:white;border-radius:12px;padding:5px}
+.brand h2{font-size:28px}
+.left h1{font-size:42px;line-height:1.1;margin-bottom:18px}
+.left p{color:#dbeafe;line-height:1.7;margin-bottom:28px}
+.point{background:rgba(255,255,255,.12);padding:15px;border-radius:14px;margin:13px 0;font-weight:800}
+.right{padding:50px}
+.right h2{font-size:34px;margin-bottom:8px}
+.sub{color:#6b7280;margin-bottom:25px}
+input{width:100%;padding:15px;border:1px solid #cbd5e1;border-radius:13px;margin:10px 0;font-size:15px}
+.password-wrap{position:relative}
+.password-wrap input{padding-right:48px}
+.eye{position:absolute;right:16px;top:50%;transform:translateY(-50%);cursor:pointer;color:#64748b}
+button{width:100%;background:#0056d2;color:white;border:none;padding:15px;border-radius:13px;font-weight:900;font-size:16px;cursor:pointer;margin-top:12px}
+button:hover{background:#0046ad}
+.links{text-align:center;margin-top:20px;color:#64748b}
+.links a{color:#0056d2;font-weight:900;text-decoration:none}
+.toast{position:fixed;right:20px;bottom:20px;background:#111827;color:white;padding:14px 18px;border-radius:12px;display:none}
+@media(max-width:850px){.auth-box{grid-template-columns:1fr}.left{padding:35px}.right{padding:35px}.left h1{font-size:34px}}
+</style>
 </head>
+
 <body>
 
-<nav>
-  <a href="index.html" class="nav-logo">⚡ InternForge</a>
-  <a href="signup.html" class="back">New here? Sign up →</a>
-</nav>
+<div class="auth-box">
 
-<div class="auth-wrapper">
-  <div class="auth-card">
-    <div class="auth-head">
-      <h1>Welcome Back 👋</h1>
-      <p>Log in to access your student dashboard</p>
-    </div>
-
-    <div id="errorMsg" class="msg"></div>
-    <div id="successMsg" class="msg"></div>
-
-    <div class="form-group">
-      <label for="email">Email Address</label>
-      <input type="email" id="email" placeholder="rahul@gmail.com" required/>
-    </div>
-
-    <div class="form-group">
-      <div class="label-row">
-        <label for="password">Password</label>
-        <a href="#" id="forgotLink">Forgot password?</a>
-      </div>
-      <input type="password" id="password" placeholder="Enter your password" required/>
-    </div>
-
-    <button class="btn-submit" id="loginBtn" onclick="handleLogin()">Log In →</button>
-
-    <div class="auth-footer">
-      Don't have an account? <a href="signup.html">Sign up for free</a>
-    </div>
-
-    <div class="admin-link">
-      <a href="admin.html">Admin Panel →</a>
-    </div>
-  </div>
+<div class="left">
+<div class="brand">
+<img src="logo.png" onerror="this.style.display='none'">
+<h2>InternForge</h2>
 </div>
 
-<!-- Firebase -->
+<h1>Welcome back to InternForge.</h1>
+<p>Login to access your internship dashboard, track applications, projects, documents and certificates.</p>
+
+<div class="point">✅ Secure student login</div>
+<div class="point">✅ Internship dashboard access</div>
+<div class="point">✅ Track projects & certificates</div>
+<div class="point">✅ Verified document management</div>
+</div>
+
+<div class="right">
+<h2>Login</h2>
+<p class="sub">Enter your credentials to continue.</p>
+
+<input type="email" id="email" placeholder="Email Address">
+
+<div class="password-wrap">
+<input type="password" id="password" placeholder="Password">
+<i class="fa-solid fa-eye eye" id="togglePassword"></i>
+</div>
+
+<button id="loginBtn">Login</button>
+
+<div class="links">
+<a href="forgot-password.html">Forgot Password?</a>
+<br><br>
+Don't have an account?
+<a href="signup.html">Create Account</a>
+</div>
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script type="module">
-  import { auth } from './firebase-config.js';
-  import {
-    signInWithEmailAndPassword,
-    sendPasswordResetEmail,
-    onAuthStateChanged
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { auth } from "./firebase-config.js";
 
-  // Redirect if already logged in
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      if (user.email === 'dhruvkhuranaa2006@gmail.com') {
-        window.location.href = 'admin.html';
-      } else {
-        window.location.href = 'dashboard.html';
-      }
-    }
-  });
+import {
+signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  window.handleLogin = async function () {
-    const btn = document.getElementById('loginBtn');
-    const errorMsg = document.getElementById('errorMsg');
-    const successMsg = document.getElementById('successMsg');
+function toast(msg){
+const t=document.getElementById("toast");
+t.innerText=msg;
+t.style.display="block";
+setTimeout(()=>t.style.display="none",3000);
+}
 
-    errorMsg.className = 'msg';
-    successMsg.className = 'msg';
+document.getElementById("togglePassword").addEventListener("click",()=>{
+const pass=document.getElementById("password");
+const icon=document.getElementById("togglePassword");
 
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
+if(pass.type==="password"){
+pass.type="text";
+icon.className="fa-solid fa-eye-slash eye";
+}else{
+pass.type="password";
+icon.className="fa-solid fa-eye eye";
+}
+});
 
-    if (!email || !password) {
-      errorMsg.textContent = 'Please enter your email and password.';
-      errorMsg.className = 'msg error';
-      return;
-    }
+document.getElementById("loginBtn").addEventListener("click",async()=>{
 
-    btn.disabled = true;
-    btn.textContent = 'Logging in...';
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value.trim();
 
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+if(!email || !password){
+toast("Please enter email and password.");
+return;
+}
 
-      successMsg.textContent = '✅ Login successful! Redirecting...';
-      successMsg.className = 'msg success';
+try{
 
-      setTimeout(() => {
-        if (user.email === 'dhruvkhuranaa2006@gmail.com') {
-          window.location.href = 'admin.html';
-        } else {
-          window.location.href = 'dashboard.html';
-        }
-      }, 800);
+await signInWithEmailAndPassword(auth,email,password);
 
-    } catch (err) {
-      let msg = 'Login failed. Please try again.';
-      if (err.code === 'auth/user-not-found') msg = 'No account found with this email.';
-      if (err.code === 'auth/wrong-password') msg = 'Incorrect password. Please try again.';
-      if (err.code === 'auth/invalid-email') msg = 'Please enter a valid email address.';
-      if (err.code === 'auth/too-many-requests') msg = 'Too many failed attempts. Please try later.';
-      if (err.code === 'auth/invalid-credential') msg = 'Invalid email or password.';
-      errorMsg.textContent = msg;
-      errorMsg.className = 'msg error';
-      btn.disabled = false;
-      btn.textContent = 'Log In →';
-    }
-  };
+toast("Login successful.");
 
-  // Forgot password
-  document.getElementById('forgotLink').addEventListener('click', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value.trim();
-    const errorMsg = document.getElementById('errorMsg');
-    const successMsg = document.getElementById('successMsg');
-    errorMsg.className = 'msg';
-    successMsg.className = 'msg';
+setTimeout(()=>{
+window.location.href="dashboard.html";
+},800);
 
-    if (!email) {
-      errorMsg.textContent = 'Enter your email address above first.';
-      errorMsg.className = 'msg error';
-      return;
-    }
-    try {
-      await sendPasswordResetEmail(auth, email);
-      successMsg.textContent = '✅ Password reset email sent. Check your inbox.';
-      successMsg.className = 'msg success';
-    } catch (err) {
-      errorMsg.textContent = 'Failed to send reset email. Check your address.';
-      errorMsg.className = 'msg error';
-    }
-  });
+}catch(error){
+toast(error.message);
+}
+
+});
 </script>
 
 </body>
