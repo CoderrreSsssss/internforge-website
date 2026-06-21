@@ -1024,6 +1024,34 @@ border-radius:14px;
 margin-top:14px;
 color:#374151;
 }
+.hero-actions{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+margin-top:22px;
+}
+
+.hero-actions .primary-btn,
+.hero-actions .secondary-btn{
+min-width:170px;
+height:46px;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+transition:.25s;
+}
+
+.hero-actions .primary-btn:hover,
+.hero-actions .secondary-btn:hover{
+box-shadow:0 10px 25px rgba(0,86,210,.25);
+transform:translateY(-2px);
+}
+
+.hero-actions .primary-btn:active,
+.hero-actions .secondary-btn:active{
+transform:scale(.96);
+}
 </style>
 
 
