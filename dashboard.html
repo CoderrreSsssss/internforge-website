@@ -256,32 +256,6 @@ padding:18px;
 font-size:28px;
 }
 }
-  .status-grid-pro{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:16px;
-margin-top:15px;
-}
-
-.status-item-pro{
-background:#f8fafc;
-border:1px solid #e5e7eb;
-border-radius:18px;
-padding:18px;
-}
-
-.status-item-pro span{
-display:block;
-font-size:13px;
-font-weight:800;
-color:#64748b;
-margin-bottom:8px;
-}
-
-.status-item-pro b{
-font-size:18px;
-color:#111827;
-}
 </style>
 </head>
 
@@ -336,7 +310,25 @@ color:#111827;
 <span>AI Assistant</span>
 </div>
 
-  
+  <div class="nav-link" onclick="window.location.href='verify.html'">
+<i class="fa-solid fa-shield-halved"></i>
+<span>Verify Documents</span>
+  </div>
+
+<div class="nav-link" onclick="showSection('profileSection',this)">
+<i class="fa-solid fa-user"></i>
+<span>Profile</span>
+</div>
+
+<div class="nav-link" id="logoutBtn">
+<i class="fa-solid fa-right-from-bracket"></i>
+<span>Logout</span>
+</div>
+
+</div>
+
+<div class="main">
+
 <div id="homeSection" class="section active">
 <div class="hero">
 <h1>Welcome, <span id="studentName">Student</span> 👋</h1>
@@ -381,33 +373,9 @@ color:#111827;
 
 </div>
 
-<div class="card status-card-pro" style="margin-top:24px;">
-<h2 class="card-title">Application Overview</h2>
+<div class="card" style="margin-top:24px;">
+<h2 class="card-title">Current Application Status</h2>
 
-<div class="status-grid-pro">
-
-<div class="status-item-pro">
-<span>Selected Internship</span>
-<b id="statusProgram">Not Selected</b>
-</div>
-
-<div class="status-item-pro">
-<span>Application</span>
-<b id="statusApplication">Not Applied</b>
-</div>
-
-<div class="status-item-pro">
-<span>Payment</span>
-<b id="statusPayment">Not Paid</b>
-</div>
-
-<div class="status-item-pro">
-<span>Next Step</span>
-<b id="statusNextStep">Apply for an internship</b>
-</div>
-
-</div>
-</div>
 <div class="info-row">
 <span>Selected Internship</span>
 <b id="statusProgram">Not Selected</b>
@@ -869,21 +837,6 @@ AI response will appear here...
 <div class="toast" id="toast"></div>
 
 <style>
-  #internshipSection{
-width:100%;
-}
-
-#internshipSection > div:nth-child(2){
-display:grid !important;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr)) !important;
-gap:22px !important;
-width:100% !important;
-}
-
-#internshipSection .intern-card{
-width:100% !important;
-max-width:none !important;
-}
 .intern-card{
 background:white;
 border:1px solid #e5e7eb;
@@ -1320,10 +1273,11 @@ return;
 
 }
 
-badge.innerText="Available";
-btn.innerText="Apply Now ";
-btn.disabled=false;
-btn.style.opacity="1";
+badge.innerText="Locked";
+btn.innerText="Locked";
+btn.disabled=true;
+btn.style.opacity=".55";
+
 });
 
 }
@@ -1641,7 +1595,3 @@ startOfferTimer();
 
 </body>
 </html>
-
-
-
-
