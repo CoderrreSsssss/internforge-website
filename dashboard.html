@@ -1,1837 +1,563 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>InternForge | Student Dashboard</title>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,Arial,sans-serif;
-}
-
-body{
-background:#f5f7fb;
-color:#111827;
-display:flex;
-min-height:100vh;
-}
-
-.sidebar{
-width:270px;
-background:#ffffff;
-border-right:1px solid #e5e7eb;
-padding:24px;
-position:fixed;
-height:100vh;
-overflow:auto;
-}
-
-.logo{
-display:flex;
-align-items:center;
-gap:12px;
-margin-bottom:35px;
-}
-
-.logo img{
-height:48px;
-width:48px;
-border-radius:12px;
-}
-
-.logo h2{
-font-size:24px;
-font-weight:900;
-color:#0056d2;
-}
-
-.logo span{
-display:block;
-font-size:12px;
-color:#64748b;
-font-weight:700;
-}
-
-.menu-title{
-font-size:11px;
-font-weight:800;
-letter-spacing:1px;
-color:#9ca3af;
-text-transform:uppercase;
-margin:22px 0 12px;
-}
-
-.nav-link{
-display:flex;
-align-items:center;
-gap:12px;
-padding:14px 16px;
-border-radius:14px;
-cursor:pointer;
-font-weight:700;
-color:#374151;
-transition:.25s;
-margin-bottom:6px;
-}
-
-.nav-link:hover{
-background:#eef4ff;
-color:#0056d2;
-}
-
-.nav-link.active{
-background:#0056d2;
-color:white;
-}
-
-.nav-link i{
-width:20px;
-text-align:center;
-}
-
-.main{
-margin-left:270px;
-width:calc(100% - 270px);
-padding:30px;
-}
-
-.hero{
-background:linear-gradient(135deg,#0056d2,#3b82f6);
-color:white;
-padding:34px;
-border-radius:28px;
-position:relative;
-overflow:hidden;
-}
-
-.hero::after{
-content:'';
-position:absolute;
-right:-80px;
-top:-80px;
-width:240px;
-height:240px;
-border-radius:50%;
-background:rgba(255,255,255,.08);
-}
-
-.hero h1{
-font-size:38px;
-margin-bottom:8px;
-}
-
-.hero p{
-font-size:16px;
-color:#dbeafe;
-max-width:650px;
-}
-
-.profile-box{
-background:white;
-border-radius:24px;
-padding:26px;
-margin-top:22px;
-box-shadow:0 10px 30px rgba(0,0,0,.05);
-border:1px solid #e5e7eb;
-}
-
-.profile-top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:18px;
-}
-
-.profile-top h3{
-font-size:20px;
-font-weight:800;
-}
-
-.progress-bar{
-height:14px;
-background:#e5e7eb;
-border-radius:999px;
-overflow:hidden;
-}
-
-.progress-fill{
-height:100%;
-background:linear-gradient(90deg,#0056d2,#3b82f6);
-border-radius:999px;
-}
-
-
-
-.stats{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:18px;
-margin-top:24px;
-}
-
-.stat-card{
-background:white;
-padding:22px;
-border-radius:22px;
-border:1px solid #e5e7eb;
-box-shadow:0 8px 20px rgba(0,0,0,.04);
-}
-
-.stat-card span{
-font-size:13px;
-color:#6b7280;
-font-weight:700;
-}
-
-.stat-card h2{
-margin-top:8px;
-font-size:28px;
-}
-
-.section{
-display:none;
-margin-top:25px;
-}
-
-.section.active{
-display:block;
-}
-
-.card{
-background:white;
-border:1px solid #e5e7eb;
-border-radius:24px;
-padding:24px;
-box-shadow:0 8px 20px rgba(0,0,0,.04);
-margin-bottom:20px;
-}
-
-.card-title{
-font-size:24px;
-margin-bottom:10px;
-}
-
-.card-text{
-color:#6b7280;
-line-height:1.7;
-}
-
-.toast{
-position:fixed;
-right:20px;
-bottom:20px;
-background:#111827;
-color:white;
-padding:14px 18px;
-border-radius:12px;
-display:none;
-z-index:999;
-}
-
-@media(max-width:900px){
-.sidebar{
-width:80px;
-padding:16px 10px;
-}
-
-.logo h2,
-.logo span,
-.menu-title,
-.nav-link span{
-display:none;
-}
-
-.main{
-margin-left:80px;
-width:calc(100% - 80px);
-padding:18px;
-}
-
-.hero h1{
-font-size:28px;
-}
-}
-</style>
-</head>
-
-<body>
-
-<div class="sidebar">
-
-<div class="logo">
-<img src="logo.png" onerror="this.style.display='none'">
-<div>
-<h2>InternForge</h2>
-<span>India's Student Internship Platform</span>
-</div>
-</div>
-
-<div class="menu-title">Workspace</div>
-
-<div class="nav-link active" onclick="showSection('homeSection',this)">
-<i class="fa-solid fa-table-columns"></i>
-<span>Dashboard</span>
-</div>
-
-<div class="nav-link" onclick="showSection('internshipSection',this)">
-<i class="fa-solid fa-briefcase"></i>
-<span>Internships</span>
-</div>
-
-<div class="nav-link" onclick="showSection('documentsSection',this)">
-<i class="fa-solid fa-folder-open"></i>
-<span>Documents</span>
-</div>
-
-<div class="nav-link" onclick="showSection('projectSection',this)">
-<i class="fa-solid fa-code"></i>
-<span>Projects</span>
-</div>
-
-<div class="nav-link" onclick="showSection('certificateSection',this)">
-<i class="fa-solid fa-award"></i>
-<span>Certificate</span>
-</div>
-
-<div class="menu-title">Support</div>
-
-<div class="nav-link" onclick="showSection('announcementSection',this)">
-<i class="fa-solid fa-bell"></i>
-<span>Announcements</span>
-</div>
-
-<div class="nav-link" onclick="showSection('aiSection',this)">
-<i class="fa-solid fa-robot"></i>
-<span>AI Assistant</span>
-</div>
-
-  <div class="nav-link" onclick="window.location.href='verify.html'">
-<i class="fa-solid fa-shield-halved"></i>
-<span>Verify Documents</span>
-  </div>
-
-<div class="nav-link" onclick="showSection('profileSection',this)">
-<i class="fa-solid fa-user"></i>
-<span>Profile</span>
-</div>
-
-<div class="nav-link" id="logoutBtn">
-<i class="fa-solid fa-right-from-bracket"></i>
-<span>Logout</span>
-</div>
-
-</div>
-
-<div class="main">
-
-<div id="homeSection" class="section active">
-<div class="hero">
-<h1>Welcome, <span id="studentName">Student</span> 👋</h1>
-<p>Manage your internship application, documents, project submission and certificate from one professional workspace.</p>
-
-<div class="hero-actions">
-<a href="offer-letter.html" class="primary-btn">View Offer Letter</a>
-<a href="#projectSection" onclick="showSection('projectSection',document.querySelectorAll('.nav-link')[3])" class="secondary-btn">Submit Project</a>
-</div>
-</div>
-<div class="profile-box">
-<div class="profile-top">
-<h3>Profile Completion</h3>
-<div class="profile-percent">60% Complete</div>
-</div>
-<div class="progress-bar">
-<div class="progress-fill"></div>
-</div>
-</div>
-
-<div class="stats">
-<div class="stat-card">
-<span>Internship Status</span>
-<h2 id="internshipStatusCard" class="status-warning">
-</div>
-
-<div class="stat-card">
-<span>Offer Letter</span>
-<h2 id="offerStatusCard" class="status-warning">
-</div>
-
-<div class="stat-card">
-<span>Progress</span>
-<h2 id="progressCard" class="status-success">
-</div>
-
-<div class="stat-card">
-<span>Certificate</span>
-<h2 id="certificateCard" class="status-warning">
-</div>
-</div>
-
-</div>
-
-<div class="card" style="margin-top:24px;">
-<h2 class="card-title">Current Application Status</h2>
-
-<div class="info-row">
-<span>Selected Internship</span>
-<b id="statusProgram">Not Selected</b>
-</div>
-
-<div class="info-row">
-<span>Application Status</span>
-<b id="statusApplication">Not Applied</b>
-</div>
-  <div class="info-row">
-<span>Payment History</span>
-<b id="statusPayment">No Payment Yet</b>
-  </div>
-
- 
-
-
-</div>
-<div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
-
-<div style="background:#ecfdf5;padding:12px 18px;border-radius:12px;font-weight:700;">
-📄 Offer Letter
-</div>
-
-<div style="background:#eff6ff;padding:12px 18px;border-radius:12px;font-weight:700;">
-💳 Payment Status
-</div>
-
-<div style="background:#fef3c7;padding:12px 18px;border-radius:12px;font-weight:700;">
-📈 Progress
-</div>
-
-<div style="background:#f3e8ff;padding:12px 18px;border-radius:12px;font-weight:700;">
-🏆 Certificate
-</div>
-
-</div>
-
-<!-- INTERNSHIP SECTION -->
-
-<!-- INTERNSHIP SECTION -->
-
-<div id="internshipSection" class="section">
-
-<div class="card">
-<h2 class="card-title">Available Internship Programs</h2>
-<p class="card-text">
-Choose one internship program to begin your journey.
-</p>
-</div>
-
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;">
-
-<!-- AI -->
-
-<div class="intern-card">
-<div class="intern-img ai-img">
-<span id="aiBadge">🔒 Locked</span>
-</div>
-
-<div class="intern-body">
-<h3>AI & Prompt Engineering</h3>
-<p>4-week online internship with project, offer letter and certificate.</p>
-
-<div class="tags">
-<b>4 Weeks</b>
-<b>Offer Letter</b>
-<b>Certificate</b>
-</div>
-
-<button
-id="aiBtn"
-class="primary-btn unlockBtn"
-data-program="AI & Prompt Engineering">
-🔒 Locked
-</button>
-
-</div>
-</div>
-
-<!-- WEB -->
-
-<div class="intern-card">
-<div class="intern-img web-img">
-<span id="webBadge">🔒 Locked</span>
-</div>
-
-<div class="intern-body">
-<h3>Web Development</h3>
-<p>Build a portfolio project and submit it for internship completion.</p>
-
-<div class="tags">
-<b>4 Weeks</b>
-<b>Project</b>
-<b>Certificate</b>
-</div>
-
-<button
-id="webBtn"
-class="primary-btn unlockBtn"
-data-program="Web Development">
-🔒 Locked
-</button>
-
-</div>
-</div>
-
-<!-- PYTHON -->
-
-<div class="intern-card">
-<div class="intern-img py-img">
-<span id="pythonBadge">🔒 Locked</span>
-</div>
-
-<div class="intern-body">
-<h3>Python Programming</h3>
-<p>Beginner-friendly Python internship with mini project submission.</p>
-
-<div class="tags">
-<b>4 Weeks</b>
-<b>Beginner</b>
-<b>Certificate</b>
-</div>
-
-<button
-id="pythonBtn"
-class="primary-btn unlockBtn"
-data-program="Python Programming">
-🔒 Locked
-</button>
-
-</div>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- DOCUMENTS SECTION -->
-
-<div id="documentsSection" class="section">
-
-<div class="card">
-<h2 class="card-title">Internship Documents</h2>
-<p class="card-text">
-Your official internship documents will appear here after admin approval.
-</p>
-</div>
-
-<div class="doc-grid">
-
-<div class="doc-card">
-<i class="fa-solid fa-file-lines"></i>
-<h3>Offer Letter</h3>
-<p>Status: <b id="offerLetterStatus">Pending</b></p>
-<p>ID: <b id="offerLetterId">Not Generated</b></p>
-<a href="offer-letter.html" class="secondary-btn">View Offer Letter</a>
-</div>
-
-<div class="doc-card">
-<i class="fa-solid fa-award"></i>
-<h3>Internship Certificate</h3>
-<p>Status: <b id="docCertificateStatus">Not Issued</b></p>
-<p>ID: <b id="docCertificateId">Not Generated</b></p>
-<a href="certificate.html" class="secondary-btn">View Certificate</a>
-</div>
-
-<div class="doc-card">
-<i class="fa-solid fa-file-circle-check"></i>
-<h3>Completion Letter</h3>
-<p>Status: <b id="completionLetterStatus">Pending</b></p>
-<p>Issued after final project review.</p>
-<a href="completion-letter.html" class="secondary-btn">View Completion Letter</a>
-</div>
-
-</div>
-<div style="margin-top:20px;text-align:center;">
-<a href="verify.html" class="primary-btn">
-🔍 Verify Any Document
-</a>
-</div>
-</div>
-
-<!-- PAYMENT SECTION -->
-
-<div id="paymentSection" class="section">
-
-<div class="card">
-<h2 class="card-title">Complete Enrollment</h2>
-<div class="pricing-box">
-
-<div class="price-row">
-<span class="old-price">₹249</span>
-<span class="new-price">₹1</span>
-</div>
-
-<div class="offer-badge">
-🔥 Launch Offer Active
-</div>
-
-<p class="offer-text">
-Complete your internship enrollment at ₹1 during the limited launch period.
-</p>
-
-<div class="timer-box">
-⏳ Offer ends in: <b id="offerTimer">Loading...</b>
-</div>
-
-</div
-<p class="card-text">
-Selected Internship:
-<b id="selectedProgramText">Not Selected</b>
-</p>
-
-<div class="payment-box">
-<h3>Scan QR to Complete Enrollment</h3>
-<p>UPI ID is hidden for a clean payment experience.</p>
-
-<img src="qr.png"
-onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=230x230&data=upi://pay?pa=9996265411@mbk%26pn=InternForge%26am=1%26cu=INR%26tn=InternForge%20Internship%20Unlock'">
-
-<input id="transactionId" placeholder="Enter UPI Transaction ID">
-
-<button id="submitPaymentBtn" class="primary-btn">
-Submit Payment Proof
-</button>
-</div>
-
-</div>
-
-</div>
-
-<!-- PROJECT SECTION -->
-
-
-<!-- PROJECT SECTION -->
-
-<div id="projectSection" class="section">
-
-<div class="card">
-<h2 class="card-title">Internship Project Submission</h2>
-<p class="card-text">
-Submit your final internship project for admin review. Add a GitHub, Google Drive, or live project link.
-</p>
-</div>
-
-<div class="card">
-
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:20px;">
-
-<div style="background:#eef4ff;padding:18px;border-radius:16px;">
-<b>Project Status</b>
-<p style="margin-top:8px;color:#0056d2;font-weight:900;">Pending Submission</p>
-</div>
-
-<div style="background:#ecfdf5;padding:18px;border-radius:16px;">
-<b>Review Type</b>
-<p style="margin-top:8px;color:#166534;font-weight:900;">Admin Review</p>
-</div>
-
-<div style="background:#fff7ed;padding:18px;border-radius:16px;">
-<b>Certificate Eligibility</b>
-<p style="margin-top:8px;color:#92400e;font-weight:900;">After Approval</p>
-</div>
-
-</div>
-
-<h3 style="margin-bottom:10px;">Submit Your Project</h3>
-
-<input class="input-field" id="projectTitle" placeholder="Project Title">
-
-<input class="input-field" id="projectLink" placeholder="GitHub / Google Drive / Live Project Link">
-
-<textarea
-id="projectDescription"
-placeholder="Write a short description of your project..."
-style="
-width:100%;
-height:120px;
-padding:14px;
-border:1px solid #cbd5e1;
-border-radius:12px;
-margin-top:14px;
-font-size:15px;
-resize:none;
-"></textarea>
-
-<button id="submitProjectBtn" class="primary-btn" style="margin-top:15px;">
-Submit Project for Review
-</button>
-
-</div>
-
-<div class="card">
-<h3>Project Submission Guidelines</h3>
-
-<div class="notice">✅ Project link must be accessible publicly.</div>
-<div class="notice">✅ Add README file if submitting GitHub link.</div>
-<div class="notice">✅ Mention tools, features and screenshots in your project.</div>
-<div class="notice">✅ Certificate will be issued only after admin approval.</div>
-
-</div>
-
-</div>
-
-<!-- CERTIFICATE SECTION -->
-
-<div id="certificateSection" class="section">
-
-<div class="card">
-<h2 class="card-title">Certificate Status</h2>
-
-<div class="info-row">
-<span>Status</span>
-<b id="certificateStatusPage">Not Issued</b>
-</div>
-
-<div class="info-row">
-<span>Certificate ID</span>
-<b id="certificateIdPage">Not Generated</b>
-</div>
-
-<a href="verify.html" class="primary-btn" style="margin-top:18px;">
-Verify Certificate
-</a>
-</div>
-
-</div>
-
-
-
-<!-- ANNOUNCEMENT SECTION -->
-
-<div id="announcementSection" class="section">
-
-<div class="card">
-
-<h2 class="card-title">
-Latest Announcements
-</h2>
-
-<div id="announcementList">
-Loading announcements...
-</div>
-
-</div>
-
-</div>
-
-<!-- AI ASSISTANT SECTION -->
-<!-- AI ASSISTANT SECTION -->
-
-<div id="aiSection" class="section">
-
-<div class="card">
-
-<h2 class="card-title">AI Internship Assistant</h2>
-<p class="card-text">
-Use quick tools for resume help, project ideas, interview preparation and career guidance.
-</p>
-
-<div style="display:grid;gap:15px;">
-
-<button class="primary-btn" id="resumeReviewBtn">
-📄 Resume Review
-</button>
-
-<button class="primary-btn" id="projectIdeaBtn">
-💡 Project Ideas
-</button>
-
-<button class="primary-btn" id="interviewBtn">
-🎤 Interview Questions
-</button>
-
-<button class="primary-btn" id="careerBtn">
-🚀 Career Guidance
-</button>
-
-<textarea
-id="aiQuestion"
-placeholder="Ask anything..."
-style="
-width:100%;
-height:120px;
-padding:12px;
-border-radius:12px;
-border:1px solid #ddd;
-resize:none;
-"></textarea>
-
-<button class="primary-btn" id="askAiBtn">
-🤖 Ask AI
-</button>
-
-<div id="aiResponse"
-style="
-margin-top:15px;
-padding:15px;
-background:#f8fafc;
-border-radius:12px;
-line-height:1.6;
-">
-AI response will appear here...
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- PROFILE SECTION -->
-
-<!-- PROFILE SECTION -->
-
-<div id="profileSection" class="section">
-
-<div class="card">
-<h2 class="card-title">Student Profile</h2>
-
-<div class="info-row">
-<span>Name</span>
-<b id="profileName">Loading...</b>
-</div>
-
-<div class="info-row">
-<span>Email</span>
-<b id="profileEmail">Loading...</b>
-</div>
-
-<div class="info-row">
-<span>College</span>
-<b id="profileCollege">Loading...</b>
-</div>
-
-<div class="info-row">
-<span>Course</span>
-<b id="profileCourse">Loading...</b>
-</div>
-
-<div class="info-row">
-<span>LinkedIn</span>
-<b>Not Added</b>
-</div>
-
-<div class="info-row">
-<span>GitHub</span>
-<b>Not Added</b>
-</div>
-
-</div>
-
-</div>
-
-<div class="toast" id="toast"></div>
-
-<style>
-.intern-card{
-background:white;
-border:1px solid #e5e7eb;
-border-radius:24px;
-overflow:hidden;
-box-shadow:0 8px 20px rgba(0,0,0,.04);
-transition:.25s;
-}
-
-.intern-card:hover{
-transform:translateY(-5px);
-box-shadow:0 14px 34px rgba(0,0,0,.08);
-}
-
-.intern-img{
-height:155px;
-position:relative;
-background-size:cover;
-background-position:center;
-}
-
-.ai-img{
-background:linear-gradient(rgba(0,86,210,.72),rgba(0,0,0,.55)),
-url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80');
-background-size:cover;
-background-position:center;
-}
-
-.web-img{
-background:linear-gradient(rgba(0,86,210,.72),rgba(0,0,0,.55)),
-url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=900&q=80');
-background-size:cover;
-background-position:center;
-}
-
-.py-img{
-background:linear-gradient(rgba(0,86,210,.72),rgba(0,0,0,.55)),
-url('https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=900&q=80');
-background-size:cover;
-background-position:center;
-}
-
-.intern-img span{
-position:absolute;
-top:14px;
-right:14px;
-background:white;
-color:#111827;
-padding:7px 12px;
-border-radius:999px;
-font-size:12px;
-font-weight:900;
-}
-
-.intern-body{
-padding:22px;
-}
-
-.intern-body h3{
-font-size:21px;
-margin-bottom:10px;
-}
-
-.intern-body p{
-color:#6b7280;
-line-height:1.6;
-margin-bottom:14px;
-}
-
-.tags{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-bottom:15px;
-}
-
-.tags b{
-background:#eef4ff;
-color:#0056d2;
-font-size:12px;
-padding:7px 10px;
-border-radius:999px;
-}
-
-.primary-btn{
-background:#0056d2;
-color:white;
-border:none;
-padding:13px 18px;
-border-radius:12px;
-font-weight:900;
-cursor:pointer;
-text-decoration:none;
-display:inline-block;
-}
-
-.secondary-btn{
-background:#eef4ff;
-color:#0056d2;
-border:none;
-padding:11px 15px;
-border-radius:12px;
-font-weight:800;
-text-decoration:none;
-display:inline-block;
-margin-top:12px;
-margin-right:8px;
-}
-
-.payment-box{
-text-align:center;
-margin-top:20px;
-background:#f8fafc;
-padding:25px;
-border-radius:22px;
-border:1px solid #e5e7eb;
-}
-
-.payment-box img{
-width:220px;
-background:white;
-padding:12px;
-border-radius:18px;
-border:1px solid #e5e7eb;
-margin:18px 0;
-}
-
-.input-field,
-.payment-box input{
-width:100%;
-padding:14px;
-border:1px solid #cbd5e1;
-border-radius:12px;
-margin-top:14px;
-font-size:15px;
-}
-
-.doc-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-
-.doc-card{
-background:white;
-border:1px solid #e5e7eb;
-border-radius:22px;
-padding:24px;
-box-shadow:0 8px 20px rgba(0,0,0,.04);
-}
-
-.doc-card i{
-font-size:32px;
-color:#0056d2;
-margin-bottom:12px;
-}
-
-.doc-card h3{
-margin-bottom:10px;
-}
-
-.doc-card p{
-color:#6b7280;
-margin-top:8px;
-}
-
-.info-row{
-display:flex;
-justify-content:space-between;
-gap:20px;
-padding:16px 0;
-border-bottom:1px solid #e5e7eb;
-}
-
-.info-row span{
-color:#6b7280;
-font-weight:700;
-}
-
-.notice{
-  .profile-box{
-background:white;
-border:1px solid #e5e7eb;
-border-radius:24px;
-padding:24px 28px;
-margin-top:22px;
-box-shadow:0 12px 30px rgba(15,23,42,.06);
-}
-
-.profile-top{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:16px;
-margin-bottom:16px;
-}
-
-.profile-top h3{
-  .profile-percent{
-background:#eef4ff;
-color:#0056d2;
-padding:8px 14px;
-border-radius:999px;
-font-size:13px;
-font-weight:800;
-  }
-font-size:20px;
-font-weight:900;
-color:#0f172a;
-}
-
-.profile-top b{
-background:#eef4ff;
-color:#0056d2;
-padding:7px 13px;
-border-radius:999px;
-font-size:13px;
-}
-
-.progress-bar{
-height:14px;
-background:#e2e8f0;
-border-radius:999px;
-overflow:hidden;
-margin-top:14px;
-}
-
-.progress-fill{
-height:100%;
-width:60%;
-background:linear-gradient(
-90deg,
-#0056d2,
-#3b82f6,
-#60a5fa
-);
-border-radius:999px;
-box-shadow:0 0 15px rgba(59,130,246,.35);
-}
-.stat-card{
-min-height:125px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-background:white;
-padding:24px;
-border-radius:24px;
-border:1px solid #e5e7eb;
-box-shadow:0 12px 30px rgba(15,23,42,.06);
-position:relative;
-overflow:hidden;
-transition:.25s;
-}
-
-.stat-card:hover{
-transform:translateY(-4px);
-box-shadow:0 18px 40px rgba(15,23,42,.10);
-}
-
-.stat-card::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:5px;
-background:linear-gradient(90deg,#0056d2,#60a5fa);
-}
-
-.stat-card span{
-font-size:12px;
-font-weight:900;
-letter-spacing:.5px;
-text-transform:uppercase;
-color:#64748b;
-}
-
-.stat-card h2{
-margin-top:10px;
-font-size:28px;
-font-weight:900;
-color:#0f172a;
-}
-
-.hero-actions .primary-btn,
-.hero-actions .secondary-btn{
-min-width:180px;
-height:48px;
-display:inline-flex;
-align-items:center;
-justify-content:center;
-border-radius:14px;
-font-weight:900;
-transition:.25s;
-}
-
-.hero-actions .primary-btn{
-background:white;
-color:#0f172a;
-}
-
-.hero-actions .secondary-btn{
-background:transparent;
-color:white;
-border:1px solid rgba(255,255,255,.75);
-}
-
-.hero-actions .primary-btn:hover,
-.hero-actions .secondary-btn:hover{
-transform:translateY(-2px);
-box-shadow:0 12px 28px rgba(0,0,0,.18);
-}
-
-  .status-grid-pro{
-display:grid !important;
-grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-gap:16px !important;
-margin-top:16px !important;
-}
-
-.status-item-pro{
-background:white !important;
-border:1px solid #e5e7eb !important;
-border-radius:18px !important;
-padding:18px !important;
-transition:.25s !important;
-position:relative !important;
-overflow:hidden !important;
-}
-
-.status-item-pro:hover{
-transform:translateY(-2px);
-box-shadow:0 10px 25px rgba(0,0,0,.06);
-}
-
-.status-item-pro::before{
-content:"";
-position:absolute;
-left:0;
-top:0;
-width:4px;
-height:100%;
-background:#0056d2;
-}
-
-.status-item-pro span{
-display:block !important;
-font-size:12px !important;
-font-weight:900 !important;
-letter-spacing:.5px !important;
-text-transform:uppercase !important;
-color:#64748b !important;
-margin-bottom:8px !important;
-}
-
-.status-item-pro b{
-font-size:17px !important;
-font-weight:900 !important;
-color:#0f172a !important;
-}
-
-@media(max-width:768px){
-.status-grid-pro{
-grid-template-columns:1fr !important;
-}
-}
-  .stat-card{
-min-height:125px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-background:white;
-padding:24px !important;
-border-radius:24px !important;
-border:1px solid #e5e7eb !important;
-box-shadow:0 12px 30px rgba(15,23,42,.06) !important;
-position:relative;
-overflow:hidden;
-transition:.25s;
-}
-
-.stat-card:hover{
-transform:translateY(-4px);
-box-shadow:0 18px 40px rgba(15,23,42,.10) !important;
-}
-
-.stat-card::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:5px;
-background:linear-gradient(90deg,#0056d2,#60a5fa);
-}
-
-.stat-card span{
-font-size:12px !important;
-font-weight:900 !important;
-letter-spacing:.5px;
-text-transform:uppercase;
-color:#64748b !important;
-}
-
-.stat-card h2{
-margin-top:10px !important;
-font-size:22px !important;
-font-weight:900 !important;
-color:#0f172a;
-}
-.status-warning{
-display:inline-block;
-background:#fef3c7;
-color:#92400e !important;
-padding:8px 13px;
-border-radius:999px;
-font-size:14px !important;
-}
-
-.status-success{
-display:inline-block;
-background:#dcfce7;
-color:#166534 !important;
-padding:8px 13px;
-border-radius:999px;
-font-size:14px !important;
-}
-</style>
-
-
-
-
-<script type="module">
-
-import { auth, db } from "./firebase-config.js";
-
-import {
-onAuthStateChanged,
-signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-import {
-doc,
-getDoc,
-setDoc,
-collection,
-addDoc,
-getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-let currentUserId="";
-let selectedProgram="";
-
-function toast(msg){
-const t=document.getElementById("toast");
-t.innerHTML=msg;
-t.style.display="block";
-setTimeout(()=>{
-t.style.display="none";
-},3000);
-}
-
-window.showSection=function(sectionId,element){
-
-document
-.querySelectorAll(".section")
-.forEach(sec=>sec.classList.remove("active"));
-
-document
-.querySelectorAll(".nav-link")
-.forEach(nav=>nav.classList.remove("active"));
-
-document
-.getElementById(sectionId)
-.classList.add("active");
-
-element.classList.add("active");
-
-};
-
-onAuthStateChanged(auth,async(user)=>{
-
-if(!user){
-window.location.href="login.html";
-return;
-}
-
-currentUserId=user.uid;
-
-const snap=
-await getDoc(
-doc(db,"students",user.uid)
-);
-
-if(snap.exists()){
-
-const data=snap.data();
-updateInternshipCards(data);
-console.log("PAYMENT STATUS =", data.paymentStatus);
-
-document.getElementById("studentName").innerText=
-data.name || "Student";
-
-document.getElementById("progressCard").innerText=
-(data.progress || 0)+"%";
-
-document.getElementById("certificateCard").innerText=
-data.certificateStatus || "Pending";
-
-document.getElementById("offerStatusCard").innerText=
-data.offerLetterStatus || "Pending";
-
-document.getElementById("internshipStatusCard").innerText =
-data.paymentStatus === "Approved"
-? "Active"
-: (data.applicationStatus === "Applied" ? "Payment Required" : "Not Applied");
-
-document.getElementById("profileName").innerText=
-data.name || "-";
-
-document.getElementById("profileEmail").innerText=
-data.email || "-";
-
-document.getElementById("profileCollege").innerText=
-data.college || "-";
-
-document.getElementById("profileCourse").innerText=
-data.course || "-";
-
-document.getElementById("certificateStatusPage").innerText=
-data.certificateStatus || "Not Issued";
-
-document.getElementById("certificateIdPage").innerText=
-data.certificateId || "Not Generated";
-
-document.getElementById("docCertificateStatus").innerText=
-data.certificateStatus || "Not Issued";
-
-document.getElementById("docCertificateId").innerText=
-data.certificateId || "Not Generated";
-
-document.getElementById("offerLetterStatus").innerText=
-data.offerLetterStatus || "Pending";
-
-document.getElementById("offerLetterId").innerText=
-data.offerLetterId || "Not Generated";
-
-document.getElementById("completionLetterStatus").innerText=
-data.completionLetterStatus || "Pending";
-
-if(data.selectedProgram){
-
-selectedProgram=data.selectedProgram;
-
-document.getElementById("selectedProgramText").innerText=
-selectedProgram;
-
-}
-
-  document.getElementById("statusProgram").innerText =
-data.selectedProgram || "Not Selected";
-
-document.getElementById("statusApplication").innerText =
-data.applicationStatus || "Not Applied";
-
-document.getElementById("statusPayment").innerText =
-data.paymentStatus || "Not Paid";
-
-let nextStep = "Apply for an internship";
-
-if(data.applicationStatus === "Applied" &&
-data.paymentStatus === "Payment Required"){
-nextStep = "Complete enrollment payment";
-}
-
-if(data.paymentStatus === "Pending Approval"){
-nextStep = "Wait for admin approval";
-}
-
-if(data.paymentStatus === "Approved"){
-nextStep = "Submit your internship project";
-}
-
-if(data.progress === 100){
-nextStep = "Download certificate and completion letter";
-}
-
-document.getElementById("statusNextStep").innerText =
-nextStep;
-
-}
-
-function updateInternshipCards(data){
-
-const selected =
-data.selectedProgram || "";
-
-const payment =
-data.paymentStatus || "Not Paid";
-
-const application =
-data.applicationStatus || "Not Applied";
-
-
-const programs = [
-{
-name:"AI & Prompt Engineering",
-badge:"aiBadge",
-btn:"aiBtn"
-},
-{
-name:"Web Development",
-badge:"webBadge",
-btn:"webBtn"
-},
-{
-name:"Python Programming",
-badge:"pythonBadge",
-btn:"pythonBtn"
-}
-];
-
-programs.forEach(item=>{
-
-const badge =
-document.getElementById(item.badge);
-
-const btn =
-document.getElementById(item.btn);
-
-if(!badge || !btn) return;
-
-if(!selected){
-
-badge.innerText="Available";
-btn.innerText="Apply Now";
-btn.disabled=false;
-btn.style.opacity="1";
-return;
-
-}
-
-if(selected === item.name){
-
-if(payment === "Approved"){
-badge.innerText="Active";
-btn.innerText="Active Internship";
-btn.disabled=true;
-btn.style.opacity=".75";
-return;
-}
-
-if(payment === "Pending Approval"){
-badge.innerText="Pending Approval";
-btn.innerText="Waiting Approval";
-btn.disabled=true;
-btn.style.opacity=".75";
-return;
-}
-
-if(payment === "Payment Required"){
-badge.innerText="Payment Required";
-btn.innerText="Complete Payment";
-btn.disabled=false;
-btn.style.opacity="1";
-return;
-}
-
-badge.innerText="Applied";
-btn.innerText="Continue";
-btn.disabled=false;
-btn.style.opacity="1";
-return;
-
-}
-
-badge.innerText="Locked";
-btn.innerText="Locked";
-btn.disabled=true;
-btn.style.opacity=".55";
-
-});
-
-}
-loadAnnouncements();
-
-});
-
-document
-.querySelectorAll(".unlockBtn")
-.forEach(btn=>{
-
-btn.addEventListener("click",async()=>{
-
-selectedProgram=
-btn.dataset.program;
-
-document.getElementById("selectedProgramText").innerText=
-selectedProgram;
-
-await setDoc(
-doc(db,"students",currentUserId),
-{
-selectedProgram:selectedProgram,
-applicationStatus:"Applied",
-paymentStatus:"Payment Required",
-progress:10
-},
-{ merge:true }
-);
-
-document.getElementById("internshipStatusCard").innerText=
-"Payment Required";
-
-window.showSection(
-"paymentSection",
-document.querySelectorAll(".nav-link")[2]
-);
-
-toast(
-"Application submitted for " + selectedProgram + ". Complete enrollment payment."
-);
-
-});
-
-});
-
-document
-.getElementById("submitPaymentBtn")
-.addEventListener("click",async()=>{
-
-const txn=
-document
-.getElementById("transactionId")
-.value
-.trim();
-
-if(!selectedProgram){
-
-toast("Select internship first.");
-return;
-
-}
-
-if(!txn){
-
-toast("Enter transaction ID.");
-return;
-
-}
-
-try{
-
-await setDoc(
-doc(db,"students",currentUserId),
-{
-selectedProgram:selectedProgram,
-transactionId:txn,
-paymentStatus:"Pending Approval",
-offerLetterStatus:"Pending",
-progress:20
-},
-{ merge:true }
-);
-
-document.getElementById("internshipStatusCard").innerText=
-"Pending Approval";
-
-toast(
-"Payment submitted successfully. Waiting for admin approval."
-);
-  window.location.href = "payment-pending.html";
-
-document
-.getElementById("transactionId")
-.value="";
-
-}catch(error){
-
-toast(error.message);
-
-}
-
-});
-
-document
-.getElementById("submitProjectBtn")
-.addEventListener("click",async()=>{
-
-const title=
-document
-.getElementById("projectTitle")
-.value
-.trim();
-
-const link=
-document
-.getElementById("projectLink")
-.value
-.trim();
-const description=
-document
-.getElementById("projectDescription")
-.value
-.trim();
-
-if(!title || !link){
-
-toast("Fill all fields.");
-return;
-
-}
-
-try{
-
-await addDoc(
-collection(db,"projects"),
-{
-studentId:currentUserId,
-projectTitle:title,
-projectLink:link,
-projectDescription:description,
-program:selectedProgram,
-status:"Pending Review",
-submittedAt:new Date()
-}
-);
-
-toast("Project submitted successfully.");
-
-document.getElementById("projectTitle").value="";
-document.getElementById("projectLink").value="";
- document.getElementById("projectDescription").value="";
-
-}catch(error){
-
-toast(error.message);
-
-}
-
-});
-function setupAIAssistant(){
-
-const responseBox = document.getElementById("aiResponse");
-const questionBox = document.getElementById("aiQuestion");
-
-function reply(text){
-responseBox.innerHTML = text;
-}
-
-document.getElementById("resumeReviewBtn")?.addEventListener("click",()=>{
-reply(`
-<b>Resume Review Tips:</b><br><br>
-✅ Add your name, email and LinkedIn/GitHub.<br>
-✅ Mention your BCA / course details clearly.<br>
-✅ Add 2-3 projects with tech stack.<br>
-✅ Use keywords like HTML, CSS, JavaScript, Python, Firebase, AI tools.<br>
-✅ Keep resume to 1 page.
-`);
-});
-
-document.getElementById("projectIdeaBtn")?.addEventListener("click",()=>{
-reply(`
-<b>Project Ideas:</b><br><br>
-1. AI Resume Analyzer<br>
-2. Student Internship Portal<br>
-3. Smart Library Management System<br>
-4. Certificate Verification System<br>
-5. AI Chatbot for Career Guidance
-`);
-});
-
-document.getElementById("interviewBtn")?.addEventListener("click",()=>{
-reply(`
-<b>Common Interview Questions:</b><br><br>
-1. Tell me about yourself.<br>
-2. Explain your best project.<br>
-3. What is HTML, CSS and JavaScript?<br>
-4. What is Firebase?<br>
-5. Why should we select you for this internship?
-`);
-});
-
-document.getElementById("careerBtn")?.addEventListener("click",()=>{
-reply(`
-<b>Career Guidance:</b><br><br>
-Focus on one track first: Web Development, Python, AI tools, or Data Analytics.<br><br>
-Build 2 strong projects, upload them on GitHub, and add them to your resume.
-`);
-});
-
-document.getElementById("askAiBtn")?.addEventListener("click",()=>{
-
-const q = questionBox.value.trim();
-
-if(!q){
-reply("Please type your question first.");
-return;
-}
-
- reply(
-"<b>Your Question:</b> " + q + "<br><br>" +
-"<b>AI Assistant:</b><br>" +
-"This assistant can guide you with resumes, projects, interviews and internship preparation. Please choose a quick action above or ask a specific question."
-);
-});
-
-}
-async function loadAnnouncements(){
-
-const container=
-document.getElementById("announcementList");
-
-if(!container) return;
-
-const snapshot=
-await getDocs(
-collection(db,"announcements")
-);
-
-container.innerHTML="";
-
-snapshot.forEach(doc=>{
-
-const data=doc.data();
-
-container.innerHTML+=`
-
-<div class="notice">
-
-<h3 style="margin-bottom:8px;">
-${data.title}
-</h3>
-
-<p>
-${data.message}
-</p>
-
-</div>
-
-`;
-
-});
-
-if(container.innerHTML===""){
-container.innerHTML=
-"<p>No announcements available.</p>";
-}
-
-}
-
-document
-.getElementById("logoutBtn")
-.addEventListener("click",async()=>{
-
-await signOut(auth);
-
-window.location.href="login.html";
-
-});
-function startOfferTimer(){
-
-const timer =
-document.getElementById("offerTimer");
-
-if(!timer) return;
-
-const endTime =
-new Date("2026-06-18T23:59:59").getTime();
-
-setInterval(()=>{
-
-const now = new Date().getTime();
-const distance = endTime - now;
-
-if(distance <= 0){
-timer.innerText = "Offer Expired";
-return;
-}
-
-const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-timer.innerText =
-days + "d " + hours + "h " + minutes + "m " + seconds + "s";
-
-},1000);
-
-}
-
-startOfferTimer();
-
-</script>
-
-</body>
-</html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InternForge | Student Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <style>
+        :root {
+            --brand: #0056d2;
+            --brand-dark: #003f9e;
+            --brand-soft: #eef4ff;
+            --navy: #0f172a;
+            --text: #111827;
+            --muted: #64748b;
+            --line: #e5e7eb;
+            --bg: #f4f7fb;
+            --card: #ffffff;
+            --success-bg: #dcfce7;
+            --success: #156534;
+            --warning-bg: #fef3c7;
+            --warning: #924000;
+            --danger-bg: #fee2e2;
+            --danger: #991b1b;
+            --radius: 24px;
+            --shadow: 0 16px 40px rgba(15, 23, 42, .08);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Inter, Arial, sans-serif;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: radial-gradient(circle at top left, #eaf2ff 0%, #f8fafc 38%, #eef4ff 100%);
+            color: var(--text);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(0, 86, 210, .08), transparent 35%, rgba(59, 130, 246, .08));
+            pointer-events: none;
+        }
+        .sidebar {
+            width: 275px;
+            background: rgba(255, 255, 255, .92);
+            backdrop-filter: blur(18px);
+            border-right: 1px solid rgba(226, 232, 240, .8);
+            padding: 24px 20px;
+            position: fixed;
+            height: 100vh;
+            overflow: auto;
+            z-index: 10;
+            box-shadow: 8px 0 30px rgba(15, 23, 42, .04);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+            padding: 10px;
+            border-radius: 18px;
+            background: #f8fafc;
+            border: 1px solid #eaf0f8;
+        }
+        .logo img {
+            height: 50px;
+            width: 50px;
+            border-radius: 14px;
+            object-fit: cover;
+        }
+        .logo h2 {
+            font-size: 25px;
+            font-weight: 950;
+            color: var(--brand);
+            letter-spacing: -.5px;
+            line-height: 1;
+        }
+        .logo span {
+            display: block;
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 800;
+            margin-top: 4px;
+            line-height: 1.2;
+        }
+        .menu-title {
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            margin: 22px 8px 12px;
+        }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 850;
+            color: #334155;
+            transition: .25s;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .nav-link i {
+            width: 21px;
+            text-align: center;
+            font-size: 15px;
+            color: #0f2d63;
+        }
+        .nav-link span {
+            font-size: 15px;
+        }
+        .nav-link:hover {
+            background: var(--brand-soft);
+            color: var(--brand);
+            transform: translateX(3px);
+        }
+        .nav-link.active {
+            background: linear-gradient(135deg, #0056d2, #1d4ed8);
+            color: #fff;
+            box-shadow: 0 12px 28px rgba(0, 86, 210, .25);
+        }
+        .nav-link.active i, .nav-link.active span {
+            color: #fff;
+        }
+        main, .main {
+            margin-left: 275px;
+            width: calc(100% - 275px);
+            padding: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        .section {
+            display: none;
+            animation: fadeSlide .35s ease;
+            margin-top: 18px;
+        }
+        .section.active {
+            display: block;
+        }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero {
+            background: linear-gradient(135deg, #003f9e, #0056d2 55%, #3b82f6);
+            color: white;
+            padding: 38px;
+            border-radius: 32px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 22px 55px rgba(0, 86, 210, .22);
+            min-height: 210px;
+            display: flex;
+            align-items: center;
+        }
+        .hero::after {
+            content: "";
+            position: absolute;
+            right: -75px;
+            top: -95px;
+            width: 310px;
+            height: 310px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .10);
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            right: 80px;
+            bottom: -70px;
+            width: 210px;
+            height: 210px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .07);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .hero h1 {
+            font-size: 40px;
+            font-weight: 950;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+        .hero p {
+            font-size: 16px;
+            color: #dbeafe;
+            max-width: 720px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+        .hero-btn {
+            min-width: 175px;
+            height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-weight: 950;
+            text-decoration: none;
+            transition: .25s;
+        }
+        .hero-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, .18);
+        }
+        .hero-primary {
+            background: #fff;
+            color: #0f172a;
+        }
+        .hero-secondary {
+            background: rgba(255, 255, 255, .12);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, .65);
+        }
+        .card {
+            background: rgba(255, 255, 255, .94);
+            border: 1px solid rgba(226, 232, 240, .9);
+            border-radius: var(--radius);
+            padding: 26px;
+            box-shadow: var(--shadow);
+            margin-bottom: 22px;
+        }
+        .card-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 950;
+            letter-spacing: .3px;
+        }
+        .card-text {
+            color: var(--muted);
+            line-height: 1.7;
+            font-weight: 650;
+        }
+        .profile-box {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 26px;
+            padding: 24px 28px;
+            margin-top: 22px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        .profile-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .profile-top h3 {
+            font-size: 20px;
+            font-weight: 950;
+            color: var(--navy);
+        }
+        .profile-percent {
+            background: var(--brand-soft);
+            color: var(--brand);
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 950;
+            white-space: nowrap;
+        }
+        .progress-bar {
+            height: 14px;
+            background: #e2e8f0;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #0056d2, #3b82f6, #60a5fa);
+            border-radius: 999px;
+            box-shadow: 0 0 18px rgba(59, 130, 246, .35);
+            transition: width .55s ease;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 24px;
+        }
+        .stat-card {
+            min-height: 128px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #fff;
+            padding: 24px;
+            border-radius: 25px;
+            border: 1px solid #e5e7eb;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: .25s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #0056d2, #60a5fa);
+        }
+        .stat-card span {
+            font-size: 12px;
+            font-weight: 950;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+        .stat-card h2 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 950;
+            color: var(--navy);
+        }
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: max-content;
+            max-width: 100%;
+            padding: 9px 15px;
+            border-radius: 999px;
+            font-size: 14px !important;
+            font-weight: 950 !important;
+        }
+        .status-warning { background: var(--warning-bg); color: var(--warning) !important; }
+        .status-success { background: var(--success-bg); color: var(--success) !important; }
+        .status-danger { background: var(--danger-bg); color: var(--danger) !important; }
+        .status-neutral { background: #e0f2fe; color: #075985 !important; }
+
+        .app-status-card { margin-top: 24px; }
+        .app-status-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 18px;
+        }
+        .app-status-item {
+            background: #f8fafe;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            padding: 18px;
+            transition: .25s;
+        }
+        .app-status-item:hover {
+            background: #eef4ff;
+            transform: translateY(-2px);
+        }
+        .app-status-item span {
+            display: block;
+            font-size: 12px;
+            font-weight: 950;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .app-status-item b {
+            font-size: 16px;
+            font-weight: 950;
+            color: var(--navy);
+        }
+        .quick-strip {
+            margin-top: 18px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        .quick-chip {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            padding: 14px 16px;
+            border-radius: 16px;
+            font-weight: 950;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, .05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .quick-chip small {
+            display: block;
+            color: var(--muted);
+            font-weight: 750;
+            margin-top: 2px;
+        }
+        .quick-icon {
+            height: 35px;
+            width: 35px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: #eef4ff;
+            color: var(--brand);
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+        .section-kicker {
+            font-size: 13px;
+            color: var(--brand);
+            font-weight: 950;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+        .internship-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 22px;
+        }
+        .intern-card {
+            background: #fff;
+            border: 1px solid #dbeafe;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, .08);
+            transition: .25s;
+            display: grid;
+            grid-template-columns: 360px 1fr;
+        }
+        .intern-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 24px 58px rgba(15, 23, 42, .12);
+        }
+        .intern-img {
+            min-height: 260px;
+            position: relative;
+            background: linear-gradient(rgba(0, 86, 210, .72), rgba(15, 23, 42, .72)), url('https://images.unsplash.com/photo-1516321318423-06f85e504b3?auto=format&fit=crop&w=1100&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .intern-img span {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: #fff;
+            color: #0f172a;
+            padding: 9px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 950;
+        }
+        .intern-body { padding: 30px; }
+        .intern-body h3 { font-size: 30px; margin-bottom: 10px; font-weight: 950; letter-spacing: .5px; }
+        .intern-body p { color: #475569; line-height: 1.75; margin-bottom: 18px; font-weight: 650; }
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+        .tags b { background: #eef4ff; color: #0056d2; font-size: 12px; padding: 8px 11px; border-radius: 999px; }
+        .price-line { display: flex; align-items: center; gap: 10px; margin: 15px 0; }
+        .price-line del { color: #94a3b8; font-weight: 900; }
+        .price-line strong { font-size: 30px; color: #0056d2; }
+        .program-points { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 18px 0; }
+        .program-points div { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 14px; padding: 12px; font-weight: 850; color: #334155; }
+        
+        .primary-btn {
+            background: linear-gradient(135deg, #0056d2, #1d4ed8);
+            color: #fff;
+            border: none;
+            padding: 13px 18px;
+            border-radius: 13px;
+            font-weight: 950;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: .25s;
+        }
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0, 86, 210, .22);
+        }
+        .secondary-btn {
+            background: #eef4ff;
+            color: #0056d2;
+            border: none;
+            padding: 11px 15px;
+            border-radius: 13px;
+            font-weight: 900;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: .25s;
+        }
+        .secondary-btn:hover { background: #dbeafe; }
+        .button-row { display: flex; gap: 12px; flex-wrap: wrap; }
+        
+        .pricing-box {
+            background: linear-gradient(135deg, #eef4ff, #fff);
+            border: 1px solid #bfdbfe;
+            border-radius: 24px;
+            padding: 24px;
+            text-align: center;
+            margin: 18px 0;
+        }
+        .price-row { display: flex; justify-content: center; align-items: center; gap: 15px; }
+        .old-price { font-size: 24px; font-weight: 950; color: #94a3b8; text-decoration: line-through; }
+        .new-price { font-size: 44px; font-weight: 950; color: #0056d2; }
+        .offer-badge { display: inline-block; background: #dcfce7; color: #166534; padding: 8px 14px; border-radius: 999px; font-weight: 950; margin: 12px 0; }
+        .timer-box { background: #0f172a; color: #fff; padding: 12px 16px; border-radius: 14px; font-weight: 950; display: inline-block; margin-top: 12px; }
+        
+        .payment-box { text-align: center; margin-top: 20px; background: #f8fafc; padding: 28px; border-radius: 24px; border: 1px solid #e5e7eb; }
+        .payment-box img { width: 220px; background: white; padding: 12px; border-radius: 18px; border: 1px solid #e5e7eb; margin: 18px 0; }
+        
+        .input-field, .payment-box input, textarea { width: 100% ; padding: 15px; border: 1px solid #cbd5e1; border-radius: 14px; margin-top: 14px; font-size: 15px; outline: none; background: #fff; }
+        .input-field:focus, .payment-box input:focus, textarea:focus { border-color: #0056d2; box-shadow: 0 0 0 4px rgba(0, 86, 210, .10); }
+        
+        .doc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .doc-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 24px; padding: 25px; box-shadow: var(--shadow); position: relative; overflow: hidden; transition: .25s; }
+        .doc-card:hover { transform: translateY(-4px); }
+        .doc-card::after { content: ""; position: absolute; right: -35px; top: -35px; width: 95px; height: 95px; background: #eef4ff; border-radius: 50%; }
+        .doc-card i { font-size: 34px; color: #0056d2; margin-bottom: 14px; position: relative; z-index: 1; }
+        .doc-card h3 { margin-bottom: 12px; font-size: 20px; }
+        .doc-card p { color: #64748b; margin-top: 8px; font-weight: 650; }
+        .doc-card b { color: #0f172a; }
+        .doc-actions { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+        
+        .project-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 20px; }
+        .project-stat { padding: 18px; border-radius: 18px; border: 1px solid #e5e7eb; background: #fff; }
+        .project-stat strong { display: block; font-size: 12px; color: #64748b; text-transform: uppercase; margin-bottom: 8px; }
+        .project-stat span { font-size: 18px; font-weight: 950; }
+        .notice { background: #f8fafc; border-left: 4px solid #0056d2; padding: 16px; border-radius: 14px; margin-top: 14px; color: #374151; line-height: 1.6; }
+        .guidelines-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+        .guideline { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px; font-weight: 750; color: #334155; }
+        
+        .announcement-list { display: grid; gap: 14px; }
+        .announcement-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 18px; padding: 18px; box-shadow: 0 8px 22px rgba(15, 23, 42, .04); }
+        .announcement-card h3 { font-size: 18px; margin-bottom: 8px; }
+        .announcement-card p { color: #475569; line-height: 1.6; }
+        .announcement-empty { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 18px; padding: 24px; color: #
