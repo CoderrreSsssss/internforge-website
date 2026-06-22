@@ -3,98 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Completion Letter | InternForge</title>
+<title>InternForge | Completion Letter</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#edf4ff;padding:35px;color:#2d3748}
-.letter{max-width:950px;margin:auto;background:white;padding:52px;border-radius:22px;box-shadow:0 25px 70px rgba(26,54,93,.14);border:1px solid #dbe7f5;position:relative;overflow:hidden}
-.watermark{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);font-size:170px;font-weight:900;color:#2b6cb0;opacity:.035;pointer-events:none}
-.header,.title,.meta,.content,.signature{position:relative;z-index:2}
-.header{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #1a365d;padding-bottom:22px;margin-bottom:36px}
-.brand{display:flex;align-items:center;gap:14px}.brand img{width:68px;height:68px;object-fit:contain}.brand h1{color:#1a365d;font-size:34px;font-weight:900}.brand p{color:#64748b;font-weight:700;margin-top:4px}
-.badge{background:#e6f0ff;color:#1a365d;padding:10px 16px;border-radius:999px;font-weight:900}
-.verified{background:#dcfce7;color:#166534;padding:8px 14px;border-radius:999px;font-size:12px;font-weight:900;margin-top:8px;text-align:center}
-.title{text-align:center;font-size:38px;color:#1a365d;margin-bottom:30px;font-weight:900}
-.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:28px 0 32px}
-.meta-item{padding:0 0 12px;border-bottom:1px solid #cbd5e1}.meta-item span{display:block;color:#64748b;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.55px;margin-bottom:6px}.meta-item b{font-size:17px;color:#2d3748}
-.content{font-size:17px;line-height:1.9;color:#374151}.content p{margin-bottom:18px}.highlight{color:#2b6cb0;font-weight:900}
-.verify{text-align:center;margin:38px auto 0}.verify img{width:118px;height:118px;border:1px solid #e5e7eb;padding:8px;border-radius:12px;background:white}.verify p{font-size:12px;color:#64748b;margin-top:7px}
-.signature{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-top:58px}.sign-box{text-align:center}
-.signature-name{font-family:"Segoe Script","Brush Script MT","Lucida Handwriting",cursive;font-size:36px;line-height:1;color:#1a365d;margin-bottom:8px}
-.signature-name.executive{font-family:"Brush Script MT","Segoe Script","Lucida Handwriting",cursive;font-size:42px;color:#0f172a;transform:skewX(-8deg)}
-.line{width:230px;border-top:2px solid #1f2937;margin:0 auto 10px}.sign-box b{font-size:17px;color:#1f2937}.sign-box p{margin-top:4px;color:#64748b;font-weight:700;font-size:14px}
-.footer{margin-top:34px;padding-top:18px;border-top:1px solid #e5e7eb;text-align:center;color:#64748b;font-size:13px}
-.actions{text-align:center;margin-top:25px}button{background:#1a365d;color:white;border:none;padding:13px 22px;border-radius:12px;font-weight:900;cursor:pointer}
-@media(max-width:700px){body{padding:16px}.letter{padding:28px}.header,.signature{display:flex;flex-direction:column;align-items:center;text-align:center}.meta{grid-template-columns:1fr}.title{font-size:30px}}
-@media print{body{background:white;padding:0}.actions{display:none}.letter{box-shadow:none;border-radius:0;max-width:100%;min-height:100vh}}
+body {
+background: #f1f5f9;
+font-family: Arial, sans-serif;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+margin: 0;
+padding: 20px;
+}
+.letter-container {
+background: white;
+width: 100%;
+max-width: 800px;
+padding: 50px;
+box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+border-top: 8px solid #10b981;
+position: relative;
+display: none;
+}
+.header {
+display: flex;
+justify-content: space-between;
+border-bottom: 2px solid #e2e8f0;
+padding-bottom: 20px;
+margin-bottom: 30px;
+}
+.logo-title h1 {
+color: #10b981;
+margin: 0;
+font-size: 28px;
+font-weight: 800;
+}
+.logo-title span {
+color: #64748b;
+font-size: 14px;
+}
+.meta-info {
+text-align: right;
+font-size: 14px;
+color: #475569;
+line-height: 1.5;
+}
+.content {
+line-height: 1.8;
+color: #1e293b;
+font-size: 15px;
+}
+.signature-section {
+margin-top: 50px;
+display: flex;
+justify-content: space-between;
+}
+.sig {
+text-align: center;
+font-size: 14px;
+color: #64748b;
+}
+.sig-line {
+width: 150px;
+height: 1px;
+background: #cbd5e1;
+margin-bottom: 8px;
+}
+.actions {
+margin-top: 30px;
+text-align: center;
+}
+.btn {
+background: #10b981;
+color: white;
+padding: 12px 24px;
+border: none;
+border-radius: 8px;
+font-weight: 700;
+cursor: pointer;
+text-decoration: none;
+display: inline-block;
+}
 </style>
 </head>
 <body>
-<div class="letter">
-  <div class="watermark">IF</div>
-  <div class="header">
-    <div class="brand">
-      <img src="logo.png" onerror="this.style.display='none'">
-      <div><h1>InternForge</h1><p>Internship Completion Verification</p></div>
-    </div>
-    <div>
-      <div class="badge">Completion Letter</div>
-      <div class="verified">✓ Digitally Verified</div>
-    </div>
-  </div>
-  <h2 class="title">Internship Completion Letter</h2>
-  <div class="meta">
-    <div class="meta-item"><span>Student Name</span><b id="studentName">Loading...</b></div>
-    <div class="meta-item"><span>Internship Program</span><b id="programName">Loading...</b></div>
-    <div class="meta-item"><span>Completion ID</span><b id="completionId">Loading...</b></div>
-    <div class="meta-item"><span>Issue Date</span><b id="issueDate">Loading...</b></div>
-  </div>
-  <div class="content">
-    <p>This is to certify that <span class="highlight" id="studentNameText">Student</span> has successfully completed the <span class="highlight" id="programNameText">Internship Program</span> conducted by <b>InternForge</b>.</p>
-    <p>The candidate has completed the required learning modules, submitted the assigned project work, and fulfilled the internship requirements as per the review process.</p>
-    <p>Based on the project submission and completion status, this completion letter is issued as a formal record of internship participation and successful completion.</p>
-    <p>We appreciate the dedication, effort, and commitment shown during the internship and wish the intern success in future academic and professional endeavors.</p>
-  </div>
-  <div class="verify">
-    <img id="qrCode" src=""><p>Scan to verify this completion letter</p>
-  </div>
-  <div class="signature">
-    <div class="sign-box">
-      <div class="signature-name">Aman Singh</div>
-      <div class="line"></div>
-      <b>Aman Singh</b><p>Program Coordinator</p><p>InternForge</p>
-    </div>
-    <div class="sign-box">
-      <div class="signature-name executive">Dhruv Khurana</div>
-      <div class="line"></div>
-      <b>Dhruv Khurana</b><p>Founder / Director</p><p>InternForge</p>
-    </div>
-  </div>
-  <div class="footer">This digitally generated completion letter can be verified through the InternForge verification portal.</div>
+
+<div id="loading" style="font-size: 18px; font-weight: bold; color: #475569;">Verifying Access Credentials...</div>
+
+<div id="letter" class="letter-container">
+<div class="header">
+<div class="logo-title">
+<h1>InternForge</h1>
+<span>Official Completion Dispatch</span>
+</div>
+<div class="meta-info">
+<b>Document ID:</b> <span id="docId">-</span><br>
+<b>Date:</b> <span id="docDate">-</span>
+</div>
+</div>
+<div class="content">
+<p><b>TO WHOMSOEVER IT MAY CONCERN</b></p>
+<p>This is to confirm that <b id="candidateName">-</b> has successfully completed their technical workspace internship project scope at InternForge in the specialty track <b id="programName">-</b>.</p>
+<p>The internship lasted for a duration of 4 weeks. Throughout this program timeline, the candidate worked on design implementation architectures, code deployment steps, and final portfolio deliverables checklist criteria parameters.</p>
+<p>We declare the project successfully closed and wish them the best in all future endeavors.</p>
+<br>
+<p>Sincerely,<br><b>InternForge Team</b></p>
+</div>
+<div class="signature-section">
+<div></div>
+<div class="sig">
+<div class="sig-line"></div>
+Verification Office
+</div>
 </div>
 <div class="actions">
-  <button onclick="window.print()">Download / Print Completion Letter</button>
+<button onclick="window.location.href='dashboard.html'" class="btn" style="background:#64748b; margin-right: 10px;">Back to Dashboard</button>
+<button onclick="window.print()" class="btn">Print Document</button>
 </div>
+</div>
+
 <script type="module">
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-onAuthStateChanged(auth, async(user) => {
-  if (!user) { window.location.href = "login.html"; return; }
-  const snap = await getDoc(doc(db, "students", user.uid));
-  if (!snap.exists()) return;
-  const data = snap.data();
-  const name = data.name || "Student";
-  const program = data.selectedProgram || "Internship Program";
-  const completionId = data.completionLetterId || "Not Generated";
-  document.getElementById("studentName").innerText = name;
-  document.getElementById("studentNameText").innerText = name;
-  document.getElementById("programName").innerText = program;
-  document.getElementById("programNameText").innerText = program;
-  document.getElementById("completionId").innerText = completionId;
-  document.getElementById("issueDate").innerText = new Date().toLocaleDateString("en-IN");
-  const verifyLink = window.location.origin + "/verify.html?id=" + encodeURIComponent(completionId);
-  document.getElementById("qrCode").src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(verifyLink);
+
+onAuthStateChanged(auth, async(user)=>{
+if(!user){
+window.location.href = "login.html";
+return;
+}
+try {
+const snap = await getDoc(doc(db, "students", user.uid));
+if(snap.exists()){
+const data = snap.data();
+if((data.progress || 0) < 100){
+alert("Access Denied: Completion Letter requires 100% progress matching.");
+window.location.href = "dashboard.html";
+return;
+}
+document.getElementById("loading").style.display = "none";
+document.getElementById("letter").style.display = "block";
+document.getElementById("candidateName").innerText = data.name || "Intern";
+document.getElementById("programName").innerText = data.selectedProgram || "Assigned Track";
+document.getElementById("docId").innerText = data.completionLetterId || "CL-PENDING";
+document.getElementById("docDate").innerText = new Date().toLocaleDateString();
+} else {
+window.location.href = "dashboard.html";
+}
+} catch(e) {
+window.location.href = "dashboard.html";
+}
 });
 </script>
 </body>
