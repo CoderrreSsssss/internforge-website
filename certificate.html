@@ -6,263 +6,83 @@
 <title>Certificate | InternForge</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-background:#eef4ff;
-padding:35px;
-font-family:Arial,sans-serif;
-color:#111827;
-}
-.certificate{
-max-width:1100px;
-margin:auto;
-background:white;
-padding:55px;
-border:14px solid #0056d2;
-border-radius:22px;
-box-shadow:0 25px 70px rgba(0,0,0,.14);
-text-align:center;
-position:relative;
-overflow:hidden;
-}
-.certificate:before{
-content:"";
-position:absolute;
-inset:18px;
-border:2px solid #f59e0b;
-border-radius:14px;
-pointer-events:none;
-}
-.watermark{
-position:absolute;
-left:50%;
-top:50%;
-transform:translate(-50%,-50%);
-font-size:190px;
-font-weight:900;
-color:#0056d2;
-opacity:.035;
-pointer-events:none;
-}
-.logo,
-.small,
-.title,
-.subtitle,
-.name,
-.text,
-.cert-id,
-.bottom,
-.footer,
-.verified-badge{
-position:relative;
-z-index:2;
-}
-.logo{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:12px;
-margin-bottom:20px;
-}
-.logo img{height:70px}
-.logo h1{
-font-size:38px;
-color:#0056d2;
-font-weight:900;
-}
-.small{
-color:#64748b;
-font-weight:800;
-margin-bottom:18px;
-}
-.verified-badge{
-display:inline-block;
-background:#dcfce7;
-color:#166534;
-padding:10px 18px;
-border-radius:999px;
-font-size:13px;
-font-weight:900;
-margin-bottom:20px;
-}
-.title{
-font-family:Georgia,serif;
-font-size:56px;
-font-weight:900;
-color:#111827;
-margin-bottom:12px;
-}
-.subtitle{
-font-size:22px;
-color:#374151;
-margin-bottom:25px;
-}
-.name{
-font-family:Georgia,serif;
-font-size:46px;
-font-weight:900;
-color:#0056d2;
-display:inline-block;
-border-bottom:3px solid #0056d2;
-padding:0 45px 12px;
-margin-bottom:25px;
-}
-.text{
-font-size:20px;
-line-height:1.8;
-color:#374151;
-max-width:830px;
-margin:auto;
-}
-.program{
-font-weight:900;
-color:#111827;
-}
-.cert-id{
-margin-top:28px;
-font-weight:900;
-color:#64748b;
-}
-.bottom{
-display:grid;
-grid-template-columns:1fr 150px 1fr;
-gap:25px;
-align-items:end;
-margin-top:60px;
-}
-.sign{
-text-align:center;
-font-size:15px;
-color:#374151;
-}
-.sign img{
-height:85px;
-object-fit:contain;
-margin-bottom:-15px;
-}
-.line{
-width:230px;
-border-top:2px solid #111827;
-margin:0 auto 10px;
-}
-.qr-box{
-text-align:center;
-}
-.qr-box img{
-width:135px;
-height:135px;
-border:1px solid #e5e7eb;
-padding:8px;
-border-radius:14px;
-background:white;
-}
-.qr-box p{
-font-size:12px;
-color:#64748b;
-margin-top:8px;
-}
-.footer{
-margin-top:30px;
-font-size:14px;
-color:#64748b;
-}
-.actions{
-text-align:center;
-margin-top:25px;
-}
-button{
-background:#0056d2;
-color:white;
-border:none;
-padding:13px 22px;
-border-radius:12px;
-font-weight:900;
-cursor:pointer;
-}
-@media print{
-body{background:white;padding:0}
-.actions{display:none}
-.certificate{
-box-shadow:none;
-border-radius:0;
-max-width:100%;
-min-height:100vh;
-}
-}
+body{background:#edf4ff;padding:35px;font-family:Arial,sans-serif;color:#2d3748}
+.certificate{max-width:1100px;margin:auto;background:#fffdf8;padding:58px 64px;border:5px double #1a365d;border-radius:22px;box-shadow:0 25px 70px rgba(26,54,93,.16);text-align:center;position:relative;overflow:hidden}
+.certificate:before{content:"";position:absolute;inset:18px;border:1.5px solid #d4af37;border-radius:14px;pointer-events:none}
+.watermark{position:absolute;left:50%;top:53%;transform:translate(-50%,-50%);font-size:210px;font-weight:900;color:#2b6cb0;opacity:.03;pointer-events:none}
+.inner{position:relative;z-index:2}
+.logo{display:flex;justify-content:center;align-items:center;gap:12px;margin-bottom:12px}.logo img{height:70px}.logo h1{font-size:38px;color:#1a365d;font-weight:900}
+.small{color:#64748b;font-weight:800;margin-bottom:18px}
+.verified{display:inline-flex;align-items:center;gap:6px;background:#dcfce7;color:#166534;padding:10px 18px;border-radius:999px;font-size:13px;font-weight:900;margin-bottom:26px}
+.title{font-family:Georgia,serif;font-size:56px;font-weight:900;color:#1a365d;margin-bottom:12px}
+.subtitle{font-size:21px;color:#374151;margin-bottom:25px}
+.name{font-family:Georgia,serif;font-size:46px;font-weight:900;color:#2b6cb0;display:inline-block;border-bottom:2px solid #2b6cb0;padding:0 45px 12px;margin-bottom:25px}
+.text{font-size:20px;line-height:1.8;color:#374151;max-width:850px;margin:auto}.program{font-weight:900;color:#1a365d}
+.cert-id{margin-top:28px;font-weight:900;color:#64748b}
+.verify{margin:34px auto 0;text-align:center}.verify img{width:128px;height:128px;border:1px solid #e5e7eb;padding:8px;border-radius:14px;background:white}.verify p{font-size:12px;color:#64748b;margin-top:8px}
+.bottom{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:end;margin-top:56px}.sign{text-align:center;font-size:15px;color:#374151}
+.signature-name{font-family:"Segoe Script","Brush Script MT","Lucida Handwriting",cursive;font-size:37px;line-height:1;color:#1a365d;margin-bottom:8px}
+.signature-name.executive{font-family:"Brush Script MT","Segoe Script","Lucida Handwriting",cursive;font-size:44px;color:#0f172a;transform:skewX(-8deg)}
+.line{width:230px;border-top:2px solid #1f2937;margin:0 auto 10px}
+.footer{margin-top:30px;font-size:14px;color:#64748b}
+.actions{text-align:center;margin-top:25px}button{background:#1a365d;color:white;border:none;padding:13px 22px;border-radius:12px;font-weight:900;cursor:pointer}
+@media(max-width:760px){body{padding:16px}.certificate{padding:38px 24px}.title{font-size:38px}.name{font-size:34px;padding:0 20px 10px}.text{font-size:17px}.bottom{grid-template-columns:1fr;gap:32px}}
+@media print{body{background:white;padding:0}.actions{display:none}.certificate{box-shadow:none;border-radius:0;max-width:100%;min-height:100vh}}
 </style>
 </head>
 <body>
 <div class="certificate">
-<div class="watermark">IF</div>
-<div class="logo">
-<img src="logo.png" onerror="this.style.display='none'">
-<h1>InternForge</h1>
-</div>
-<div class="small">India's Student Internship Platform</div>
-<div class="verified-badge">✓ Verified Certificate</div>
-<div class="title">Certificate of Completion</div>
-<div class="subtitle">This certificate is proudly presented to</div>
-<div class="name" id="studentName">Student Name</div>
-<div class="text">
-For successfully completing the
-<span class="program" id="programName">Internship Program</span>
-offered by InternForge with project submission, participation and evaluation.
-</div>
-<div class="cert-id">
-Certificate ID: <span id="certificateId">Loading...</span>
-</div>
-<div class="bottom">
-<div class="sign">
-<img src="aman-sign.png" onerror="this.style.display='none'">
-<div class="line"></div>
-<b>Aman Singh</b><br>
-Program Coordinator
-</div>
-<div class="qr-box">
-<img id="qrCode" src="">
-<p>Scan to Verify</p>
-</div>
-<div class="sign">
-<img src="dhruv-sign.png" onerror="this.style.display='none'">
-<div class="line"></div>
-<b>Dhruv Khurana</b><br>
-Founder, InternForge
-</div>
-</div>
-<div class="footer">
-Verify this certificate through InternForge Certificate Verification Portal.
-</div>
+  <div class="watermark">IF</div>
+  <div class="inner">
+    <div class="logo">
+      <img src="logo.png" onerror="this.style.display='none'">
+      <h1>InternForge</h1>
+    </div>
+    <div class="small">India's Student Internship Platform</div>
+    <div class="verified">✓ Verified Certificate</div>
+    <div class="title">Certificate of Completion</div>
+    <div class="subtitle">This certificate is proudly presented to</div>
+    <div class="name" id="studentName">Student Name</div>
+    <div class="text">For successfully completing the <span class="program" id="programName">Internship Program</span> offered by InternForge with project submission, participation, and evaluation.</div>
+    <div class="cert-id">Certificate ID: <span id="certificateId">Loading...</span></div>
+    <div class="verify">
+      <img id="qrCode" src=""><p>Scan to Verify</p>
+    </div>
+    <div class="bottom">
+      <div class="sign">
+        <div class="signature-name">Aman Singh</div>
+        <div class="line"></div>
+        <b>Aman Singh</b><br>Program Coordinator
+      </div>
+      <div class="sign">
+        <div class="signature-name executive">Dhruv Khurana</div>
+        <div class="line"></div>
+        <b>Dhruv Khurana</b><br>Founder / Director, InternForge
+      </div>
+    </div>
+    <div class="footer">Verify this certificate through the InternForge Certificate Verification Portal.</div>
+  </div>
 </div>
 <div class="actions">
-<button onclick="window.print()">Download / Print Certificate</button>
+  <button onclick="window.print()">Download / Print Certificate</button>
 </div>
 <script type="module">
 import { auth, db } from "./firebase-config.js";
-import {
-onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {
-doc,
-getDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-onAuthStateChanged(auth, async(user)=>{
-if(!user){
-window.location.href="login.html";
-return;
-}
-const snap = await getDoc(doc(db,"students",user.uid));
-if(!snap.exists()) return;
-const data = snap.data();
-const name = data.name || "Student";
-const program = data.selectedProgram || "Internship Program";
-const certId = data.certificateId || "Not Issued";
-document.getElementById("studentName").innerText = name;
-document.getElementById("programName").innerText = program;
-document.getElementById("certificateId").innerText = certId;
-const verifyLink =
-window.location.origin + "/verify.html?id=" + encodeURIComponent(certId);
-document.getElementById("qrCode").src =
-"https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=" +
-encodeURIComponent(verifyLink);
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+onAuthStateChanged(auth, async(user) => {
+  if (!user) { window.location.href = "login.html"; return; }
+  const snap = await getDoc(doc(db, "students", user.uid));
+  if (!snap.exists()) return;
+  const data = snap.data();
+  const name = data.name || "Student";
+  const program = data.selectedProgram || "Internship Program";
+  const certId = data.certificateId || "Not Issued";
+  document.getElementById("studentName").innerText = name;
+  document.getElementById("programName").innerText = program;
+  document.getElementById("certificateId").innerText = certId;
+  const verifyLink = window.location.origin + "/verify.html?id=" + encodeURIComponent(certId);
+  document.getElementById("qrCode").src = "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=" + encodeURIComponent(verifyLink);
 });
 </script>
 </body>
