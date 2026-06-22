@@ -3,11 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>InternForge | Student Dashboard</title>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-
 <style>
 *{
 margin:0;
@@ -31,6 +28,7 @@ padding:24px;
 position:fixed;
 height:100vh;
 overflow:auto;
+z-index: 10;
 }
 
 .logo{
@@ -231,6 +229,186 @@ padding:14px 18px;
 border-radius:12px;
 display:none;
 z-index:999;
+box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* REDESIGNED DIGITAL VAULT DOCUMENTS SYSTEM */
+.vault-container {
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:24px;
+margin-top:20px;
+}
+
+.vault-card {
+background:#ffffff;
+border:1px solid #e5e7eb;
+border-radius:24px;
+padding:26px;
+position:relative;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+box-shadow:0 10px 25px rgba(0,0,0,.03);
+transition:all 0.3s ease;
+overflow:hidden;
+}
+
+.vault-card.locked {
+border-color:#e2e8f0;
+background:#fafafa;
+}
+
+.vault-card.locked::before {
+content:'';
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:4px;
+background:#94a3b8;
+}
+
+.vault-card.unlocked::before {
+content:'';
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:4px;
+background:linear-gradient(90deg, #10b981, #059669);
+}
+
+.vault-header {
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+margin-bottom:20px;
+}
+
+.vault-icon-box {
+width:52px;
+height:52px;
+border-radius:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+}
+
+.vault-card.locked .vault-icon-box {
+background:#f1f5f9;
+color:#64748b;
+}
+
+.vault-card.unlocked .vault-icon-box {
+background:#ecfdf5;
+color:#10b981;
+}
+
+.vault-badge {
+font-size:11px;
+font-weight:800;
+padding:6px 12px;
+border-radius:999px;
+text-transform:uppercase;
+letter-spacing:0.3px;
+}
+
+.badge-locked {
+background:#f1f5f9;
+color:#64748b;
+border:1px solid #cbd5e1;
+}
+
+.badge-verification {
+background:#fef3c7;
+color:#d97706;
+border:1px solid #fde68a;
+}
+
+.badge-active {
+background:#dcfce7;
+color:#15803d;
+border:1px solid #bbf7d0;
+}
+
+.vault-body h3 {
+font-size:20px;
+font-weight:800;
+color:#1e293b;
+margin-bottom:6px;
+}
+
+.vault-desc {
+font-size:13px;
+color:#64748b;
+line-height:1.5;
+margin-bottom:16px;
+}
+
+.vault-meta {
+background:#f8fafc;
+border-radius:12px;
+padding:12px;
+margin-bottom:20px;
+font-size:13px;
+border:1px solid #edf2f7;
+}
+
+.vault-card.locked .vault-meta {
+background:#f1f5f9;
+}
+
+.vault-meta-row {
+display:flex;
+justify-content:space-between;
+margin-bottom:6px;
+}
+
+.vault-meta-row:last-child {
+margin-bottom:0;
+}
+
+.vault-meta-label {
+color:#64748b;
+font-weight:600;
+}
+
+.vault-meta-val {
+color:#0f172a;
+font-weight:700;
+}
+
+.vault-btn {
+width:100%;
+padding:13px;
+border-radius:12px;
+font-weight:800;
+font-size:14px;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+transition:all 0.25s;
+border:none;
+}
+
+.vault-btn-unlocked {
+background:#0056d2;
+color:white;
+}
+
+.vault-btn-unlocked:hover {
+background:#00409e;
+transform:translateY(-1px);
+}
+
+.vault-btn-locked {
+background:#e2e8f0;
+color:#94a3b8;
+cursor:not-allowed;
 }
 
 @media(max-width:900px){
@@ -238,147 +416,119 @@ z-index:999;
 width:80px;
 padding:16px 10px;
 }
-
-.logo h2,
-.logo span,
-.menu-title,
-.nav-link span{
+.logo h2,.logo span,.menu-title,.nav-link span{
 display:none;
 }
-
 .main{
 margin-left:80px;
 width:calc(100% - 80px);
 padding:18px;
 }
-
 .hero h1{
 font-size:28px;
 }
 }
 </style>
 </head>
-
 <body>
 
 <div class="sidebar">
-
 <div class="logo">
 <img src="logo.png" onerror="this.style.display='none'">
 <div>
 <h2>InternForge</h2>
-<span>India's Student Internship Platform</span>
+<span>Student Internship Platform</span>
 </div>
 </div>
-
 <div class="menu-title">Workspace</div>
-
 <div class="nav-link active" onclick="showSection('homeSection',this)">
 <i class="fa-solid fa-table-columns"></i>
 <span>Dashboard</span>
 </div>
-
 <div class="nav-link" onclick="showSection('internshipSection',this)">
 <i class="fa-solid fa-briefcase"></i>
 <span>Internships</span>
 </div>
-
 <div class="nav-link" onclick="showSection('documentsSection',this)">
 <i class="fa-solid fa-folder-open"></i>
 <span>Documents</span>
 </div>
-
 <div class="nav-link" onclick="showSection('projectSection',this)">
 <i class="fa-solid fa-code"></i>
 <span>Projects</span>
 </div>
-
 <div class="nav-link" onclick="showSection('certificateSection',this)">
 <i class="fa-solid fa-award"></i>
 <span>Certificate</span>
 </div>
-
 <div class="menu-title">Support</div>
-
 <div class="nav-link" onclick="showSection('announcementSection',this)">
 <i class="fa-solid fa-bell"></i>
 <span>Announcements</span>
 </div>
-
 <div class="nav-link" onclick="showSection('aiSection',this)">
 <i class="fa-solid fa-robot"></i>
 <span>AI Assistant</span>
 </div>
-
 <div class="nav-link" onclick="window.location.href='verify.html'">
 <i class="fa-solid fa-shield-halved"></i>
 <span>Verify Documents</span>
 </div>
-
 <div class="nav-link" onclick="showSection('profileSection',this)">
 <i class="fa-solid fa-user"></i>
 <span>Profile</span>
 </div>
-
 <div class="nav-link" id="logoutBtn">
 <i class="fa-solid fa-right-from-bracket"></i>
 <span>Logout</span>
 </div>
-
 </div>
 
 <div class="main">
-
 <div id="homeSection" class="section active">
 <div class="hero">
 <h1>Welcome, <span id="studentName">Student</span> 👋</h1>
 <p>Manage your internship application, documents, project submission and certificate from one professional workspace.</p>
-
-<div class="hero-actions">
-<a href="offer-letter.html" class="primary-btn">View Offer Letter</a>
-<a href="#projectSection" onclick="showSection('projectSection',document.querySelectorAll('.nav-link')[3])" class="secondary-btn">Submit Project</a>
+<div class="hero-actions" style="margin-top: 15px; display: flex; gap: 10px;">
+<button onclick="showSection('documentsSection',document.querySelectorAll('.nav-link')[2])" class="primary-btn" style="background:white; color:#0f172a;">View Documents</button>
+<button onclick="showSection('projectSection',document.querySelectorAll('.nav-link')[3])" class="secondary-btn" style="background:transparent; color:white; border:1px solid white; margin:0;">Submit Project</button>
 </div>
 </div>
 <div class="profile-box">
 <div class="profile-top">
 <h3>Profile Completion</h3>
-<div class="profile-percent">60% Complete</div>
+<div class="profile-percent" id="profileCompletionText">60% Complete</div>
 </div>
 <div class="progress-bar">
-<div class="progress-fill"></div>
+<div class="progress-fill" id="profileCompletionBar" style="width: 60%;"></div>
 </div>
 </div>
 
 <div class="stats">
 <div class="stat-card">
 <span>Internship Status</span>
-<h2 id="internshipStatusCard" class="status-warning"></h2>
+<h2 id="internshipStatusCard" class="status-warning">Pending</h2>
 </div>
-
 <div class="stat-card">
 <span>Offer Letter</span>
-<h2 id="offerStatusCard" class="status-warning"></h2>
+<h2 id="offerStatusCard" class="status-warning">Locked</h2>
 </div>
-
 <div class="stat-card">
 <span>Progress</span>
-<h2 id="progressCard" class="status-success"></h2>
+<h2 id="progressCard" class="status-success">0%</h2>
 </div>
-
 <div class="stat-card">
 <span>Certificate</span>
-<h2 id="certificateCard" class="status-warning"></h2>
+<h2 id="certificateCard" class="status-warning">Locked</h2>
 </div>
 </div>
 
 <div class="card" style="margin-top:24px;">
 <h2 class="card-title">Current Application Status</h2>
-
 <div class="info-row">
 <span>Selected Internship</span>
 <b id="statusProgram">Not Selected</b>
 </div>
-
 <div class="info-row">
 <span>Application Status</span>
 <b id="statusApplication">Not Applied</b>
@@ -392,168 +542,131 @@ font-size:28px;
 <b id="statusNextStep">Apply for an internship</b>
 </div>
 </div>
-
-<div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
-<div style="background:#ecfdf5;padding:12px 18px;border-radius:12px;font-weight:700;">
-📄 Offer Letter
-</div>
-<div style="background:#eff6ff;padding:12px 18px;border-radius:12px;font-weight:700;">
-💳 Payment Status
-</div>
-<div style="background:#fef3c7;padding:12px 18px;border-radius:12px;font-weight:700;">
-📈 Progress
-</div>
-<div style="background:#f3e8ff;padding:12px 18px;border-radius:12px;font-weight:700;">
-🏆 Certificate
-</div>
-</div>
-
 </div>
 
 <div id="internshipSection" class="section">
-
 <div class="card">
 <h2 class="card-title">Available Internship Programs</h2>
-<p class="card-text">
-Choose one internship program to begin your journey.
-</p>
+<p class="card-text">Choose one internship program to begin your journey.</p>
 </div>
-
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;">
-
 <div class="intern-card">
-<div class="intern-img ai-img">
-<span id="aiBadge">🔒 Locked</span>
-</div>
+<div class="intern-img ai-img"><span id="aiBadge">Available</span></div>
 <div class="intern-body">
 <h3>AI & Prompt Engineering</h3>
 <p>4-week online internship with project, offer letter and certificate.</p>
-<div class="tags">
-<b>4 Weeks</b>
-<b>Offer Letter</b>
-<b>Certificate</b>
-</div>
-<button id="aiBtn" class="primary-btn unlockBtn" data-program="AI & Prompt Engineering">🔒 Locked</button>
+<div class="tags"><b>4 Weeks</b><b>Offer Letter</b><b>Certificate</b></div>
+<button id="aiBtn" class="primary-btn unlockBtn" data-program="AI & Prompt Engineering">Apply Now</button>
 </div>
 </div>
-
 <div class="intern-card">
-<div class="intern-img web-img">
-<span id="webBadge">🔒 Locked</span>
-</div>
+<div class="intern-img web-img"><span id="webBadge">Available</span></div>
 <div class="intern-body">
 <h3>Web Development</h3>
 <p>Build a portfolio project and submit it for internship completion.</p>
-<div class="tags">
-<b>4 Weeks</b>
-<b>Project</b>
-<b>Certificate</b>
-</div>
-<button id="webBtn" class="primary-btn unlockBtn" data-program="Web Development">🔒 Locked</button>
+<div class="tags"><b>4 Weeks</b><b>Project</b><b>Certificate</b></div>
+<button id="webBtn" class="primary-btn unlockBtn" data-program="Web Development">Apply Now</button>
 </div>
 </div>
-
 <div class="intern-card">
-<div class="intern-img py-img">
-<span id="pythonBadge">🔒 Locked</span>
-</div>
+<div class="intern-img py-img"><span id="pythonBadge">Available</span></div>
 <div class="intern-body">
 <h3>Python Programming</h3>
 <p>Beginner-friendly Python internship with mini project submission.</p>
-<div class="tags">
-<b>4 Weeks</b>
-<b>Beginner</b>
-<b>Certificate</b>
-</div>
-<button id="pythonBtn" class="primary-btn unlockBtn" data-program="Python Programming">🔒 Locked</button>
+<div class="tags"><b>4 Weeks</b><b>Beginner</b><b>Certificate</b></div>
+<button id="pythonBtn" class="primary-btn unlockBtn" data-program="Python Programming">Apply Now</button>
 </div>
 </div>
-
 </div>
 </div>
 
 <div id="documentsSection" class="section">
-
-<div class="card">
-<h2 class="card-title">Camp Internship Documents</h2>
-<p class="card-text">
-Your official internship documents will appear here after admin approval.
-</p>
+<div class="card" style="background: linear-gradient(135deg, #1e293b, #0f172a); color: white;">
+<h2 class="card-title" style="color: white; display: flex; align-items: center; gap: 10px;">
+<i class="fa-solid fa-vault" style="color: #38bdf8;"></i> Secure Digital Document Vault
+</h2>
+<p style="color: #94a3b8; font-size: 15px;">Your verified credentials and security clearance items are archived below. Access is automatically granted instantly upon reaching compliance locks.</p>
 </div>
 
-<div class="doc-grid">
-
-<div class="doc-card">
-<i class="fa-solid fa-file-lines"></i>
+<div class="vault-container">
+<div id="cardOfferLetter" class="vault-card locked">
+<div class="vault-header">
+<div class="vault-icon-box"><i class="fa-solid fa-file-signature"></i></div>
+<span id="badgeOfferLetter" class="vault-badge badge-locked">Locked</span>
+</div>
+<div class="vault-body">
 <h3>Offer Letter</h3>
-<p>Status: <b id="offerLetterStatus">Pending</b></p>
-<p>ID: <b id="offerLetterId">Not Generated</b></p>
-<a href="offer-letter.html" class="secondary-btn">View Offer Letter</a>
+<p class="vault-desc">Generated after payment verification.</p>
+<div class="vault-meta">
+<div class="vault-meta-row">
+<span class="vault-meta-label">Compliance Status:</span>
+<span class="vault-meta-val" id="offerLetterStatus">Locked</span>
+</div>
+<div class="vault-meta-row">
+<span class="vault-meta-label">Document Ref ID:</span>
+<span class="vault-meta-val" id="offerLetterId">Not Generated</span>
+</div>
+</div>
+<button id="viewOfferLetterBtn" class="vault-btn vault-btn-locked"><i class="fa-solid fa-lock"></i> Complete Payment First</button>
+</div>
 </div>
 
-<div class="doc-card">
-<i class="fa-solid fa-award"></i>
+<div id="cardCertificate" class="vault-card locked">
+<div class="vault-header">
+<div class="vault-icon-box"><i class="fa-solid fa-award"></i></div>
+<span id="badgeCertificate" class="vault-badge badge-locked">Locked</span>
+</div>
+<div class="vault-body">
 <h3>Internship Certificate</h3>
-<p>Status: <b id="docCertificateStatus">Not Issued</b></p>
-<p>ID: <b id="docCertificateId">Not Generated</b></p>
-<a href="certificate.html" class="secondary-btn">View Certificate</a>
+<p class="vault-desc">Issued after 100% internship completion.</p>
+<div class="vault-meta">
+<div class="vault-meta-row">
+<span class="vault-meta-label">Compliance Status:</span>
+<span class="vault-meta-val" id="docCertificateStatus">Not Issued</span>
+</div>
+<div class="vault-meta-row">
+<span class="vault-meta-label">Document Ref ID:</span>
+<span class="vault-meta-val" id="docCertificateId">Not Generated</span>
+</div>
+</div>
+<button id="viewCertificateBtn" class="vault-btn vault-btn-locked"><i class="fa-solid fa-lock"></i> Complete Internship First</button>
+</div>
 </div>
 
-<div class="doc-card">
-<i class="fa-solid fa-file-circle-check"></i>
+<div id="cardCompletionLetter" class="vault-card locked">
+<div class="vault-header">
+<div class="vault-icon-box"><i class="fa-solid fa-file-circle-check"></i></div>
+<span id="badgeCompletionLetter" class="vault-badge badge-locked">Locked</span>
+</div>
+<div class="vault-body">
 <h3>Completion Letter</h3>
-<p>Status: <b id="completionLetterStatus">Pending</b></p>
-<p>Issued after final project review.</p>
-<a href="completion-letter.html" class="secondary-btn">View Completion Letter</a>
+<p class="vault-desc">Issued after successful project and internship completion.</p>
+<div class="vault-meta">
+<div class="vault-meta-row">
+<span class="vault-meta-label">Compliance Status:</span>
+<span class="vault-meta-val" id="completionLetterStatus">Locked</span>
 </div>
-
-</div>
-<div style="margin-top:20px;text-align:center;">
-<a href="verify.html" class="primary-btn">🔍 Verify Any Document</a>
-</div>
-</div>
-
-<div id="paymentSection" class="section">
-
-<div class="card">
-<h2 class="card-title">Complete Enrollment</h2>
-<div class="pricing-box">
-<div class="price-row">
-<span class="old-price">₹249</span>
-<span class="new-price">₹1</span>
-</div>
-<div class="offer-badge">🔥 Launch Offer Active</div>
-<p class="offer-text">Complete your internship enrollment at ₹1 during the limited launch period.</p>
-<div class="timer-box">⏳ Offer ends in: <b id="offerTimer">Loading...</b></div>
-</div>
-
-<p class="card-text" style="margin-top:15px;">
-Selected Internship: <b id="selectedProgramText">Not Selected</b>
-</p>
-
-<div class="payment-box">
-<h3>Scan QR to Complete Enrollment</h3>
-<p>UPI ID is hidden for a clean payment experience.</p>
-<img src="qr.png" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=230x230&data=upi://pay?pa=9996265411@mbk%26pn=InternForge%26am=1%26cu=INR%26tn=InternForge%20Internship%20Unlock'">
-<input id="transactionId" placeholder="Enter UPI Transaction ID">
-<button id="submitPaymentBtn" class="primary-btn">Submit Payment Proof</button>
+<div class="vault-meta-row">
+<span class="vault-meta-label">Document Ref ID:</span>
+<span class="vault-meta-val" id="completionLetterId">Not Generated</span>
 </div>
 </div>
-
+<button id="viewCompletionLetterBtn" class="vault-btn vault-btn-locked"><i class="fa-solid fa-lock"></i> Complete Internship First</button>
+</div>
+</div>
+</div>
 </div>
 
 <div id="projectSection" class="section">
-
 <div class="card">
 <h2 class="card-title">Internship Project Submission</h2>
 <p class="card-text">Submit your final internship project for admin review. Add a GitHub, Google Drive, or live project link.</p>
 </div>
-
 <div class="card">
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:20px;">
 <div style="background:#eef4ff;padding:18px;border-radius:16px;">
 <b>Project Status</b>
-<p style="margin-top:8px;color:#0056d2;font-weight:900;">Pending Submission</p>
+<p id="projectStatusText" style="margin-top:8px;color:#0056d2;font-weight:900;">Pending Submission</p>
 </div>
 <div style="background:#ecfdf5;padding:18px;border-radius:16px;">
 <b>Review Type</b>
@@ -564,22 +677,12 @@ Selected Internship: <b id="selectedProgramText">Not Selected</b>
 <p style="margin-top:8px;color:#92400e;font-weight:900;">After Approval</p>
 </div>
 </div>
-
 <h3 style="margin-bottom:10px;">Submit Your Project</h3>
 <input class="input-field" id="projectTitle" placeholder="Project Title">
 <input class="input-field" id="projectLink" placeholder="GitHub / Google Drive / Live Project Link">
 <textarea id="projectDescription" placeholder="Write a short description of your project..." style="width:100%;height:120px;padding:14px;border:1px solid #cbd5e1;border-radius:12px;margin-top:14px;font-size:15px;resize:none;"></textarea>
 <button id="submitProjectBtn" class="primary-btn" style="margin-top:15px;">Submit Project for Review</button>
 </div>
-
-<div class="card">
-<h3>Project Submission Guidelines</h3>
-<div class="notice">✅ Project link must be accessible publicly.</div>
-<div class="notice">✅ Add README file if submitting GitHub link.</div>
-<div class="notice">✅ Mention tools, features and screenshots in your project.</div>
-<div class="notice">✅ Certificate will be issued only after admin approval.</div>
-</div>
-
 </div>
 
 <div id="certificateSection" class="section">
@@ -593,7 +696,6 @@ Selected Internship: <b id="selectedProgramText">Not Selected</b>
 <span>Certificate ID</span>
 <b id="certificateIdPage">Not Generated</b>
 </div>
-<a href="verify.html" class="primary-btn" style="margin-top:18px;">Verify Certificate</a>
 </div>
 </div>
 
@@ -608,7 +710,7 @@ Selected Internship: <b id="selectedProgramText">Not Selected</b>
 <div class="card">
 <h2 class="card-title">AI Internship Assistant</h2>
 <p class="card-text">Use quick tools for resume help, project ideas, interview preparation and career guidance.</p>
-<div style="display:grid;gap:15px;">
+<div style="display:grid;gap:15px;margin-top:15px;">
 <button class="primary-btn" id="resumeReviewBtn">📄 Resume Review</button>
 <button class="primary-btn" id="projectIdeaBtn">💡 Project Ideas</button>
 <button class="primary-btn" id="interviewBtn">🎤 Interview Questions</button>
@@ -623,362 +725,33 @@ Selected Internship: <b id="selectedProgramText">Not Selected</b>
 <div id="profileSection" class="section">
 <div class="card">
 <h2 class="card-title">Student Profile</h2>
-<div class="info-row">
-<span>Name</span>
-<b id="profileName">Loading...</b>
-</div>
-<div class="info-row">
-<span>Email</span>
-<b id="profileEmail">Loading...</b>
-</div>
-<div class="info-row">
-<span>College</span>
-<b id="profileCollege">Loading...</b>
-</div>
-<div class="info-row">
-<span>Course</span>
-<b id="profileCourse">Loading...</b>
-</div>
-<div class="info-row">
-<span>LinkedIn</span>
-<b>Not Added</b>
-</div>
-<div class="info-row">
-<span>GitHub</span>
-<b>Not Added</b>
+<div class="info-row"><span>Name</span><b id="profileName">Loading...</b></div>
+<div class="info-row"><span>Email</span><b id="profileEmail">Loading...</b></div>
+<div class="info-row"><span>College</span><b id="profileCollege">Loading...</b></div>
+<div class="info-row"><span>Course</span><b id="profileCourse">Loading...</b></div>
 </div>
 </div>
-</div>
-
 </div>
 
 <div class="toast" id="toast"></div>
-
-<style>
-.intern-card{
-background:white;
-border:1px solid #e5e7eb;
-border-radius:24px;
-overflow:hidden;
-box-shadow:0 8px 20px rgba(0,0,0,.04);
-transition:.25s;
-}
-
-.intern-card:hover{
-transform:translateY(-5px);
-box-shadow:0 14px 34px rgba(0,0,0,.08);
-}
-
-.intern-img{
-height:155px;
-position:relative;
-background-size:cover;
-background-position:center;
-}
-
-.ai-img{
-background:linear-gradient(rgba(0,86,210,.72),rgba(0,0,0,.55)),
-url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80');
-background-size:cover;
-background-position:center;
-}
-
-.web-img{
-background:linear-gradient(rgba(0,86,210,.72),rgba(0,0,0,.55)),
-url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=900&q=80');
-background-size:cover;
-background-position:center;
-}
-
-.py-img{
-background:linear-gradient(rgba(0,86,210,.72),rgba(0,0,0,.55)),
-url('https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=900&q=80');
-background-size:cover;
-background-position:center;
-}
-
-.intern-img span{
-position:absolute;
-top:14px;
-right:14px;
-background:white;
-color:#111827;
-padding:7px 12px;
-border-radius:999px;
-font-size:12px;
-font-weight:900;
-}
-
-.intern-body{
-padding:22px;
-}
-
-.intern-body h3{
-font-size:21px;
-margin-bottom:10px;
-}
-
-.intern-body p{
-color:#6b7280;
-line-height:1.6;
-margin-bottom:14px;
-}
-
-.tags{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-bottom:15px;
-}
-
-.tags b{
-background:#eef4ff;
-color:#0056d2;
-font-size:12px;
-padding:7px 10px;
-border-radius:999px;
-}
-
-.primary-btn{
-background:#0056d2;
-color:white;
-border:none;
-padding:13px 18px;
-border-radius:12px;
-font-weight:900;
-cursor:pointer;
-text-decoration:none;
-display:inline-block;
-}
-
-.secondary-btn{
-background:#eef4ff;
-color:#0056d2;
-border:none;
-padding:11px 15px;
-border-radius:12px;
-font-weight:800;
-text-decoration:none;
-display:inline-block;
-margin-top:12px;
-margin-right:8px;
-}
-
-.payment-box{
-text-align:center;
-margin-top:20px;
-background:#f8fafc;
-padding:25px;
-border-radius:22px;
-border:1px solid #e5e7eb;
-}
-
-.payment-box img{
-width:220px;
-background:white;
-padding:12px;
-border-radius:18px;
-border:1px solid #e5e7eb;
-margin:18px 0;
-}
-
-.input-field,
-.payment-box input{
-width:100%;
-padding:14px;
-border:1px solid #cbd5e1;
-border-radius:12px;
-margin-top:14px;
-font-size:15px;
-}
-
-.doc-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-
-.doc-card{
-background:white;
-border:1px solid #e5e7eb;
-border-radius:22px;
-padding:24px;
-box-shadow:0 8px 20px rgba(0,0,0,.04);
-}
-
-.doc-card i{
-font-size:32px;
-color:#0056d2;
-margin-bottom:12px;
-}
-
-.doc-card h3{
-margin-bottom:10px;
-}
-
-.doc-card p{
-color:#6b7280;
-margin-top:8px;
-}
-
-.info-row{
-display:flex;
-justify-content:space-between;
-gap:20px;
-padding:16px 0;
-border-bottom:1px solid #e5e7eb;
-}
-
-.info-row span{
-color:#6b7280;
-font-weight:700;
-}
-
-.notice{
-background:#f8fafc;
-border-left:4px solid #0056d2;
-padding:12px;
-margin-top:8px;
-border-radius:0 8px 8px 0;
-}
-
-.profile-percent{
-background:#eef4ff;
-color:#0056d2;
-padding:8px 14px;
-border-radius:999px;
-font-size:13px;
-font-weight:800;
-}
-
-.progress-bar{
-height:14px;
-background:#e2e8f0;
-border-radius:999px;
-overflow:hidden;
-margin-top:14px;
-}
-
-.progress-fill{
-height:100%;
-width:60%;
-background:linear-gradient(90deg, #0056d2, #3b82f6, #60a5fa);
-border-radius:999px;
-box-shadow:0 0 15px rgba(59,130,246,.35);
-}
-
-.stat-card{
-min-height:125px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-background:white;
-padding:24px !important;
-border-radius:24px !important;
-border:1px solid #e5e7eb !important;
-box-shadow:0 12px 30px rgba(15,23,42,.06) !important;
-position:relative;
-overflow:hidden;
-transition:.25s;
-}
-
-.stat-card:hover{
-transform:translateY(-4px);
-box-shadow:0 18px 40px rgba(15,23,42,.10) !important;
-}
-
-.stat-card::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:5px;
-background:linear-gradient(90deg,#0056d2,#60a5fa);
-}
-
-.stat-card span{
-font-size:12px !important;
-font-weight:900 !important;
-letter-spacing:.5px;
-text-transform:uppercase;
-color:#64748b !important;
-}
-
-.stat-card h2{
-margin-top:10px !important;
-font-size:22px !important;
-font-weight:900 !important;
-color:#0f172a;
-}
-
-.status-warning{
-display:inline-block;
-background:#fef3c7;
-color:#92400e !important;
-padding:8px 13px;
-border-radius:999px;
-font-size:14px !important;
-}
-
-.status-success{
-display:inline-block;
-background:#dcfce7;
-color:#166534 !important;
-padding:8px 13px;
-border-radius:999px;
-font-size:14px !important;
-}
-
-.hero-actions .primary-btn,
-.hero-actions .secondary-btn{
-min-width:180px;
-height:48px;
-display:inline-flex;
-align-items:center;
-justify-content:center;
-border-radius:14px;
-font-weight:900;
-transition:.25s;
-}
-
-.hero-actions .primary-btn{
-background:white;
-color:#0f172a;
-}
-
-.hero-actions .secondary-btn{
-background:transparent;
-color:white;
-border:1px solid rgba(255,255,255,.75);
-}
-
-.hero-actions .primary-btn:hover,
-.hero-actions .secondary-btn:hover{
-transform:translateY(-2px);
-box-shadow:0 12px 28px rgba(0,0,0,.18);
-}
-</style>
 
 <script type="module">
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { doc, getDoc, setDoc, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-let currentUserId="";
-let selectedProgram="";
+let currentUserId = "";
+let selectedProgram = "";
 
 function toast(msg){
-const t=document.getElementById("toast");
+const t = document.getElementById("toast");
 if(!t) return;
-t.innerHTML=msg;
-t.style.display="block";
-setTimeout(()=>{
-t.style.display="none";
-},3000);
+t.innerHTML = msg;
+t.style.display = "block";
+setTimeout(()=>{ t.style.display = "none"; }, 3000);
 }
 
-window.showSection=function(sectionId,element){
+window.showSection = function(sectionId, element){
 document.querySelectorAll(".section").forEach(sec=>sec.classList.remove("active"));
 document.querySelectorAll(".nav-link").forEach(nav=>nav.classList.remove("active"));
 const targetSec = document.getElementById(sectionId);
@@ -986,76 +759,207 @@ if(targetSec) targetSec.classList.add("active");
 if(element) element.classList.add("active");
 };
 
-onAuthStateChanged(auth,async(user)=>{
+function generateId(prefix) {
+const year = new Date().getFullYear();
+const rand = Math.floor(1000 + Math.random() * 9000);
+return `${prefix}-${year}-${rand}`;
+}
+
+onAuthStateChanged(auth, async(user)=>{
 if(!user){
-window.location.href="login.html";
+window.location.href = "login.html";
 return;
 }
-
-currentUserId=user.uid;
+currentUserId = user.uid;
 
 try {
-const snap = await getDoc(doc(db,"students",user.uid));
-
+const snap = await getDoc(doc(db, "students", user.uid));
 if(snap.exists()){
-const data=snap.data();
+let data = snap.data();
+let updates = {};
+
+let paymentStatus = data.paymentStatus || "Not Paid";
+let progress = data.progress || 0;
+
+// Auto generation system requirements without admin authorization intervention
+if (paymentStatus === "Approved" && !data.offerLetterId) {
+updates.offerLetterId = generateId("OL");
+updates.offerLetterStatus = "Generated";
+}
+if (progress >= 100 && !data.certificateId) {
+updates.certificateId = generateId("IF");
+updates.certificateStatus = "Issued";
+}
+if (progress >= 100 && !data.completionLetterId) {
+updates.completionLetterId = generateId("CL");
+updates.completionLetterStatus = "Issued";
+}
+
+if (Object.keys(updates).length > 0) {
+await setDoc(doc(db, "students", user.uid), updates, { merge: true });
+const freshSnap = await getDoc(doc(db, "students", user.uid));
+data = freshSnap.data();
+paymentStatus = data.paymentStatus || "Not Paid";
+progress = data.progress || 0;
+}
+
 updateInternshipCards(data);
-console.log("PAYMENT STATUS =", data.paymentStatus);
 
-if(document.getElementById("studentName")) document.getElementById("studentName").innerText= data.name || "Student";
-if(document.getElementById("progressCard")) document.getElementById("progressCard").innerText= (data.progress || 0)+"%";
-if(document.getElementById("certificateCard")) document.getElementById("certificateCard").innerText= data.certificateStatus || "Pending";
-if(document.getElementById("offerStatusCard")) document.getElementById("offerStatusCard").innerText= data.offerLetterStatus || "Pending";
+// Elements synchronization sync lines
+if(document.getElementById("studentName")) document.getElementById("studentName").innerText = data.name || "Student";
+if(document.getElementById("profileCompletionText")) document.getElementById("profileCompletionText").innerText = progress + "% Complete";
+if(document.getElementById("profileCompletionBar")) document.getElementById("profileCompletionBar").style.width = progress + "%";
 
-if(document.getElementById("internshipStatusCard")) {
-document.getElementById("internshipStatusCard").innerText =
-data.paymentStatus === "Approved"
-? "Active"
-: (data.applicationStatus === "Applied" ? "Payment Required" : "Not Applied");
-}
-
-if(document.getElementById("profileName")) document.getElementById("profileName").innerText= data.name || "-";
-if(document.getElementById("profileEmail")) document.getElementById("profileEmail").innerText= data.email || "-";
-if(document.getElementById("profileCollege")) document.getElementById("profileCollege").innerText= data.college || "-";
-if(document.getElementById("profileCourse")) document.getElementById("profileCourse").innerText= data.course || "-";
-
-if(document.getElementById("certificateStatusPage")) document.getElementById("certificateStatusPage").innerText= data.certificateStatus || "Not Issued";
-if(document.getElementById("certificateIdPage")) document.getElementById("certificateIdPage").innerText= data.certificateId || "Not Generated";
-if(document.getElementById("docCertificateStatus")) document.getElementById("docCertificateStatus").innerText= data.certificateStatus || "Not Issued";
-if(document.getElementById("docCertificateId")) document.getElementById("docCertificateId").innerText= data.certificateId || "Not Generated";
-if(document.getElementById("offerLetterStatus")) document.getElementById("offerLetterStatus").innerText= data.offerLetterStatus || "Pending";
-if(document.getElementById("offerLetterId")) document.getElementById("offerLetterId").innerText= data.offerLetterId || "Not Generated";
-if(document.getElementById("completionLetterStatus")) document.getElementById("completionLetterStatus").innerText= data.completionLetterStatus || "Pending";
-
-if(data.selectedProgram){
-selectedProgram=data.selectedProgram;
-if(document.getElementById("selectedProgramText")) document.getElementById("selectedProgramText").innerText= selectedProgram;
-}
+if(document.getElementById("profileName")) document.getElementById("profileName").innerText = data.name || "-";
+if(document.getElementById("profileEmail")) document.getElementById("profileEmail").innerText = data.email || "-";
+if(document.getElementById("profileCollege")) document.getElementById("profileCollege").innerText = data.college || "-";
+if(document.getElementById("profileCourse")) document.getElementById("profileCourse").innerText = data.course || "-";
 
 if(document.getElementById("statusProgram")) document.getElementById("statusProgram").innerText = data.selectedProgram || "Not Selected";
 if(document.getElementById("statusApplication")) document.getElementById("statusApplication").innerText = data.applicationStatus || "Not Applied";
-if(document.getElementById("statusPayment")) document.getElementById("statusPayment").innerText = data.paymentStatus || "Not Paid";
+if(document.getElementById("statusPayment")) document.getElementById("statusPayment").innerText = paymentStatus;
+
+// Synchronizing Home Dashboard cards
+if(document.getElementById("progressCard")) document.getElementById("progressCard").innerText = progress + "%";
+
+if (paymentStatus === "Approved") {
+if(document.getElementById("offerStatusCard")) {
+document.getElementById("offerStatusCard").innerText = "Generated";
+document.getElementById("offerStatusCard").className = "status-success";
+}
+if(document.getElementById("internshipStatusCard")) {
+document.getElementById("internshipStatusCard").innerText = "Active";
+document.getElementById("internshipStatusCard").className = "status-success";
+}
+} else {
+if(document.getElementById("offerStatusCard")) {
+document.getElementById("offerStatusCard").innerText = "Locked";
+document.getElementById("offerStatusCard").className = "status-warning";
+}
+if(document.getElementById("internshipStatusCard")) {
+document.getElementById("internshipStatusCard").innerText = (data.applicationStatus === "Applied" ? "Payment Required" : "Not Applied");
+document.getElementById("internshipStatusCard").className = "status-warning";
+}
+}
+
+if (progress >= 100) {
+if(document.getElementById("certificateCard")) {
+document.getElementById("certificateCard").innerText = "Issued";
+document.getElementById("certificateCard").className = "status-success";
+}
+if(document.getElementById("certificateStatusPage")) document.getElementById("certificateStatusPage").innerText = "Issued";
+} else {
+if(document.getElementById("certificateCard")) {
+document.getElementById("certificateCard").innerText = "Locked";
+document.getElementById("certificateCard").className = "status-warning";
+}
+if(document.getElementById("certificateStatusPage")) document.getElementById("certificateStatusPage").innerText = "Not Issued";
+}
+if(document.getElementById("certificateIdPage")) document.getElementById("certificateIdPage").innerText = data.certificateId || "Not Generated";
+
+// Compliance logic execution inside digital vault
+// Card 1: Offer Letter Evaluation
+const cardOL = document.getElementById("cardOfferLetter");
+const badgeOL = document.getElementById("badgeOfferLetter");
+const txtOLStatus = document.getElementById("offerLetterStatus");
+const txtOLId = document.getElementById("offerLetterId");
+const btnOL = document.getElementById("viewOfferLetterBtn");
+
+if (paymentStatus === "Approved") {
+cardOL.className = "vault-card unlocked";
+badgeOL.className = "vault-badge badge-active";
+badgeOL.innerText = "Generated";
+txtOLStatus.innerText = "Generated";
+txtOLId.innerText = data.offerLetterId || "Generating...";
+btnOL.className = "vault-btn vault-btn-unlocked";
+btnOL.innerHTML = '<i class="fa-solid fa-folder-open"></i> View Offer Letter';
+btnOL.onclick = () => { window.location.href = "offer-letter.html"; };
+} else {
+cardOL.className = "vault-card locked";
+badgeOL.className = "vault-badge badge-verification";
+badgeOL.innerText = "Payment Verification Required";
+txtOLStatus.innerText = "Locked";
+txtOLId.innerText = "Not Generated";
+btnOL.className = "vault-btn vault-btn-locked";
+btnOL.innerHTML = '<i class="fa-solid fa-lock"></i> Complete Payment First';
+btnOL.onclick = () => { toast("Offer Letter will be available after payment verification."); };
+}
+
+// Card 2: Certificate Evaluation
+const cardCert = document.getElementById("cardCertificate");
+const badgeCert = document.getElementById("badgeCertificate");
+const txtCertStatus = document.getElementById("docCertificateStatus");
+const txtCertId = document.getElementById("docCertificateId");
+const btnCert = document.getElementById("viewCertificateBtn");
+
+if (progress >= 100) {
+cardCert.className = "vault-card unlocked";
+badgeCert.className = "vault-badge badge-active";
+badgeCert.innerText = "Issued";
+txtCertStatus.innerText = "Issued";
+txtCertId.innerText = data.certificateId || "Generating...";
+btnCert.className = "vault-btn vault-btn-unlocked";
+btnCert.innerHTML = '<i class="fa-solid fa-folder-open"></i> View Certificate';
+btnCert.onclick = () => { window.location.href = "certificate.html"; };
+} else {
+cardCert.className = "vault-card locked";
+badgeCert.className = "vault-badge badge-locked";
+badgeCert.innerText = "Complete Internship First";
+txtCertStatus.innerText = "Locked";
+txtCertId.innerText = "Not Generated";
+btnCert.className = "vault-btn vault-btn-locked";
+btnCert.innerHTML = '<i class="fa-solid fa-lock"></i> Complete Internship First';
+btnCert.onclick = () => { toast("Certificate will be available after 100% internship completion."); };
+}
+
+// Card 3: Completion Letter Evaluation
+const cardCL = document.getElementById("cardCompletionLetter");
+const badgeCL = document.getElementById("badgeCompletionLetter");
+const txtCLStatus = document.getElementById("completionLetterStatus");
+const txtCLId = document.getElementById("completionLetterId");
+const btnCL = document.getElementById("viewCompletionLetterBtn");
+
+if (progress >= 100) {
+cardCL.className = "vault-card unlocked";
+badgeCL.className = "vault-badge badge-active";
+badgeCL.innerText = "Issued";
+txtCLStatus.innerText = "Issued";
+txtCLId.innerText = data.completionLetterId || "Generating...";
+btnCL.className = "vault-btn vault-btn-unlocked";
+btnCL.innerHTML = '<i class="fa-solid fa-folder-open"></i> View Completion Letter';
+btnCL.onclick = () => { window.location.href = "completion-letter.html"; };
+} else {
+cardCL.className = "vault-card locked";
+badgeCL.className = "vault-badge badge-locked";
+badgeCL.innerText = "Project Approval Required";
+txtCLStatus.innerText = "Locked";
+txtCLId.innerText = "Not Generated";
+btnCL.className = "vault-btn vault-btn-locked";
+btnCL.innerHTML = '<i class="fa-solid fa-lock"></i> Complete Internship First';
+btnCL.onclick = () => { toast("Completion Letter will be available after successful internship completion."); };
+}
+
+if(data.selectedProgram){
+selectedProgram = data.selectedProgram;
+}
 
 let nextStep = "Apply for an internship";
-if(data.applicationStatus === "Applied" && data.paymentStatus === "Payment Required"){
+if(data.applicationStatus === "Applied" && paymentStatus === "Payment Required"){
 nextStep = "Complete enrollment payment";
 }
-if(data.paymentStatus === "Pending Approval"){
+if(paymentStatus === "Pending Approval"){
 nextStep = "Wait for admin approval";
 }
-if(data.paymentStatus === "Approved"){
+if(paymentStatus === "Approved"){
 nextStep = "Submit your internship project";
 }
-if(data.progress === 100){
+if(progress === 100){
 nextStep = "Download certificate and completion letter";
 }
-
-if(document.getElementById("statusNextStep")) {
-document.getElementById("statusNextStep").innerText = nextStep;
-}
+if(document.getElementById("statusNextStep")) document.getElementById("statusNextStep").innerText = nextStep;
 }
 } catch(e) {
-console.error("Error fetching student record:", e);
+console.error("Error fetching record:", e);
 }
 
 loadAnnouncements();
@@ -1070,243 +974,97 @@ const programs = [
 { name:"Web Development", badge:"webBadge", btn:"webBtn" },
 { name:"Python Programming", badge:"pythonBadge", btn:"pythonBtn" }
 ];
-
 programs.forEach(item=>{
 const badge = document.getElementById(item.badge);
 const btn = document.getElementById(item.btn);
 if(!badge || !btn) return;
-
 if(!selected){
 badge.innerText="Available";
 btn.innerText="Apply Now";
 btn.disabled=false;
-btn.style.opacity="1";
 return;
 }
-
 if(selected === item.name){
 if(payment === "Approved"){
-badge.innerText="Active";
-btn.innerText="Active Internship";
-btn.disabled=true;
-btn.style.opacity=".75";
-return;
+badge.innerText="Active"; btn.innerText="Active Internship"; btn.disabled=true; return;
 }
 if(payment === "Pending Approval"){
-badge.innerText="Pending Approval";
-btn.innerText="Waiting Approval";
-btn.disabled=true;
-btn.style.opacity=".75";
-return;
+badge.innerText="Pending Approval"; btn.innerText="Waiting Approval"; btn.disabled=true; return;
 }
 if(payment === "Payment Required"){
-badge.innerText="Payment Required";
-btn.innerText="Complete Payment";
-btn.disabled=false;
-btn.style.opacity="1";
-return;
+badge.innerText="Payment Required"; btn.innerText="Complete Payment"; btn.disabled=false; return;
 }
-badge.innerText="Applied";
-btn.innerText="Continue";
-btn.disabled=false;
-btn.style.opacity="1";
-return;
+badge.innerText="Applied"; btn.innerText="Continue"; btn.disabled=false; return;
 }
-
-badge.innerText="Locked";
-btn.innerText="Locked";
-btn.disabled=true;
-btn.style.opacity=".55";
+badge.innerText="Locked"; btn.innerText="Locked"; btn.disabled=true;
 });
 }
 
 document.querySelectorAll(".unlockBtn").forEach(btn=>{
 btn.addEventListener("click",async()=>{
-selectedProgram= btn.dataset.program;
-if(document.getElementById("selectedProgramText")) document.getElementById("selectedProgramText").innerText= selectedProgram;
-
-await setDoc(
-doc(db,"students",currentUserId),
-{ selectedProgram:selectedProgram, applicationStatus:"Applied", paymentStatus:"Payment Required", progress:10 },
-{ merge:true }
-);
-
-if(document.getElementById("internshipStatusCard")) document.getElementById("internshipStatusCard").innerText= "Payment Required";
-window.showSection("paymentSection", document.querySelectorAll(".nav-link")[2]);
-toast("Application submitted for " + selectedProgram + ". Complete enrollment payment.");
+selectedProgram = btn.dataset.program;
+await setDoc(doc(db,"students",currentUserId),{ selectedProgram:selectedProgram, applicationStatus:"Applied", paymentStatus:"Payment Required", progress:10 },{ merge:true });
+showSection("homeSection", document.querySelectorAll(".nav-link")[0]);
+toast("Application submitted for " + selectedProgram + ".");
 });
-});
-
-document.getElementById("submitPaymentBtn").addEventListener("click",async()=>{
-const txn= document.getElementById("transactionId").value.trim();
-if(!selectedProgram){
-toast("Select internship first.");
-return;
-}
-if(!txn){
-toast("Enter transaction ID.");
-return;
-}
-
-try{
-await setDoc(
-doc(db,"students",currentUserId),
-{ selectedProgram:selectedProgram, transactionId:txn, paymentStatus:"Pending Approval", offerLetterStatus:"Pending", progress:20 },
-{ merge:true }
-);
-
-if(document.getElementById("internshipStatusCard")) document.getElementById("internshipStatusCard").innerText= "Pending Approval";
-toast("Payment submitted successfully. Waiting for admin approval.");
-window.location.href = "payment-pending.html";
-document.getElementById("transactionId").value="";
-}catch(error){
-toast(error.message);
-}
 });
 
 document.getElementById("submitProjectBtn").addEventListener("click",async()=>{
-const title= document.getElementById("projectTitle").value.trim();
-const link= document.getElementById("projectLink").value.trim();
-const description= document.getElementById("projectDescription").value.trim();
-
-if(!title || !link){
-toast("Fill all fields.");
-return;
-}
-
+const title = document.getElementById("projectTitle").value.trim();
+const link = document.getElementById("projectLink").value.trim();
+const description = document.getElementById("projectDescription").value.trim();
+if(!title || !link){ toast("Fill all fields."); return; }
 try{
-await addDoc(
-collection(db,"projects"),
-{ studentId:currentUserId, projectTitle:title, projectLink:link, projectDescription:description, program:selectedProgram, status:"Pending Review", submittedAt:new Date() }
-);
+await addDoc(collection(db,"projects"),{ studentId:currentUserId, projectTitle:title, projectLink:link, projectDescription:description, program:selectedProgram, status:"Pending Review", submittedAt:new Date() });
 toast("Project submitted successfully.");
 document.getElementById("projectTitle").value="";
 document.getElementById("projectLink").value="";
 document.getElementById("projectDescription").value="";
-}catch(error){
-toast(error.message);
-}
+}catch(error){ toast(error.message); }
 });
 
 function setupAIAssistant(){
 const responseBox = document.getElementById("aiResponse");
 const questionBox = document.getElementById("aiQuestion");
 if(!responseBox) return;
-
-function reply(text){
-responseBox.innerHTML = text;
-}
-
 document.getElementById("resumeReviewBtn")?.addEventListener("click",()=>{
-reply(`
-<b>Resume Review Tips:</b><br><br>
-✅ Add your name, email and LinkedIn/GitHub.<br>
-✅ Mention your BCA / course details clearly.<br>
-✅ Add 2-3 projects with tech stack.<br>
-✅ Use keywords like HTML, CSS, JavaScript, Python, Firebase, AI tools.<br>
-✅ Keep resume to 1 page.
-`);
+responseBox.innerHTML = `<b>Resume Review Tips:</b><br><br>✅ Add projects with tech stack.<br>✅ Keep resume to 1 page.`;
 });
-
 document.getElementById("projectIdeaBtn")?.addEventListener("click",()=>{
-reply(`
-<b>Project Ideas:</b><br><br>
-1. AI Resume Analyzer<br>
-2. Student Internship Portal<br>
-3. Smart Library Management System<br>
-4. Certificate Verification System<br>
-5. AI Chatbot for Career Guidance
-`);
+responseBox.innerHTML = `<b>Project Ideas:</b><br><br>1. AI Resume Analyzer<br>2. Student Internship Portal`;
 });
-
 document.getElementById("interviewBtn")?.addEventListener("click",()=>{
-reply(`
-<b>Common Interview Questions:</b><br><br>
-1. Tell me about yourself.<br>
-2. Explain your best project.<br>
-3. What is HTML, CSS and JavaScript?<br>
-4. What is Firebase?<br>
-5. Why should we select you for this internship?
-`);
+responseBox.innerHTML = `<b>Interview Questions:</b><br><br>1. Tell me about yourself.<br>2. Explain your best project.`;
 });
-
 document.getElementById("careerBtn")?.addEventListener("click",()=>{
-reply(`
-<b>Career Guidance:</b><br><br>
-Focus on one track first: Web Development, Python, AI tools, or Data Analytics.<br><br>
-Build 2 strong projects, upload them on GitHub, and add them to your resume.
-`);
+responseBox.innerHTML = `<b>Career Guidance:</b><br><br>Focus on one track first: Web Development or Python AI tools.`;
 });
-
 document.getElementById("askAiBtn")?.addEventListener("click",()=>{
 if(!questionBox) return;
 const q = questionBox.value.trim();
-if(!q){
-reply("Please type your question first.");
-return;
-}
-reply(
-"<b>Your Question:</b> " + q + "<br><br>" +
-"<b>AI Assistant:</b><br>" +
-"This assistant can guide you with resumes, projects, interviews and internship preparation. Please choose a quick action above or ask a specific question."
-);
+if(!q){ responseBox.innerHTML = "Please type your question first."; return; }
+responseBox.innerHTML = "<b>Question:</b> " + q + "<br><br><b>AI Assistant:</b> Choose an action block from above for details.";
 });
 }
 
 async function loadAnnouncements(){
-const container= document.getElementById("announcementList");
+const container = document.getElementById("announcementList");
 if(!container) return;
-
 try {
-const snapshot= await getDocs(collection(db,"announcements"));
+const snapshot = await getDocs(collection(db,"announcements"));
 container.innerHTML="";
 snapshot.forEach(doc=>{
 const data=doc.data();
-container.innerHTML+=`
-<div class="notice">
-<h3 style="margin-bottom:8px;">${data.title || ''}</h3>
-<p>${data.message || ''}</p>
-</div>`;
+container.innerHTML+=`<div class="notice"><h3>${data.title || ''}</h3><p>${data.message || ''}</p></div>`;
 });
-
-if(container.innerHTML===""){
-container.innerHTML= "<p>No announcements available.</p>";
-}
-} catch(err) {
-container.innerHTML= "<p>Error loading announcements.</p>";
-}
+if(container.innerHTML===""){ container.innerHTML= "<p>No announcements available.</p>"; }
+} catch(err) { container.innerHTML= "<p>Error loading announcements.</p>"; }
 }
 
 document.getElementById("logoutBtn").addEventListener("click",async()=>{
 await signOut(auth);
 window.location.href="login.html";
 });
-
-function startOfferTimer(){
-const timer = document.getElementById("offerTimer");
-if(!timer) return;
-const endTime = new Date("2026-06-18T23:59:59").getTime();
-
-setInterval(()=>{
-const now = new Date().getTime();
-const distance = endTime - now;
-
-if(distance <= 0){
-timer.innerText = "Offer Expired";
-return;
-}
-
-const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-timer.innerText = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
-},1000);
-}
-
-startOfferTimer();
 </script>
-
 </body>
 </html>
