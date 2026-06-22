@@ -335,7 +335,7 @@ font-size:28px;
 <p>Manage your internship application, documents, project submission and certificate from one professional workspace.</p>
 
 <div class="hero-actions">
-<a href="offer-letter.html" class="primary-btn">View Offer Letter</a>
+<button id="heroOfferBtn" class="primary-btn" style="border:none; cursor:pointer;">View Offer Letter</button>
 <a href="#projectSection" onclick="showSection('projectSection',document.querySelectorAll('.nav-link')[3])" class="secondary-btn">Submit Project</a>
 </div>
 </div>
@@ -488,7 +488,7 @@ Your official internship documents will appear here after admin approval.
 <h3>Offer Letter</h3>
 <p>Status: <b id="offerLetterStatus">Pending</b></p>
 <p>ID: <b id="offerLetterId">Not Generated</b></p>
-<a href="offer-letter.html" class="secondary-btn">View Offer Letter</a>
+<button id="viewOfferLetterBtn" class="secondary-btn" style="border:none; cursor:pointer; width:100%; text-align:center;">View Offer Letter</button>
 </div>
 
 <div class="doc-card">
@@ -496,7 +496,7 @@ Your official internship documents will appear here after admin approval.
 <h3>Internship Certificate</h3>
 <p>Status: <b id="docCertificateStatus">Not Issued</b></p>
 <p>ID: <b id="docCertificateId">Not Generated</b></p>
-<a href="certificate.html" class="secondary-btn">View Certificate</a>
+<button id="viewCertificateBtn" class="secondary-btn" style="border:none; cursor:pointer; width:100%; text-align:center;">View Certificate</button>
 </div>
 
 <div class="doc-card">
@@ -504,7 +504,7 @@ Your official internship documents will appear here after admin approval.
 <h3>Completion Letter</h3>
 <p>Status: <b id="completionLetterStatus">Pending</b></p>
 <p>Issued after final project review.</p>
-<a href="completion-letter.html" class="secondary-btn">View Completion Letter</a>
+<button id="viewCompletionLetterBtn" class="secondary-btn" style="border:none; cursor:pointer; width:100%; text-align:center;">View Completion Letter</button>
 </div>
 
 </div>
@@ -986,6 +986,12 @@ if(targetSec) targetSec.classList.add("active");
 if(element) element.classList.add("active");
 };
 
+function generateId(prefix) {
+const year = new Date().getFullYear();
+const rand = Math.floor(1000 + Math.random() * 9000);
+return `${prefix}-${year}-${rand}`;
+}
+
 onAuthStateChanged(auth,async(user)=>{
 if(!user){
 window.location.href="login.html";
@@ -998,18 +1004,43 @@ try {
 const snap = await getDoc(doc(db,"students",user.uid));
 
 if(snap.exists()){
-const data=snap.data();
+let data=snap.data();
+let updates={};
+let paymentStatus = data.paymentStatus || "Not Paid";
+let progress = data.progress || 0;
+
+if(paymentStatus === "Approved" && !data.offerLetterId){
+updates.offerLetterId = generateId("OL");
+updates.offerLetterStatus = "Approved";
+}
+if(progress >= 100 && !data.certificateId){
+updates.certificateId = generateId("IF");
+updates.certificateStatus = "Issued";
+}
+if(progress >= 100 && !data.completionLetterId){
+updates.completionLetterId = generateId("CL");
+updates.completionLetterStatus = "Issued";
+}
+
+if(Object.keys(updates).length > 0){
+await setDoc(doc(db,"students",user.uid), updates, { merge: true });
+const freshSnap = await getDoc(doc(db,"students",user.uid));
+data = freshSnap.data();
+paymentStatus = data.paymentStatus || "Not Paid";
+progress = data.progress || 0;
+}
+
 updateInternshipCards(data);
-console.log("PAYMENT STATUS =", data.paymentStatus);
+console.log("PAYMENT STATUS =", paymentStatus);
 
 if(document.getElementById("studentName")) document.getElementById("studentName").innerText= data.name || "Student";
-if(document.getElementById("progressCard")) document.getElementById("progressCard").innerText= (data.progress || 0)+"%";
+if(document.getElementById("progressCard")) document.getElementById("progressCard").innerText= progress+"%";
 if(document.getElementById("certificateCard")) document.getElementById("certificateCard").innerText= data.certificateStatus || "Pending";
 if(document.getElementById("offerStatusCard")) document.getElementById("offerStatusCard").innerText= data.offerLetterStatus || "Pending";
 
 if(document.getElementById("internshipStatusCard")) {
 document.getElementById("internshipStatusCard").innerText =
-data.paymentStatus === "Approved"
+paymentStatus === "Approved"
 ? "Active"
 : (data.applicationStatus === "Applied" ? "Payment Required" : "Not Applied");
 }
@@ -1034,25 +1065,46 @@ if(document.getElementById("selectedProgramText")) document.getElementById("sele
 
 if(document.getElementById("statusProgram")) document.getElementById("statusProgram").innerText = data.selectedProgram || "Not Selected";
 if(document.getElementById("statusApplication")) document.getElementById("statusApplication").innerText = data.applicationStatus || "Not Applied";
-if(document.getElementById("statusPayment")) document.getElementById("statusPayment").innerText = data.paymentStatus || "Not Paid";
+if(document.getElementById("statusPayment")) document.getElementById("statusPayment").innerText = paymentStatus;
 
 let nextStep = "Apply for an internship";
-if(data.applicationStatus === "Applied" && data.paymentStatus === "Payment Required"){
+if(data.applicationStatus === "Applied" && paymentStatus === "Payment Required"){
 nextStep = "Complete enrollment payment";
 }
-if(data.paymentStatus === "Pending Approval"){
+if(paymentStatus === "Pending Approval"){
 nextStep = "Wait for admin approval";
 }
-if(data.paymentStatus === "Approved"){
+if(paymentStatus === "Approved"){
 nextStep = "Submit your internship project";
 }
-if(data.progress === 100){
+if(progress === 100){
 nextStep = "Download certificate and completion letter";
 }
 
 if(document.getElementById("statusNextStep")) {
 document.getElementById("statusNextStep").innerText = nextStep;
 }
+
+const setupDocBtn = (btnId, isLocked, lockMsg, url) => {
+const btn = document.getElementById(btnId);
+if(btn) {
+if(isLocked) {
+btn.style.opacity = "0.6";
+btn.innerText = btnId === "viewOfferLetterBtn" ? "Payment Verification Required" : (btnId === "viewCertificateBtn" ? "Complete Internship First" : "Project Approval Required");
+btn.onclick = () => toast(lockMsg);
+} else {
+btn.style.opacity = "1";
+btn.innerText = btnId === "viewOfferLetterBtn" ? "View Offer Letter" : (btnId === "viewCertificateBtn" ? "View Certificate" : "View Completion Letter");
+btn.onclick = () => window.location.href = url;
+}
+}
+};
+
+setupDocBtn("viewOfferLetterBtn", paymentStatus !== "Approved", "Offer Letter will be available after payment verification.", "offer-letter.html");
+setupDocBtn("heroOfferBtn", paymentStatus !== "Approved", "Offer Letter will be available after payment verification.", "offer-letter.html");
+setupDocBtn("viewCertificateBtn", progress < 100, "Certificate will be available after 100% internship completion.", "certificate.html");
+setupDocBtn("viewCompletionLetterBtn", progress < 100, "Completion Letter will be available after internship completion.", "completion-letter.html");
+
 }
 } catch(e) {
 console.error("Error fetching student record:", e);
