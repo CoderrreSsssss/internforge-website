@@ -3,11 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>InternForge | Student Dashboard</title>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-
 <style>
 *{
 margin:0;
@@ -256,313 +253,7 @@ padding:18px;
 font-size:28px;
 }
 }
-</style>
-</head>
 
-<body>
-
-<div class="sidebar">
-
-<div class="logo">
-<img src="logo.png" onerror="this.style.display='none'">
-<div>
-<h2>InternForge</h2>
-<span>India's Student Internship Platform</span>
-</div>
-</div>
-
-<div class="menu-title">Workspace</div>
-
-<div class="nav-link active" onclick="showSection('homeSection',this)">
-<i class="fa-solid fa-table-columns"></i>
-<span>Dashboard</span>
-</div>
-
-<div class="nav-link" onclick="showSection('internshipSection',this)">
-<i class="fa-solid fa-briefcase"></i>
-<span>Internships</span>
-</div>
-
-<div class="nav-link" onclick="showSection('documentsSection',this)">
-<i class="fa-solid fa-folder-open"></i>
-<span>Documents</span>
-</div>
-
-<div class="nav-link" onclick="showSection('projectSection',this)">
-<i class="fa-solid fa-code"></i>
-<span>Projects</span>
-</div>
-
-<div class="nav-link" onclick="showSection('certificateSection',this)">
-<i class="fa-solid fa-award"></i>
-<span>Certificate</span>
-</div>
-
-<div class="menu-title">Support</div>
-
-<div class="nav-link" onclick="showSection('announcementSection',this)">
-<i class="fa-solid fa-bell"></i>
-<span>Announcements</span>
-</div>
-
-<div class="nav-link" onclick="showSection('aiSection',this)">
-<i class="fa-solid fa-robot"></i>
-<span>AI Assistant</span>
-</div>
-
-<div class="nav-link" onclick="window.location.href='verify.html'">
-<i class="fa-solid fa-shield-halved"></i>
-<span>Verify Documents</span>
-</div>
-
-<div class="nav-link" onclick="showSection('profileSection',this)">
-<i class="fa-solid fa-user"></i>
-<span>Profile</span>
-</div>
-
-<div class="nav-link" id="logoutBtn">
-<i class="fa-solid fa-right-from-bracket"></i>
-<span>Logout</span>
-</div>
-
-</div>
-
-<div class="main">
-
-<div id="homeSection" class="section active">
-<div class="hero">
-<h1>Welcome, <span id="studentName">Student</span> 👋</h1>
-<p>Manage your 30-minute AI & Prompt Engineering internship, offer letter, completion letter and certificate from one professional workspace.</p>
-
-<div class="hero-actions">
-<button id="heroOfferBtn" class="primary-btn" style="border:none; cursor:pointer;">View Offer Letter</button>
-<a href="#projectSection" onclick="showSection('projectSection',document.querySelectorAll('.nav-link')[3])" class="secondary-btn">Complete Internship</a>
-</div>
-</div>
-<div class="profile-box">
-<div class="profile-top">
-<h3>Profile Completion</h3>
-<div class="profile-percent">60% Complete</div>
-</div>
-<div class="progress-bar">
-<div class="progress-fill"></div>
-</div>
-</div>
-
-<div class="stats">
-<div class="stat-card">
-<span>Offer Letter</span>
-<h2 id="offerStatusCard" class="status-warning">Apply First</h2>
-</div>
-
-<div class="stat-card">
-<span>Completion Certificate</span>
-<h2 id="certificateCard" class="status-warning">Pending</h2>
-</div>
-</div>
-
-<div class="card" style="margin-top:24px;">
-<h2 class="card-title">Document Status</h2>
-
-<div class="info-row">
-<span>Selected Internship</span>
-<b id="statusProgram">Not Selected</b>
-</div>
-
-<div class="info-row">
-<span>Offer Letter</span>
-<b id="statusApplication">Apply First</b>
-</div>
-<div class="info-row">
-<span>Completion Certificate</span>
-<b id="statusPayment">Pending</b>
-</div>
-<div class="info-row">
-<span>Next Step</span>
-<b id="statusNextStep">Apply for AI internship</b>
-</div>
-</div>
-
-<div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
-<div style="background:#ecfdf5;padding:12px 18px;border-radius:12px;font-weight:700;">
-📄 Offer Letter
-</div>
-<div style="background:#f3e8ff;padding:12px 18px;border-radius:12px;font-weight:700;">
-🏆 Completion Certificate
-</div>
-</div>
-
-</div>
-
-<div id="internshipSection" class="section">
-
-<div class="card">
-<h2 class="card-title">Available Internship Program</h2>
-<p class="card-text">
-Apply for the free 30-minute AI & Prompt Engineering internship program.
-</p>
-</div>
-
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;">
-
-<div class="intern-card">
-<div class="intern-img ai-img">
-<span id="aiBadge">Available</span>
-</div>
-<div class="intern-body">
-<h3>AI & Prompt Engineering</h3>
-<p>Free 30-minute online internship with offer letter, learning module, certificate and completion letter.</p>
-<div class="tags">
-<b>30 Mins</b>
-<b>Offer Letter</b>
-<b>Certificate</b>
-</div>
-<button id="aiBtn" class="primary-btn unlockBtn" data-program="AI & Prompt Engineering">Apply Now</button>
-</div>
-</div>
-
-</div>
-</div>
-
-<div id="documentsSection" class="section">
-
-<div class="card">
-<h2 class="card-title">Camp Internship Documents</h2>
-<p class="card-text">
-Your official internship documents will appear here after you apply and complete the internship.
-</p>
-</div>
-
-<div class="doc-grid">
-
-<div class="doc-card">
-<i class="fa-solid fa-file-lines"></i>
-<h3>Offer Letter</h3>
-<p>Status: <b id="offerLetterStatus">Apply First</b></p>
-<p>ID: <b id="offerLetterId">Not Generated</b></p>
-<button id="viewOfferLetterBtn" class="secondary-btn" style="border:none; cursor:pointer; width:100%; text-align:center;">View Offer Letter</button>
-</div>
-
-<div class="doc-card">
-<i class="fa-solid fa-award"></i>
-<h3>Completion Certificate</h3>
-<p>Status: <b id="docCertificateStatus">Not Issued</b></p>
-<p>ID: <b id="docCertificateId">Not Generated</b></p>
-<button id="viewCertificateBtn" class="secondary-btn" style="border:none; cursor:pointer; width:100%; text-align:center;">View Completion Certificate</button>
-</div>
-
-</div>
-<div style="margin-top:20px;text-align:center;">
-<a href="verify.html" class="primary-btn">🔍 Verify Any Document</a>
-</div>
-</div>
-
-<div id="projectSection" class="section">
-
-<div class="card">
-<h2 class="card-title">30-Minute Internship Completion</h2>
-<p class="card-text">Complete your 30-minute AI & Prompt Engineering internship module and unlock your professional certificate and completion letter.</p>
-</div>
-
-<div class="card">
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:20px;">
-<div style="background:#eef4ff;padding:18px;border-radius:16px;">
-<b>Internship Status</b>
-<p style="margin-top:8px;color:#0056d2;font-weight:900;">Ready to Start</p>
-</div>
-<div style="background:#ecfdf5;padding:18px;border-radius:16px;">
-<b>Program Type</b>
-<p style="margin-top:8px;color:#166534;font-weight:900;">Self-Paced</p>
-</div>
-<div style="background:#fff7ed;padding:18px;border-radius:16px;">
-<b>Documents Eligibility</b>
-<p style="margin-top:8px;color:#92400e;font-weight:900;">After Completion</p>
-</div>
-</div>
-
-<h3 style="margin-bottom:10px;">Complete Your Internship</h3>
-<input class="input-field" id="projectTitle" placeholder="What did you learn?">
-<input class="input-field" id="projectLink" placeholder="Optional: LinkedIn/GitHub/Profile Link">
-<textarea id="projectDescription" placeholder="Write 2-3 lines about what you learned in this internship..." style="width:100%;height:120px;padding:14px;border:1px solid #cbd5e1;border-radius:12px;margin-top:14px;font-size:15px;resize:none;"></textarea>
-<button id="submitProjectBtn" class="primary-btn" style="margin-top:15px;">Complete Internship for Review</button>
-</div>
-
-<div class="card">
-<h3>Completion Guidelines</h3>
-<div class="notice">✅ Read the 30-minute AI & Prompt Engineering module carefully.</div>
-<div class="notice">✅ Understand basic prompt writing, role prompting and output formatting.</div>
-<div class="notice">✅ Write a short learning summary before completing.</div>
-<div class="notice">✅ Certificate and completion letter will be issued instantly after completion.</div>
-</div>
-
-</div>
-
-<div id="certificateSection" class="section">
-<div class="card">
-<h2 class="card-title">Completion Certificate Status</h2>
-<div class="info-row">
-<span>Status</span>
-<b id="certificateStatusPage">Not Issued</b>
-</div>
-<div class="info-row">
-<span>Completion Certificate ID</span>
-<b id="certificateIdPage">Not Generated</b>
-</div>
-<a href="verify.html" class="primary-btn" style="margin-top:18px;">Verify Certificate</a>
-</div>
-</div>
-
-<div id="announcementSection" class="section">
-<div class="card">
-<h2 class="card-title">Latest Announcements</h2>
-<div id="announcementList">Loading announcements...</div>
-</div>
-</div>
-
-<div id="aiSection" class="section">
-<div class="card" style="text-align:center;padding:45px 24px;">
-<h2 class="card-title">AI Internship Assistant</h2>
-<p class="card-text" style="font-size:18px;">Coming Soon</p>
-<div style="font-size:54px;margin:22px 0;color:#0056d2;"><i class="fa-solid fa-robot"></i></div>
-<p class="card-text">We are building a smart assistant for resume help, project guidance and interview preparation.</p>
-</div>
-</div>
-
-<div id="profileSection" class="section">
-<div class="card">
-<h2 class="card-title">Student Profile</h2>
-<div class="info-row">
-<span>Name</span>
-<b id="profileName">Loading...</b>
-</div>
-<div class="info-row">
-<span>Email</span>
-<b id="profileEmail">Loading...</b>
-</div>
-<div class="info-row">
-<span>College</span>
-<b id="profileCollege">Loading...</b>
-</div>
-<div class="info-row">
-<span>Course</span>
-<b id="profileCourse">Loading...</b>
-</div>
-<div class="info-row">
-<span>LinkedIn</span>
-<b>Not Added</b>
-</div>
-<div class="info-row">
-<span>GitHub</span>
-<b>Not Added</b>
-</div>
-</div>
-</div>
-
-</div>
-
-<div class="toast" id="toast"></div>
-
-<style>
 .intern-card{
 background:white;
 border:1px solid #e5e7eb;
@@ -866,8 +557,53 @@ border:1px solid rgba(255,255,255,.75);
 transform:translateY(-2px);
 box-shadow:0 12px 28px rgba(0,0,0,.18);
 }
-</style>
 
+.application-form{display:none;margin-top:22px;}
+.application-form.active{display:block;}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px;}
+.form-grid .input-field{margin-top:0;}
+.locked-note{background:#fff7ed;border-left:4px solid #f59e0b;padding:12px;border-radius:0 8px 8px 0;margin-top:12px;color:#92400e;font-weight:800;}
+.module-box{background:#f8fafc;border:1px solid #e5e7eb;border-radius:18px;padding:18px;margin-top:16px;}
+.module-box h3{margin-bottom:8px;}
+.module-box ul{margin-left:20px;line-height:1.8;color:#475569;}
+</style>
+</head>
+<body>
+<div class="sidebar">
+<div class="logo"><img src="logo.png" onerror="this.style.display='none'"><div><h2>InternForge</h2><span>India's Student Internship Platform</span></div></div>
+<div class="menu-title">Workspace</div>
+<div class="nav-link active" onclick="showSection('homeSection',this)"><i class="fa-solid fa-table-columns"></i><span>Dashboard</span></div>
+<div class="nav-link" onclick="showSection('internshipSection',this)"><i class="fa-solid fa-briefcase"></i><span>Internships</span></div>
+<div class="nav-link" onclick="showSection('documentsSection',this)"><i class="fa-solid fa-folder-open"></i><span>Documents</span></div>
+<div class="nav-link" onclick="showSection('projectSection',this)"><i class="fa-solid fa-code"></i><span>30-Min Module</span></div>
+<div class="nav-link" onclick="showSection('certificateSection',this)"><i class="fa-solid fa-award"></i><span>Certificate</span></div>
+<div class="menu-title">Support</div>
+<div class="nav-link" onclick="showSection('announcementSection',this)"><i class="fa-solid fa-bell"></i><span>Announcements</span></div>
+<div class="nav-link" onclick="showSection('aiSection',this)"><i class="fa-solid fa-robot"></i><span>AI Assistant</span></div>
+<div class="nav-link" onclick="window.location.href='verify.html'"><i class="fa-solid fa-shield-halved"></i><span>Verify Documents</span></div>
+<div class="nav-link" onclick="showSection('profileSection',this)"><i class="fa-solid fa-user"></i><span>Profile</span></div>
+<div class="nav-link" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></div>
+</div>
+<div class="main">
+<div id="homeSection" class="section active">
+<div class="hero"><h1>Welcome, <span id="studentName">Student</span> 👋</h1><p>Manage your 30-minute AI & Prompt Engineering internship, offer letter, completion certificate and verification from one professional workspace.</p><div class="hero-actions"><button id="heroOfferBtn" class="primary-btn" style="border:none; cursor:pointer;">View Offer Letter</button><a href="#projectSection" onclick="showSection('projectSection',document.querySelectorAll('.nav-link')[3])" class="secondary-btn">Open 30-Min Module</a></div></div>
+<div class="profile-box"><div class="profile-top"><h3>Profile Completion</h3><div class="profile-percent" id="profilePercent">0% Complete</div></div><div class="progress-bar"><div class="progress-fill" id="profileProgressFill" style="width:0%"></div></div></div>
+<div class="stats"><div class="stat-card"><span>Offer Letter</span><h2 id="offerStatusCard" class="status-warning">Apply First</h2></div><div class="stat-card"><span>Completion Certificate</span><h2 id="certificateCard" class="status-warning">Locked</h2></div></div>
+<div class="card" style="margin-top:24px;"><h2 class="card-title">Document Status</h2><div class="info-row"><span>Selected Internship</span><b id="statusProgram">Not Selected</b></div><div class="info-row"><span>Offer Letter</span><b id="statusApplication">Apply First</b></div><div class="info-row"><span>Completion Certificate</span><b id="statusPayment">Locked</b></div><div class="info-row"><span>Next Step</span><b id="statusNextStep">Apply for AI internship</b></div></div>
+<div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;"><div style="background:#ecfdf5;padding:12px 18px;border-radius:12px;font-weight:700;">📄 Offer Letter</div><div style="background:#f3e8ff;padding:12px 18px;border-radius:12px;font-weight:700;">🏆 Completion Certificate</div></div>
+</div>
+<div id="internshipSection" class="section">
+<div class="card"><h2 class="card-title">Available Internship Program</h2><p class="card-text">Apply for the free 30-minute AI & Prompt Engineering internship program.</p></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;"><div class="intern-card"><div class="intern-img ai-img"><span id="aiBadge">Available</span></div><div class="intern-body"><h3>AI & Prompt Engineering</h3><p>Free 30-minute online internship with offer letter, learning module, admin review and completion certificate.</p><div class="tags"><b>30 Mins</b><b>Offer Letter</b><b>Certificate</b></div><button id="aiBtn" class="primary-btn unlockBtn" data-program="AI & Prompt Engineering">Apply Now</button></div></div></div>
+<div id="applicationFormCard" class="card application-form"><h2 class="card-title">Internship Application Details</h2><p class="card-text">Fill these details once to generate your offer letter and unlock the 30-minute content.</p><div class="form-grid"><input class="input-field" id="appName" placeholder="Full Name"><input class="input-field" id="appEmail" placeholder="Gmail / Email"><input class="input-field" id="appPhone" placeholder="Mobile Number"><input class="input-field" id="appUniversity" placeholder="University Name"><input class="input-field" id="appCollege" placeholder="College / Institute Name"><input class="input-field" id="appCourse" placeholder="Course / Degree"><input class="input-field" id="appYear" placeholder="Current Year / Semester"><input class="input-field" id="appCity" placeholder="City / State"><input class="input-field" id="appLinkedin" placeholder="LinkedIn Profile (Optional)"><input class="input-field" id="appGithub" placeholder="GitHub / Portfolio (Optional)"></div><button id="submitApplicationBtn" class="primary-btn" style="margin-top:16px;">Submit Application & Unlock Content</button></div>
+</div>
+<div id="documentsSection" class="section"><div class="card"><h2 class="card-title">Internship Documents</h2><p class="card-text">Offer Letter is available after application. Completion Certificate unlocks only after admin verification.</p></div><div class="doc-grid"><div class="doc-card"><i class="fa-solid fa-file-lines"></i><h3>Offer Letter</h3><p>Status: <b id="offerLetterStatus">Apply First</b></p><p>ID: <b id="offerLetterId">Not Generated</b></p><button id="viewOfferLetterBtn" class="secondary-btn" style="border:none; cursor:pointer; width:100%; text-align:center;">View Offer Letter</button></div><div class="doc-card"><i class="fa-solid fa-award"></i><h3>Completion Certificate</h3><p>Status: <b id="docCertificateStatus">Locked</b></p><p>ID: <b id="docCertificateId">Not Generated</b></p><button id="viewCertificateBtn" class="secondary-btn" style="border:none; cursor:pointer; width:100%; text-align:center;">View Completion Certificate</button><div class="locked-note" id="certificateLockNote">Submit module first. Admin verification required.</div></div></div><div style="margin-top:20px;text-align:center;"><a href="verify.html" class="primary-btn">🔍 Verify Any Document</a></div></div>
+<div id="projectSection" class="section"><div class="card"><h2 class="card-title">30-Minute AI & Prompt Engineering Module</h2><p class="card-text" id="moduleIntroText">Apply first to unlock the learning content.</p></div><div id="moduleContentCard" class="card"><h2 class="card-title">Learning Content</h2><div class="module-box"><h3>1. What is Prompt Engineering?</h3><p class="card-text">Prompt engineering means writing clear instructions for AI tools so they can produce accurate, useful and structured output.</p></div><div class="module-box"><h3>2. Basic Prompt Formula</h3><ul><li>Role: Tell AI who it should act as.</li><li>Task: Clearly describe what you want.</li><li>Context: Add background information.</li><li>Format: Tell AI how the answer should look.</li></ul></div><div class="module-box"><h3>3. Example</h3><p class="card-text"><b>Prompt:</b> Act as a resume expert. Improve this BCA student resume summary in a professional tone and keep it under 80 words.</p></div></div><div class="card"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:20px;"><div style="background:#eef4ff;padding:18px;border-radius:16px;"><b>Module Status</b><p id="moduleStatusText" style="margin-top:8px;color:#0056d2;font-weight:900;">Apply First</p></div><div style="background:#ecfdf5;padding:18px;border-radius:16px;"><b>Program Type</b><p style="margin-top:8px;color:#166534;font-weight:900;">Self-Paced</p></div><div style="background:#fff7ed;padding:18px;border-radius:16px;"><b>Certificate</b><p id="certificateEligibilityText" style="margin-top:8px;color:#92400e;font-weight:900;">Locked</p></div></div><h3 style="margin-bottom:10px;">Submit 30-Minute Completion for Review</h3><input class="input-field" id="projectTitle" placeholder="What did you learn?"><input class="input-field" id="projectLink" placeholder="Optional: LinkedIn/GitHub/Profile Link"><textarea id="projectDescription" placeholder="Write 2-3 lines about what you learned in this internship..." style="width:100%;height:120px;padding:14px;border:1px solid #cbd5e1;border-radius:12px;margin-top:14px;font-size:15px;resize:none;"></textarea><button id="submitProjectBtn" class="primary-btn" style="margin-top:15px;">Submit for Admin Review</button></div><div class="card"><h3>Completion Guidelines</h3><div class="notice">✅ Read the 30-minute AI & Prompt Engineering module carefully.</div><div class="notice">✅ Write a short learning summary before submitting.</div><div class="notice">✅ After submission, review may take around 30 minutes.</div><div class="notice">✅ Certificate will unlock only after admin verification.</div></div></div>
+<div id="certificateSection" class="section"><div class="card"><h2 class="card-title">Completion Certificate Status</h2><div class="info-row"><span>Status</span><b id="certificateStatusPage">Locked</b></div><div class="info-row"><span>Completion Certificate ID</span><b id="certificateIdPage">Not Generated</b></div><button id="certificatePageViewBtn" class="primary-btn" style="margin-top:18px;">View Completion Certificate</button><a href="verify.html" class="secondary-btn" style="margin-top:18px;">Verify Certificate</a></div></div>
+<div id="announcementSection" class="section"><div class="card"><h2 class="card-title">Latest Announcements</h2><div id="announcementList">Loading announcements...</div></div></div>
+<div id="aiSection" class="section"><div class="card" style="text-align:center;padding:45px 24px;"><h2 class="card-title">AI Internship Assistant</h2><p class="card-text" style="font-size:18px;">Coming Soon</p><div style="font-size:54px;margin:22px 0;color:#0056d2;"><i class="fa-solid fa-robot"></i></div><p class="card-text">We are building a smart assistant for resume help, project guidance and interview preparation.</p></div></div>
+<div id="profileSection" class="section"><div class="card"><h2 class="card-title">Student Profile</h2><div class="info-row"><span>Name</span><b id="profileName">Loading...</b></div><div class="info-row"><span>Email</span><b id="profileEmail">Loading...</b></div><div class="info-row"><span>Phone</span><b id="profilePhone">-</b></div><div class="info-row"><span>University</span><b id="profileUniversity">-</b></div><div class="info-row"><span>College</span><b id="profileCollege">Loading...</b></div><div class="info-row"><span>Course</span><b id="profileCourse">Loading...</b></div><div class="info-row"><span>Year / Semester</span><b id="profileYear">-</b></div><div class="info-row"><span>City / State</span><b id="profileCity">-</b></div><div class="info-row"><span>LinkedIn</span><b id="profileLinkedin">Not Added</b></div><div class="info-row"><span>GitHub</span><b id="profileGithub">Not Added</b></div></div></div>
+</div><div class="toast" id="toast"></div>
 <script>
 let currentUserId = "local-user";
 let selectedProgram = "AI & Prompt Engineering";
@@ -876,314 +612,29 @@ let firebaseReady = false;
 let firebaseAuth = null;
 let firebaseDb = null;
 let fb = {};
-
-function toast(msg){
-  const t = document.getElementById("toast");
-  if(!t) return;
-  t.innerHTML = msg;
-  t.style.display = "block";
-  setTimeout(() => { t.style.display = "none"; }, 3000);
-}
-
-window.showSection = function(sectionId, element){
-  document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
-  document.querySelectorAll(".nav-link").forEach(nav => nav.classList.remove("active"));
-  const targetSec = document.getElementById(sectionId);
-  if(targetSec) targetSec.classList.add("active");
-  if(element) element.classList.add("active");
-};
-
-function setText(id, value){
-  const el = document.getElementById(id);
-  if(el) el.innerText = value;
-}
-
-function generateId(prefix){
-  const year = new Date().getFullYear();
-  const rand = Math.floor(100000 + Math.random() * 900000);
-  return `${prefix}-${year}-${rand}`;
-}
-
-function todayText(){
-  return new Date().toLocaleDateString("en-IN", { day:"2-digit", month:"long", year:"numeric" });
-}
-
-function getLocalData(){
-  try { return JSON.parse(localStorage.getItem("internforge_dashboard_data") || "{}"); }
-  catch(e){ return {}; }
-}
-
-function saveLocalData(data){
-  studentData = { ...studentData, ...data };
-  localStorage.setItem("internforge_dashboard_data", JSON.stringify(studentData));
-  updateUI(studentData);
-}
-
-function updateUI(data = {}){
-  studentData = data || {};
-  const applied = data.applicationStatus === "Applied" || data.applicationStatus === "Completed";
-  const completed = Number(data.progress || 0) >= 100 || data.applicationStatus === "Completed";
-  const progress = completed ? 100 : (applied ? 50 : 0);
-
-  setText("studentName", data.name || "Student");
-  setText("offerStatusCard", applied ? "Issued" : "Apply First");
-  setText("certificateCard", completed ? "Issued" : "Pending");
-
-  setText("statusProgram", applied ? "AI & Prompt Engineering" : "Not Selected");
-  setText("statusApplication", applied ? "Issued" : "Apply First");
-  setText("statusPayment", completed ? "Issued" : "Pending");
-  setText("statusNextStep", completed ? "View offer letter and completion certificate" : (applied ? "Complete the 30-minute internship module" : "Apply for AI internship"));
-
-  setText("profileName", data.name || "-");
-  setText("profileEmail", data.email || "-");
-  setText("profileCollege", data.college || "-");
-  setText("profileCourse", data.course || "-");
-
-  setText("offerLetterStatus", applied ? "Issued" : "Apply First");
-  setText("offerLetterId", data.offerLetterId || "Not Generated");
-  setText("docCertificateStatus", completed ? "Issued" : "Not Issued");
-  setText("docCertificateId", data.certificateId || "Not Generated");
-    setText("certificateStatusPage", completed ? "Issued" : "Not Issued");
-  setText("certificateIdPage", data.certificateId || "Not Generated");
-  setText("moduleStatusText", completed ? "Completed" : (applied ? "Active" : "Apply First"));
-
-  const badge = document.getElementById("aiBadge");
-  const btn = document.getElementById("aiBtn");
-  if(badge && btn){
-    btn.disabled = false;
-    btn.style.opacity = "1";
-    if(completed){
-      badge.innerText = "Completed";
-      btn.innerText = "View Documents";
-    } else if(applied){
-      badge.innerText = "Active";
-      btn.innerText = "Continue Internship";
-    } else {
-      badge.innerText = "Available";
-      btn.innerText = "Apply Now";
-    }
-  }
-
-  setupDocButton("viewOfferLetterBtn", !applied, "Apply first to generate your offer letter.", "offer");
-  setupDocButton("heroOfferBtn", !applied, "Apply first to generate your offer letter.", "offer");
-  setupDocButton("viewCertificateBtn", !completed, "Complete the internship first to generate completion certificate.", "certificate");
-}
-
-function setupDocButton(btnId, locked, msg, type){
-  const btn = document.getElementById(btnId);
-  if(!btn) return;
-  btn.style.opacity = locked ? "0.6" : "1";
-  if(btnId === "heroOfferBtn" || btnId === "viewOfferLetterBtn") btn.innerText = "View Offer Letter";
-  else if(type === "certificate") btn.innerText = "View Completion Certificate";
-  else btn.innerText = "View Completion Letter";
-  btn.onclick = () => locked ? toast(msg) : openDocument(type);
-}
-
-function openDocument(type){
-  if(type === "offer"){
-    window.location.href = "offer-letter.html";
-    return;
-  }
-  if(type === "certificate"){
-    window.location.href = "certificate.html";
-    return;
-  }
-  if(type === "completion"){
-    window.location.href = "completion-letter.html";
-    return;
-  }
-}
-
-async function saveStudent(updates){
-  const merged = { ...studentData, ...updates };
-  studentData = merged;
-  localStorage.setItem("internforge_dashboard_data", JSON.stringify(merged));
-  updateUI(merged);
-
-  if(firebaseReady && firebaseDb && currentUserId){
-    try{
-      const ref = fb.doc(firebaseDb, "students", currentUserId);
-      await fb.setDoc(ref, updates, { merge:true });
-      const fresh = await fb.getDoc(ref);
-      if(fresh.exists()){
-        studentData = fresh.data();
-        localStorage.setItem("internforge_dashboard_data", JSON.stringify(studentData));
-        updateUI(studentData);
-      }
-    }catch(error){
-      console.error("Firestore save error:", error);
-      toast("Saved locally. Firestore permission/config check kar lena.");
-    }
-  }
-}
-
-async function applyForInternship(){
-  const alreadyApplied = studentData.applicationStatus === "Applied" || studentData.applicationStatus === "Completed";
-  const completed = Number(studentData.progress || 0) >= 100 || studentData.applicationStatus === "Completed";
-
-  if(completed){
-    window.showSection("documentsSection", document.querySelectorAll(".nav-link")[2]);
-    return;
-  }
-
-  if(alreadyApplied){
-    window.showSection("projectSection", document.querySelectorAll(".nav-link")[3]);
-    return;
-  }
-
-  await saveStudent({
-    selectedProgram: "AI & Prompt Engineering",
-    applicationStatus: "Applied",
-    offerLetterStatus: "Issued",
-    offerLetterId: studentData.offerLetterId || generateId("OL"),
-    progress: 50,
-    appliedAt: new Date().toISOString()
-  });
-
-  toast("Applied successfully. Offer letter generated.");
-  window.showSection("documentsSection", document.querySelectorAll(".nav-link")[2]);
-}
-
-async function completeInternship(){
-  const titleEl = document.getElementById("projectTitle");
-  const linkEl = document.getElementById("projectLink");
-  const descEl = document.getElementById("projectDescription");
-  const title = titleEl ? titleEl.value.trim() : "AI Prompt Engineering Learning";
-  const link = linkEl ? linkEl.value.trim() : "";
-  const description = descEl ? descEl.value.trim() : "";
-
-  if(!(studentData.applicationStatus === "Applied" || studentData.applicationStatus === "Completed")){
-    toast("Apply for the internship first.");
-    window.showSection("internshipSection", document.querySelectorAll(".nav-link")[1]);
-    return;
-  }
-
-  if(!title || !description){
-    toast("Learning title aur summary bhar de.");
-    return;
-  }
-
-  const updates = {
-    applicationStatus: "Completed",
-    progress: 100,
-    certificateStatus: "Issued",
-    completionLetterStatus: "Issued",
-    certificateId: studentData.certificateId || generateId("IF"),
-    completionLetterId: studentData.completionLetterId || generateId("CL"),
-    completedAt: new Date().toISOString(),
-    learningTitle: title,
-    learningLink: link,
-    learningSummary: description
-  };
-
-  await saveStudent(updates);
-
-  if(firebaseReady && firebaseDb){
-    try{
-      await fb.addDoc(fb.collection(firebaseDb,"projects"),{
-        studentId: currentUserId,
-        program: "AI & Prompt Engineering",
-        projectTitle: title,
-        projectLink: link,
-        projectDescription: description,
-        status: "Completed",
-        submittedAt: new Date()
-      });
-    }catch(e){ console.warn("Project log skipped:", e); }
-  }
-
-  if(titleEl) titleEl.value = "";
-  if(linkEl) linkEl.value = "";
-  if(descEl) descEl.value = "";
-
-  toast("Internship completed. Certificate and completion letter issued.");
-  window.showSection("certificateSection", document.querySelectorAll(".nav-link")[4]);
-}
-
-async function loadAnnouncements(){
-  const container = document.getElementById("announcementList");
-  if(!container) return;
-  container.innerHTML = "<p>No announcements available.</p>";
-
-  if(firebaseReady && firebaseDb){
-    try{
-      const snapshot = await fb.getDocs(fb.collection(firebaseDb,"announcements"));
-      container.innerHTML = "";
-      snapshot.forEach(d => {
-        const data = d.data();
-        container.innerHTML += `<div class="notice"><h3 style="margin-bottom:8px;">${data.title || ""}</h3><p>${data.message || ""}</p></div>`;
-      });
-      if(container.innerHTML === "") container.innerHTML = "<p>No announcements available.</p>";
-    }catch(e){
-      container.innerHTML = "<p>No announcements available.</p>";
-    }
-  }
-}
-
-async function initFirebase(){
-  try{
-    const config = await import("./firebase-config.js");
-    const authMod = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
-    const fireMod = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
-
-    firebaseAuth = config.auth;
-    firebaseDb = config.db;
-    fb = { ...authMod, ...fireMod };
-    firebaseReady = true;
-
-    authMod.onAuthStateChanged(firebaseAuth, async(user) => {
-      if(!user){ window.location.href = "login.html"; return; }
-      currentUserId = user.uid;
-      try{
-        const ref = fireMod.doc(firebaseDb, "students", user.uid);
-        let snap = await fireMod.getDoc(ref);
-        if(!snap.exists()){
-          await fireMod.setDoc(ref, {
-            email: user.email,
-            createdAt: new Date(),
-            applicationStatus: "Not Applied",
-            progress: 0
-          }, { merge:true });
-          snap = await fireMod.getDoc(ref);
-        }
-        studentData = { ...getLocalData(), ...(snap.exists() ? snap.data() : {}) };
-        if(!studentData.email) studentData.email = user.email || "";
-        localStorage.setItem("internforge_dashboard_data", JSON.stringify(studentData));
-        updateUI(studentData);
-        loadAnnouncements();
-      }catch(e){
-        console.error("Dashboard load error:", e);
-        studentData = getLocalData();
-        if(!studentData.email) studentData.email = user.email || "";
-        updateUI(studentData);
-        toast("Firestore permission/config issue. Dashboard local mode me chal raha hai.");
-      }
-    });
-  }catch(error){
-    console.warn("Firebase not loaded, using local mode:", error);
-    firebaseReady = false;
-    studentData = getLocalData();
-    updateUI(studentData);
-    loadAnnouncements();
-  }
-}
-
-function bindButtons(){
-  document.getElementById("aiBtn")?.addEventListener("click", applyForInternship);
-  document.getElementById("submitProjectBtn")?.addEventListener("click", completeInternship);
-  document.getElementById("logoutBtn")?.addEventListener("click", async() => {
-    try{ if(firebaseReady && firebaseAuth) await fb.signOut(firebaseAuth); }
-    catch(e){}
-    window.location.href = "login.html";
-  });
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  bindButtons();
-  updateUI(getLocalData());
-  initFirebase();
-});
+function toast(msg){ const t=document.getElementById("toast"); if(!t) return; t.innerHTML=msg; t.style.display="block"; setTimeout(()=>t.style.display="none",3000); }
+window.showSection=function(sectionId,element){ document.querySelectorAll(".section").forEach(sec=>sec.classList.remove("active")); document.querySelectorAll(".nav-link").forEach(nav=>nav.classList.remove("active")); const s=document.getElementById(sectionId); if(s) s.classList.add("active"); if(element) element.classList.add("active"); };
+function setText(id,value){ const el=document.getElementById(id); if(el) el.innerText=value; }
+function generateId(prefix){ const year=new Date().getFullYear(); const rand=Math.floor(100000+Math.random()*900000); return prefix + "-" + year + "-" + rand; }
+function getLocalData(){ try{return JSON.parse(localStorage.getItem("internforge_dashboard_data")||"{}");}catch(e){return{};} }
+function profilePercent(data){ const keys=["name","email","phone","university","college","course","year","city","linkedin","github"]; let done=keys.filter(k=>(data[k]||"").toString().trim()).length; return Math.round((done/keys.length)*100); }
+function isApplied(data){ return ["Applied","Pending Review","Completed"].includes(data.applicationStatus); }
+function isPendingReview(data){ return data.applicationStatus==="Pending Review" || data.reviewStatus==="Pending Review"; }
+function isAdminApproved(data){ return data.reviewStatus==="Approved" || data.adminVerified===true || data.certificateStatus==="Issued" || !!data.certificateId; }
+function updateUI(data={}){ studentData=data||{}; const applied=isApplied(data); const pending=isPendingReview(data); const approved=isAdminApproved(data); const pct=profilePercent(data); setText("studentName",data.name||"Student"); setText("profilePercent",pct+"% Complete"); const fill=document.getElementById("profileProgressFill"); if(fill) fill.style.width=pct+"%"; setText("offerStatusCard",applied?"Issued":"Apply First"); setText("certificateCard",approved?"Issued":(pending?"Under Review":"Locked")); setText("statusProgram",applied?"AI & Prompt Engineering":"Not Selected"); setText("statusApplication",applied?"Issued":"Apply First"); setText("statusPayment",approved?"Issued":(pending?"Under Admin Review":"Locked")); setText("statusNextStep",approved?"View completion certificate":(pending?"Wait for admin verification":(applied?"Complete the 30-minute module":"Apply for AI internship"))); setText("profileName",data.name||"-"); setText("profileEmail",data.email||"-"); setText("profilePhone",data.phone||"-"); setText("profileUniversity",data.university||"-"); setText("profileCollege",data.college||"-"); setText("profileCourse",data.course||"-"); setText("profileYear",data.year||"-"); setText("profileCity",data.city||"-"); setText("profileLinkedin",data.linkedin||"Not Added"); setText("profileGithub",data.github||"Not Added"); setText("offerLetterStatus",applied?"Issued":"Apply First"); setText("offerLetterId",data.offerLetterId||"Not Generated"); setText("docCertificateStatus",approved?"Issued":(pending?"Under Review":"Locked")); setText("docCertificateId",data.certificateId||"Not Generated"); setText("certificateStatusPage",approved?"Issued":(pending?"Under Review":"Locked")); setText("certificateIdPage",data.certificateId||"Not Generated"); setText("moduleStatusText",approved?"Completed":(pending?"Submitted for Review":(applied?"Active":"Apply First"))); setText("certificateEligibilityText",approved?"Ready":(pending?"Admin Review Pending":"Locked")); setText("moduleIntroText",applied?"Your 30-minute AI & Prompt Engineering content is unlocked below.":"Apply first to unlock the learning content."); const module=document.getElementById("moduleContentCard"); if(module) module.style.opacity=applied?"1":"0.55"; const note=document.getElementById("certificateLockNote"); if(note) note.innerText=approved?"Certificate issued and ready to view.":(pending?"Submitted successfully. Review may take around 30 minutes. Certificate will unlock after admin verification.":"Submit module first. Admin verification required."); const badge=document.getElementById("aiBadge"), btn=document.getElementById("aiBtn"); if(badge&&btn){ btn.disabled=false; btn.style.opacity="1"; if(approved){badge.innerText="Completed";btn.innerText="View Documents";} else if(pending){badge.innerText="Under Review";btn.innerText="View Status";} else if(applied){badge.innerText="Active";btn.innerText="Continue Internship";} else {badge.innerText="Available";btn.innerText="Apply Now";} } setupDocButton("viewOfferLetterBtn",!applied,"Submit application first to generate offer letter.","offer"); setupDocButton("heroOfferBtn",!applied,"Submit application first to generate offer letter.","offer"); setupDocButton("viewCertificateBtn",!approved,pending?"Certificate is under admin review. Wait for verification.":"Complete module and wait for admin verification.","certificate"); setupDocButton("certificatePageViewBtn",!approved,pending?"Certificate is under admin review. Wait for verification.":"Complete module and wait for admin verification.","certificate"); }
+function setupDocButton(btnId,locked,msg,type){ const btn=document.getElementById(btnId); if(!btn) return; btn.style.opacity=locked?"0.6":"1"; btn.onclick=()=>locked?toast(msg):openDocument(type); }
+function openDocument(type){ window.location.href= type==="offer"?"offer-letter.html":"certificate.html"; }
+async function saveStudent(updates){ const merged={...studentData,...updates}; studentData=merged; localStorage.setItem("internforge_dashboard_data",JSON.stringify(merged)); updateUI(merged); if(firebaseReady&&firebaseDb&&currentUserId){ try{ const ref=fb.doc(firebaseDb,"students",currentUserId); await fb.setDoc(ref,updates,{merge:true}); const fresh=await fb.getDoc(ref); if(fresh.exists()){ studentData={...merged,...fresh.data()}; localStorage.setItem("internforge_dashboard_data",JSON.stringify(studentData)); updateUI(studentData); } }catch(error){ console.error("Firestore save error:",error); toast("Saved locally. Firestore permission/config check kar lena."); } } }
+function setTextValue(id,val){ const el=document.getElementById(id); if(el) el.value=val||""; }
+function getValue(id){ const el=document.getElementById(id); return el?el.value.trim():""; }
+function showApplicationForm(){ const form=document.getElementById("applicationFormCard"); if(form){ form.classList.add("active"); form.scrollIntoView({behavior:"smooth",block:"start"}); } const d=studentData||{}; ["Name","Email","Phone","University","College","Course","Year","City","Linkedin","Github"].forEach(k=>setTextValue("app"+k,d[k.toLowerCase()])); }
+async function applyForInternship(){ if(isAdminApproved(studentData)||isPendingReview(studentData)){ window.showSection("documentsSection",document.querySelectorAll(".nav-link")[2]); return; } if(isApplied(studentData)){ window.showSection("projectSection",document.querySelectorAll(".nav-link")[3]); return; } showApplicationForm(); }
+async function submitApplication(){ const data={ name:getValue("appName"), email:getValue("appEmail"), phone:getValue("appPhone"), university:getValue("appUniversity"), college:getValue("appCollege"), course:getValue("appCourse"), year:getValue("appYear"), city:getValue("appCity"), linkedin:getValue("appLinkedin"), github:getValue("appGithub")}; if(!data.name||!data.email||!data.phone||!data.university||!data.college||!data.course||!data.year||!data.city){ toast("Name, email, number, university, college, course, year aur city bhar de."); return; } await saveStudent({...data, selectedProgram:"AI & Prompt Engineering", applicationStatus:"Applied", offerLetterStatus:"Issued", offerLetterId:studentData.offerLetterId||generateId("OL"), progress:10, appliedAt:new Date().toISOString()}); toast("Application submitted. Offer letter generated and content unlocked."); window.showSection("projectSection",document.querySelectorAll(".nav-link")[3]); }
+async function completeInternship(){ const title=getValue("projectTitle"), link=getValue("projectLink"), description=getValue("projectDescription"); if(!isApplied(studentData)){ toast("Apply for the internship first."); window.showSection("internshipSection",document.querySelectorAll(".nav-link")[1]); return; } if(isPendingReview(studentData)){ toast("Already submitted. Admin review may take around 30 minutes."); return; } if(isAdminApproved(studentData)){ window.showSection("documentsSection",document.querySelectorAll(".nav-link")[2]); return; } if(!title||!description){ toast("Learning title aur summary bhar de."); return; } const updates={ applicationStatus:"Pending Review", reviewStatus:"Pending Review", progress:90, certificateStatus:"Under Review", completionLetterStatus:"Under Review", learningTitle:title, learningLink:link, learningSummary:description, submittedAt:new Date().toISOString()}; await saveStudent(updates); if(firebaseReady&&firebaseDb){ try{ await fb.addDoc(fb.collection(firebaseDb,"projects"),{studentId:currentUserId,program:"AI & Prompt Engineering",projectTitle:title,projectLink:link,projectDescription:description,status:"Pending Review",submittedAt:new Date()}); }catch(e){ console.warn("Project log skipped:",e); } } setTextValue("projectTitle",""); setTextValue("projectLink",""); setTextValue("projectDescription",""); toast("Submitted successfully. Review may take around 30 minutes. Certificate locked until admin verification."); window.showSection("certificateSection",document.querySelectorAll(".nav-link")[4]); }
+async function loadAnnouncements(){ const container=document.getElementById("announcementList"); if(!container) return; container.innerHTML="<p>No announcements available.</p>"; if(firebaseReady&&firebaseDb){ try{ const snapshot=await fb.getDocs(fb.collection(firebaseDb,"announcements")); container.innerHTML=""; snapshot.forEach(d=>{ const x=d.data(); container.innerHTML += '<div class="notice"><h3 style="margin-bottom:8px;">'+(x.title||'')+'</h3><p>'+(x.message||'')+'</p></div>'; }); if(container.innerHTML==="") container.innerHTML="<p>No announcements available.</p>"; }catch(e){ container.innerHTML="<p>No announcements available.</p>"; } } }
+async function initFirebase(){ try{ const config=await import("./firebase-config.js"); const authMod=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"); const fireMod=await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"); firebaseAuth=config.auth; firebaseDb=config.db; fb={...authMod,...fireMod}; firebaseReady=true; authMod.onAuthStateChanged(firebaseAuth,async(user)=>{ if(!user){ window.location.href="login.html"; return; } currentUserId=user.uid; try{ const ref=fireMod.doc(firebaseDb,"students",user.uid); let snap=await fireMod.getDoc(ref); if(!snap.exists()){ await fireMod.setDoc(ref,{email:user.email,createdAt:new Date(),applicationStatus:"Not Applied",progress:0},{merge:true}); snap=await fireMod.getDoc(ref); } studentData={...getLocalData(),...(snap.exists()?snap.data():{})}; if(!studentData.email) studentData.email=user.email||""; localStorage.setItem("internforge_dashboard_data",JSON.stringify(studentData)); updateUI(studentData); loadAnnouncements(); }catch(e){ console.error("Dashboard load error:",e); studentData=getLocalData(); if(!studentData.email) studentData.email=user.email||""; updateUI(studentData); toast("Firestore permission/config issue. Dashboard local mode me chal raha hai."); } }); }catch(error){ console.warn("Firebase not loaded, using local mode:",error); firebaseReady=false; studentData=getLocalData(); updateUI(studentData); loadAnnouncements(); } }
+function bindButtons(){ document.getElementById("aiBtn")?.addEventListener("click",applyForInternship); document.getElementById("submitApplicationBtn")?.addEventListener("click",submitApplication); document.getElementById("submitProjectBtn")?.addEventListener("click",completeInternship); document.getElementById("logoutBtn")?.addEventListener("click",async()=>{ try{ if(firebaseReady&&firebaseAuth) await fb.signOut(firebaseAuth); }catch(e){} window.location.href="login.html"; }); }
+window.addEventListener("DOMContentLoaded",()=>{ bindButtons(); updateUI(getLocalData()); initFirebase(); });
 </script>
-
 </body>
 </html>
