@@ -124,14 +124,14 @@ color:#64748b;
 <div class="logo">
 <img src="logo.png" onerror="this.style.display='none'">
 <h1>InternForge Verification Portal</h1>
-<p>Verify Offer Letters, Certificates and Completion Letters</p>
+<p>Verify Offer Letters, Certificates</p>
 </div>
 
 <div class="search-box">
 
 <input
 id="verifyId"
-placeholder="Enter Certificate / Offer Letter / Completion ID">
+placeholder="Enter Certificate / Offer Letter ID">
 
 <button id="verifyBtn">
 Verify Document
@@ -245,7 +245,7 @@ if(id === certificateId)
 docType = "Certificate";
 
 if(id === completionId)
-docType = "Completion Letter";
+docType = "Completion Certificate";
 
 document.getElementById("statusText")
 .innerHTML =
@@ -312,4 +312,3 @@ document.getElementById("documentStatus")
 
 </body>
 </html>
-
