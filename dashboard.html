@@ -332,11 +332,11 @@ font-size:28px;
 <div id="homeSection" class="section active">
 <div class="hero">
 <h1>Welcome, <span id="studentName">Student</span> 👋</h1>
-<p>Manage your internship application, documents, project submission and certificate from one professional workspace.</p>
+<p>Manage your 30-minute AI & Prompt Engineering internship, offer letter, completion letter and certificate from one professional workspace.</p>
 
 <div class="hero-actions">
 <button id="heroOfferBtn" class="primary-btn" style="border:none; cursor:pointer;">View Offer Letter</button>
-<a href="#projectSection" onclick="showSection('projectSection',document.querySelectorAll('.nav-link')[3])" class="secondary-btn">Submit Project</a>
+<a href="#projectSection" onclick="showSection('projectSection',document.querySelectorAll('.nav-link')[3])" class="secondary-btn">Complete Internship</a>
 </div>
 </div>
 <div class="profile-box">
@@ -352,22 +352,22 @@ font-size:28px;
 <div class="stats">
 <div class="stat-card">
 <span>Internship Status</span>
-<h2 id="internshipStatusCard" class="status-warning"></h2>
+<h2 id="internshipStatusCard" class="status-warning">Not Applied</h2>
 </div>
 
 <div class="stat-card">
 <span>Offer Letter</span>
-<h2 id="offerStatusCard" class="status-warning"></h2>
+<h2 id="offerStatusCard" class="status-warning">Apply First</h2>
 </div>
 
 <div class="stat-card">
 <span>Progress</span>
-<h2 id="progressCard" class="status-success"></h2>
+<h2 id="progressCard" class="status-success">0%</h2>
 </div>
 
 <div class="stat-card">
 <span>Certificate</span>
-<h2 id="certificateCard" class="status-warning"></h2>
+<h2 id="certificateCard" class="status-warning">Pending</h2>
 </div>
 </div>
 
@@ -384,12 +384,12 @@ font-size:28px;
 <b id="statusApplication">Not Applied</b>
 </div>
 <div class="info-row">
-<span>Payment History</span>
-<b id="statusPayment">No Payment Yet</b>
+<span>Document Flow</span>
+<b id="statusPayment">Apply First</b>
 </div>
 <div class="info-row">
 <span>Next Action Step</span>
-<b id="statusNextStep">Apply for an internship</b>
+<b id="statusNextStep">Apply for AI internship</b>
 </div>
 </div>
 
@@ -398,7 +398,7 @@ font-size:28px;
 📄 Offer Letter
 </div>
 <div style="background:#eff6ff;padding:12px 18px;border-radius:12px;font-weight:700;">
-💳 Payment Status
+📘 30-Min Program
 </div>
 <div style="background:#fef3c7;padding:12px 18px;border-radius:12px;font-weight:700;">
 📈 Progress
@@ -413,9 +413,9 @@ font-size:28px;
 <div id="internshipSection" class="section">
 
 <div class="card">
-<h2 class="card-title">Available Internship Programs</h2>
+<h2 class="card-title">Available Internship Program</h2>
 <p class="card-text">
-Choose one internship program to begin your journey.
+Apply for the free 30-minute AI & Prompt Engineering internship program.
 </p>
 </div>
 
@@ -423,49 +423,17 @@ Choose one internship program to begin your journey.
 
 <div class="intern-card">
 <div class="intern-img ai-img">
-<span id="aiBadge">🔒 Locked</span>
+<span id="aiBadge">Available</span>
 </div>
 <div class="intern-body">
 <h3>AI & Prompt Engineering</h3>
-<p>4-week online internship with project, offer letter and certificate.</p>
+<p>Free 30-minute online internship with offer letter, learning module, certificate and completion letter.</p>
 <div class="tags">
-<b>4 Weeks</b>
+<b>30 Mins</b>
 <b>Offer Letter</b>
 <b>Certificate</b>
 </div>
-<button id="aiBtn" class="primary-btn unlockBtn" data-program="AI & Prompt Engineering">🔒 Locked</button>
-</div>
-</div>
-
-<div class="intern-card">
-<div class="intern-img web-img">
-<span id="webBadge">🔒 Locked</span>
-</div>
-<div class="intern-body">
-<h3>Web Development</h3>
-<p>Build a portfolio project and submit it for internship completion.</p>
-<div class="tags">
-<b>4 Weeks</b>
-<b>Project</b>
-<b>Certificate</b>
-</div>
-<button id="webBtn" class="primary-btn unlockBtn" data-program="Web Development">🔒 Locked</button>
-</div>
-</div>
-
-<div class="intern-card">
-<div class="intern-img py-img">
-<span id="pythonBadge">🔒 Locked</span>
-</div>
-<div class="intern-body">
-<h3>Python Programming</h3>
-<p>Beginner-friendly Python internship with mini project submission.</p>
-<div class="tags">
-<b>4 Weeks</b>
-<b>Beginner</b>
-<b>Certificate</b>
-</div>
-<button id="pythonBtn" class="primary-btn unlockBtn" data-program="Python Programming">🔒 Locked</button>
+<button id="aiBtn" class="primary-btn unlockBtn" data-program="AI & Prompt Engineering">Apply Now</button>
 </div>
 </div>
 
@@ -477,7 +445,7 @@ Choose one internship program to begin your journey.
 <div class="card">
 <h2 class="card-title">Camp Internship Documents</h2>
 <p class="card-text">
-Your official internship documents will appear here after admin approval.
+Your official internship documents will appear here after you apply and complete the internship.
 </p>
 </div>
 
@@ -486,7 +454,7 @@ Your official internship documents will appear here after admin approval.
 <div class="doc-card">
 <i class="fa-solid fa-file-lines"></i>
 <h3>Offer Letter</h3>
-<p>Status: <b id="offerLetterStatus">Pending</b></p>
+<p>Status: <b id="offerLetterStatus">Apply First</b></p>
 <p>ID: <b id="offerLetterId">Not Generated</b></p>
 <button id="viewOfferLetterBtn" class="secondary-btn" style="border:none; cursor:pointer; width:100%; text-align:center;">View Offer Letter</button>
 </div>
@@ -503,7 +471,7 @@ Your official internship documents will appear here after admin approval.
 <i class="fa-solid fa-file-circle-check"></i>
 <h3>Completion Letter</h3>
 <p>Status: <b id="completionLetterStatus">Pending</b></p>
-<p>Issued after final project review.</p>
+<p>Issued after completing the 30-minute internship.</p>
 <button id="viewCompletionLetterBtn" class="secondary-btn" style="border:none; cursor:pointer; width:100%; text-align:center;">View Completion Letter</button>
 </div>
 
@@ -513,71 +481,42 @@ Your official internship documents will appear here after admin approval.
 </div>
 </div>
 
-<div id="paymentSection" class="section">
-
-<div class="card">
-<h2 class="card-title">Complete Enrollment</h2>
-<div class="pricing-box">
-<div class="price-row">
-<span class="old-price">₹249</span>
-<span class="new-price">₹1</span>
-</div>
-<div class="offer-badge">🔥 Launch Offer Active</div>
-<p class="offer-text">Complete your internship enrollment at ₹1 during the limited launch period.</p>
-<div class="timer-box">⏳ Offer ends in: <b id="offerTimer">Loading...</b></div>
-</div>
-
-<p class="card-text" style="margin-top:15px;">
-Selected Internship: <b id="selectedProgramText">Not Selected</b>
-</p>
-
-<div class="payment-box">
-<h3>Scan QR to Complete Enrollment</h3>
-<p>UPI ID is hidden for a clean payment experience.</p>
-<img src="qr.png" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=230x230&data=upi://pay?pa=9996265411@mbk%26pn=InternForge%26am=1%26cu=INR%26tn=InternForge%20Internship%20Unlock'">
-<input id="transactionId" placeholder="Enter UPI Transaction ID">
-<button id="submitPaymentBtn" class="primary-btn">Submit Payment Proof</button>
-</div>
-</div>
-
-</div>
-
 <div id="projectSection" class="section">
 
 <div class="card">
-<h2 class="card-title">Internship Project Submission</h2>
-<p class="card-text">Submit your final internship project for admin review. Add a GitHub, Google Drive, or live project link.</p>
+<h2 class="card-title">30-Minute Internship Completion</h2>
+<p class="card-text">Complete your 30-minute AI & Prompt Engineering internship module and unlock your professional certificate and completion letter.</p>
 </div>
 
 <div class="card">
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:20px;">
 <div style="background:#eef4ff;padding:18px;border-radius:16px;">
-<b>Project Status</b>
-<p style="margin-top:8px;color:#0056d2;font-weight:900;">Pending Submission</p>
+<b>Internship Status</b>
+<p style="margin-top:8px;color:#0056d2;font-weight:900;">Ready to Start</p>
 </div>
 <div style="background:#ecfdf5;padding:18px;border-radius:16px;">
-<b>Review Type</b>
-<p style="margin-top:8px;color:#166534;font-weight:900;">Admin Review</p>
+<b>Program Type</b>
+<p style="margin-top:8px;color:#166534;font-weight:900;">Self-Paced</p>
 </div>
 <div style="background:#fff7ed;padding:18px;border-radius:16px;">
-<b>Certificate Eligibility</b>
-<p style="margin-top:8px;color:#92400e;font-weight:900;">After Approval</p>
+<b>Documents Eligibility</b>
+<p style="margin-top:8px;color:#92400e;font-weight:900;">After Completion</p>
 </div>
 </div>
 
-<h3 style="margin-bottom:10px;">Submit Your Project</h3>
-<input class="input-field" id="projectTitle" placeholder="Project Title">
-<input class="input-field" id="projectLink" placeholder="GitHub / Google Drive / Live Project Link">
-<textarea id="projectDescription" placeholder="Write a short description of your project..." style="width:100%;height:120px;padding:14px;border:1px solid #cbd5e1;border-radius:12px;margin-top:14px;font-size:15px;resize:none;"></textarea>
-<button id="submitProjectBtn" class="primary-btn" style="margin-top:15px;">Submit Project for Review</button>
+<h3 style="margin-bottom:10px;">Complete Your Internship</h3>
+<input class="input-field" id="projectTitle" placeholder="What did you learn?">
+<input class="input-field" id="projectLink" placeholder="Optional: LinkedIn/GitHub/Profile Link">
+<textarea id="projectDescription" placeholder="Write 2-3 lines about what you learned in this internship..." style="width:100%;height:120px;padding:14px;border:1px solid #cbd5e1;border-radius:12px;margin-top:14px;font-size:15px;resize:none;"></textarea>
+<button id="submitProjectBtn" class="primary-btn" style="margin-top:15px;">Complete Internship for Review</button>
 </div>
 
 <div class="card">
-<h3>Project Submission Guidelines</h3>
-<div class="notice">✅ Project link must be accessible publicly.</div>
-<div class="notice">✅ Add README file if submitting GitHub link.</div>
-<div class="notice">✅ Mention tools, features and screenshots in your project.</div>
-<div class="notice">✅ Certificate will be issued only after admin approval.</div>
+<h3>Completion Guidelines</h3>
+<div class="notice">✅ Read the 30-minute AI & Prompt Engineering module carefully.</div>
+<div class="notice">✅ Understand basic prompt writing, role prompting and output formatting.</div>
+<div class="notice">✅ Write a short learning summary before completing.</div>
+<div class="notice">✅ Certificate and completion letter will be issued instantly after completion.</div>
 </div>
 
 </div>
@@ -605,18 +544,11 @@ Selected Internship: <b id="selectedProgramText">Not Selected</b>
 </div>
 
 <div id="aiSection" class="section">
-<div class="card">
+<div class="card" style="text-align:center;padding:45px 24px;">
 <h2 class="card-title">AI Internship Assistant</h2>
-<p class="card-text">Use quick tools for resume help, project ideas, interview preparation and career guidance.</p>
-<div style="display:grid;gap:15px;">
-<button class="primary-btn" id="resumeReviewBtn">📄 Resume Review</button>
-<button class="primary-btn" id="projectIdeaBtn">💡 Project Ideas</button>
-<button class="primary-btn" id="interviewBtn">🎤 Interview Questions</button>
-<button class="primary-btn" id="careerBtn">🚀 Career Guidance</button>
-<textarea id="aiQuestion" placeholder="Ask anything..." style="width:100%;height:120px;padding:12px;border-radius:12px;border:1px solid #ddd;resize:none;"></textarea>
-<button class="primary-btn" id="askAiBtn">🤖 Ask AI</button>
-<div id="aiResponse" style="margin-top:15px;padding:15px;background:#f8fafc;border-radius:12px;line-height:1.6;">AI response will appear here...</div>
-</div>
+<p class="card-text" style="font-size:18px;">Coming Soon</p>
+<div style="font-size:54px;margin:22px 0;color:#0056d2;"><i class="fa-solid fa-robot"></i></div>
+<p class="card-text">We are building a smart assistant for resume help, project guidance and interview preparation.</p>
 </div>
 </div>
 
@@ -960,404 +892,358 @@ box-shadow:0 12px 28px rgba(0,0,0,.18);
 }
 </style>
 
-<script type="module">
-import { auth, db } from "./firebase-config.js";
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { doc, getDoc, setDoc, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-let currentUserId="";
-let selectedProgram="";
+<script>
+let currentUserId = "local-user";
+let selectedProgram = "AI & Prompt Engineering";
+let studentData = {};
+let firebaseReady = false;
+let firebaseAuth = null;
+let firebaseDb = null;
+let fb = {};
 
 function toast(msg){
-const t=document.getElementById("toast");
-if(!t) return;
-t.innerHTML=msg;
-t.style.display="block";
-setTimeout(()=>{
-t.style.display="none";
-},3000);
+  const t = document.getElementById("toast");
+  if(!t) return;
+  t.innerHTML = msg;
+  t.style.display = "block";
+  setTimeout(() => { t.style.display = "none"; }, 3000);
 }
 
-window.showSection=function(sectionId,element){
-document.querySelectorAll(".section").forEach(sec=>sec.classList.remove("active"));
-document.querySelectorAll(".nav-link").forEach(nav=>nav.classList.remove("active"));
-const targetSec = document.getElementById(sectionId);
-if(targetSec) targetSec.classList.add("active");
-if(element) element.classList.add("active");
+window.showSection = function(sectionId, element){
+  document.querySelectorAll(".section").forEach(sec => sec.classList.remove("active"));
+  document.querySelectorAll(".nav-link").forEach(nav => nav.classList.remove("active"));
+  const targetSec = document.getElementById(sectionId);
+  if(targetSec) targetSec.classList.add("active");
+  if(element) element.classList.add("active");
 };
 
-function generateId(prefix) {
-const year = new Date().getFullYear();
-const rand = Math.floor(1000 + Math.random() * 9000);
-return `${prefix}-${year}-${rand}`;
+function setText(id, value){
+  const el = document.getElementById(id);
+  if(el) el.innerText = value;
 }
 
-onAuthStateChanged(auth,async(user)=>{
-if(!user){
-window.location.href="login.html";
-return;
+function generateId(prefix){
+  const year = new Date().getFullYear();
+  const rand = Math.floor(100000 + Math.random() * 900000);
+  return `${prefix}-${year}-${rand}`;
 }
 
-currentUserId=user.uid;
-
-try {
-const snap = await getDoc(doc(db,"students",user.uid));
-
-if(snap.exists()){
-let data=snap.data();
-let updates={};
-let paymentStatus = data.paymentStatus || "Not Paid";
-let progress = data.progress || 0;
-
-if(paymentStatus === "Approved" && !data.offerLetterId){
-updates.offerLetterId = generateId("OL");
-updates.offerLetterStatus = "Approved";
-}
-if(progress >= 100 && !data.certificateId){
-updates.certificateId = generateId("IF");
-updates.certificateStatus = "Issued";
-}
-if(progress >= 100 && !data.completionLetterId){
-updates.completionLetterId = generateId("CL");
-updates.completionLetterStatus = "Issued";
+function todayText(){
+  return new Date().toLocaleDateString("en-IN", { day:"2-digit", month:"long", year:"numeric" });
 }
 
-if(Object.keys(updates).length > 0){
-await setDoc(doc(db,"students",user.uid), updates, { merge: true });
-const freshSnap = await getDoc(doc(db,"students",user.uid));
-data = freshSnap.data();
-paymentStatus = data.paymentStatus || "Not Paid";
-progress = data.progress || 0;
+function getLocalData(){
+  try { return JSON.parse(localStorage.getItem("internforge_dashboard_data") || "{}"); }
+  catch(e){ return {}; }
 }
 
-updateInternshipCards(data);
-console.log("PAYMENT STATUS =", paymentStatus);
-
-if(document.getElementById("studentName")) document.getElementById("studentName").innerText= data.name || "Student";
-if(document.getElementById("progressCard")) document.getElementById("progressCard").innerText= progress+"%";
-if(document.getElementById("certificateCard")) document.getElementById("certificateCard").innerText= data.certificateStatus || "Pending";
-if(document.getElementById("offerStatusCard")) document.getElementById("offerStatusCard").innerText= data.offerLetterStatus || "Pending";
-
-if(document.getElementById("internshipStatusCard")) {
-document.getElementById("internshipStatusCard").innerText =
-paymentStatus === "Approved"
-? "Active"
-: (data.applicationStatus === "Applied" ? "Payment Required" : "Not Applied");
+function saveLocalData(data){
+  studentData = { ...studentData, ...data };
+  localStorage.setItem("internforge_dashboard_data", JSON.stringify(studentData));
+  updateUI(studentData);
 }
 
-if(document.getElementById("profileName")) document.getElementById("profileName").innerText= data.name || "-";
-if(document.getElementById("profileEmail")) document.getElementById("profileEmail").innerText= data.email || "-";
-if(document.getElementById("profileCollege")) document.getElementById("profileCollege").innerText= data.college || "-";
-if(document.getElementById("profileCourse")) document.getElementById("profileCourse").innerText= data.course || "-";
+function updateUI(data = {}){
+  studentData = data || {};
+  const applied = data.applicationStatus === "Applied" || data.applicationStatus === "Completed";
+  const completed = Number(data.progress || 0) >= 100 || data.applicationStatus === "Completed";
+  const progress = completed ? 100 : (applied ? 50 : 0);
 
-if(document.getElementById("certificateStatusPage")) document.getElementById("certificateStatusPage").innerText= data.certificateStatus || "Not Issued";
-if(document.getElementById("certificateIdPage")) document.getElementById("certificateIdPage").innerText= data.certificateId || "Not Generated";
-if(document.getElementById("docCertificateStatus")) document.getElementById("docCertificateStatus").innerText= data.certificateStatus || "Not Issued";
-if(document.getElementById("docCertificateId")) document.getElementById("docCertificateId").innerText= data.certificateId || "Not Generated";
-if(document.getElementById("offerLetterStatus")) document.getElementById("offerLetterStatus").innerText= data.offerLetterStatus || "Pending";
-if(document.getElementById("offerLetterId")) document.getElementById("offerLetterId").innerText= data.offerLetterId || "Not Generated";
-if(document.getElementById("completionLetterStatus")) document.getElementById("completionLetterStatus").innerText= data.completionLetterStatus || "Pending";
+  setText("studentName", data.name || "Student");
+  setText("internshipStatusCard", completed ? "Completed" : (applied ? "Active" : "Not Applied"));
+  setText("offerStatusCard", applied ? "Issued" : "Apply First");
+  setText("progressCard", progress + "%");
+  setText("certificateCard", completed ? "Issued" : "Pending");
 
-if(data.selectedProgram){
-selectedProgram=data.selectedProgram;
-if(document.getElementById("selectedProgramText")) document.getElementById("selectedProgramText").innerText= selectedProgram;
+  setText("statusProgram", applied ? "AI & Prompt Engineering" : "Not Selected");
+  setText("statusApplication", completed ? "Completed" : (applied ? "Applied" : "Not Applied"));
+  setText("statusPayment", completed ? "Certificate + Completion Letter Ready" : (applied ? "Offer Letter Issued" : "Apply First"));
+  setText("statusNextStep", completed ? "View certificate and completion letter" : (applied ? "Complete the 30-minute internship module" : "Apply for AI internship"));
+
+  setText("profileName", data.name || "-");
+  setText("profileEmail", data.email || "-");
+  setText("profileCollege", data.college || "-");
+  setText("profileCourse", data.course || "-");
+
+  setText("offerLetterStatus", applied ? "Issued" : "Apply First");
+  setText("offerLetterId", data.offerLetterId || "Not Generated");
+  setText("docCertificateStatus", completed ? "Issued" : "Not Issued");
+  setText("docCertificateId", data.certificateId || "Not Generated");
+  setText("completionLetterStatus", completed ? "Issued" : "Pending");
+  setText("certificateStatusPage", completed ? "Issued" : "Not Issued");
+  setText("certificateIdPage", data.certificateId || "Not Generated");
+  setText("moduleStatusText", completed ? "Completed" : (applied ? "Active" : "Apply First"));
+
+  const badge = document.getElementById("aiBadge");
+  const btn = document.getElementById("aiBtn");
+  if(badge && btn){
+    btn.disabled = false;
+    btn.style.opacity = "1";
+    if(completed){
+      badge.innerText = "Completed";
+      btn.innerText = "View Documents";
+    } else if(applied){
+      badge.innerText = "Active";
+      btn.innerText = "Continue Internship";
+    } else {
+      badge.innerText = "Available";
+      btn.innerText = "Apply Now";
+    }
+  }
+
+  setupDocButton("viewOfferLetterBtn", !applied, "Apply first to generate your offer letter.", "offer");
+  setupDocButton("heroOfferBtn", !applied, "Apply first to generate your offer letter.", "offer");
+  setupDocButton("viewCertificateBtn", !completed, "Complete the internship first to generate certificate.", "certificate");
+  setupDocButton("viewCompletionLetterBtn", !completed, "Complete the internship first to generate completion letter.", "completion");
 }
 
-if(document.getElementById("statusProgram")) document.getElementById("statusProgram").innerText = data.selectedProgram || "Not Selected";
-if(document.getElementById("statusApplication")) document.getElementById("statusApplication").innerText = data.applicationStatus || "Not Applied";
-if(document.getElementById("statusPayment")) document.getElementById("statusPayment").innerText = paymentStatus;
-
-let nextStep = "Apply for an internship";
-if(data.applicationStatus === "Applied" && paymentStatus === "Payment Required"){
-nextStep = "Complete enrollment payment";
-}
-if(paymentStatus === "Pending Approval"){
-nextStep = "Wait for admin approval";
-}
-if(paymentStatus === "Approved"){
-nextStep = "Submit your internship project";
-}
-if(progress === 100){
-nextStep = "Download certificate and completion letter";
+function setupDocButton(btnId, locked, msg, type){
+  const btn = document.getElementById(btnId);
+  if(!btn) return;
+  btn.style.opacity = locked ? "0.6" : "1";
+  if(btnId === "heroOfferBtn" || btnId === "viewOfferLetterBtn") btn.innerText = "View Offer Letter";
+  else if(type === "certificate") btn.innerText = "View Certificate";
+  else btn.innerText = "View Completion Letter";
+  btn.onclick = () => locked ? toast(msg) : openDocument(type);
 }
 
-if(document.getElementById("statusNextStep")) {
-document.getElementById("statusNextStep").innerText = nextStep;
+function openDocument(type){
+  const name = studentData.name || "Student";
+  const email = studentData.email || "";
+  const program = "AI & Prompt Engineering";
+  const date = todayText();
+  const ids = {
+    offer: studentData.offerLetterId || "OL-PENDING",
+    certificate: studentData.certificateId || "IF-PENDING",
+    completion: studentData.completionLetterId || "CL-PENDING"
+  };
+
+  let title = "Offer Letter";
+  let heading = "INTERNSHIP OFFER LETTER";
+  let body = `This is to certify that <b>${name}</b> has been offered a 30-minute online internship program in <b>${program}</b> by InternForge. The candidate is eligible to begin the self-paced internship module from the dashboard.`;
+
+  if(type === "certificate"){
+    title = "Certificate";
+    heading = "CERTIFICATE OF COMPLETION";
+    body = `This certificate is proudly presented to <b>${name}</b> for successfully completing the 30-minute online internship program in <b>${program}</b> conducted by InternForge.`;
+  }
+
+  if(type === "completion"){
+    title = "Completion Letter";
+    heading = "INTERNSHIP COMPLETION LETTER";
+    body = `This letter confirms that <b>${name}</b> has successfully completed the 30-minute online internship program in <b>${program}</b> with InternForge.`;
+  }
+
+  const id = type === "offer" ? ids.offer : (type === "certificate" ? ids.certificate : ids.completion);
+  const w = window.open("", "_blank");
+  if(!w){ toast("Popup blocked. Allow popups to view document."); return; }
+
+  w.document.write(`<!DOCTYPE html><html><head><title>${title}</title><style>
+body{font-family:Arial,sans-serif;background:#f5f7fb;padding:30px;color:#111827;}
+.doc{max-width:850px;margin:auto;background:white;border:8px solid #0056d2;padding:45px;border-radius:20px;}
+.brand{font-size:32px;font-weight:900;color:#0056d2;text-align:center;}
+.sub{text-align:center;color:#64748b;font-weight:700;margin-top:5px;}
+hr{border:none;border-top:1px solid #e5e7eb;margin:28px 0;}
+h1{text-align:center;font-size:30px;letter-spacing:1px;margin-bottom:25px;}
+p{font-size:18px;line-height:1.8;}
+.row{display:flex;justify-content:space-between;gap:20px;margin-top:28px;font-weight:700;}
+.sign{margin-top:55px;display:flex;justify-content:space-between;align-items:end;}
+.seal{border:2px solid #0056d2;color:#0056d2;border-radius:999px;width:120px;height:120px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900;}
+button{margin:25px auto 0;display:block;background:#0056d2;color:white;border:none;padding:13px 22px;border-radius:12px;font-weight:900;cursor:pointer;}
+@media print{button{display:none} body{background:white;padding:0}.doc{border-radius:0}}
+</style></head><body><div class="doc"><div class="brand">InternForge</div><div class="sub">India's Student Internship Platform</div><hr><h1>${heading}</h1><p>${body}</p><div class="row"><span>Name: ${name}</span><span>Email: ${email}</span></div><div class="row"><span>Program: ${program}</span><span>Date: ${date}</span></div><div class="row"><span>Document ID: ${id}</span><span>Mode: Online</span></div><div class="sign"><div><b>Authorized Signatory</b><br>InternForge</div><div class="seal">Verified<br>InternForge</div></div></div><button onclick="window.print()">Download / Print</button></body></html>`);
+  w.document.close();
 }
 
-const setupDocBtn = (btnId, isLocked, lockMsg, url) => {
-const btn = document.getElementById(btnId);
-if(btn) {
-if(isLocked) {
-btn.style.opacity = "0.6";
-btn.innerText = btnId === "viewOfferLetterBtn" ? "Payment Verification Required" : (btnId === "viewCertificateBtn" ? "Complete Internship First" : "Project Approval Required");
-btn.onclick = () => toast(lockMsg);
-} else {
-btn.style.opacity = "1";
-btn.innerText = btnId === "viewOfferLetterBtn" ? "View Offer Letter" : (btnId === "viewCertificateBtn" ? "View Certificate" : "View Completion Letter");
-btn.onclick = () => window.location.href = url;
-}
-}
-};
+async function saveStudent(updates){
+  const merged = { ...studentData, ...updates };
+  studentData = merged;
+  localStorage.setItem("internforge_dashboard_data", JSON.stringify(merged));
+  updateUI(merged);
 
-setupDocBtn("viewOfferLetterBtn", paymentStatus !== "Approved", "Offer Letter will be available after payment verification.", "offer-letter.html");
-setupDocBtn("heroOfferBtn", paymentStatus !== "Approved", "Offer Letter will be available after payment verification.", "offer-letter.html");
-setupDocBtn("viewCertificateBtn", progress < 100, "Certificate will be available after 100% internship completion.", "certificate.html");
-setupDocBtn("viewCompletionLetterBtn", progress < 100, "Completion Letter will be available after internship completion.", "completion-letter.html");
-
-}
-} catch(e) {
-console.error("Error fetching student record:", e);
+  if(firebaseReady && firebaseDb && currentUserId){
+    try{
+      const ref = fb.doc(firebaseDb, "students", currentUserId);
+      await fb.setDoc(ref, updates, { merge:true });
+      const fresh = await fb.getDoc(ref);
+      if(fresh.exists()){
+        studentData = fresh.data();
+        localStorage.setItem("internforge_dashboard_data", JSON.stringify(studentData));
+        updateUI(studentData);
+      }
+    }catch(error){
+      console.error("Firestore save error:", error);
+      toast("Saved locally. Firestore permission/config check kar lena.");
+    }
+  }
 }
 
-loadAnnouncements();
-setupAIAssistant();
-});
+async function applyForInternship(){
+  const alreadyApplied = studentData.applicationStatus === "Applied" || studentData.applicationStatus === "Completed";
+  const completed = Number(studentData.progress || 0) >= 100 || studentData.applicationStatus === "Completed";
 
-function updateInternshipCards(data){
-const selected = data.selectedProgram || "";
-const payment = data.paymentStatus || "Not Paid";
-const programs = [
-{ name:"AI & Prompt Engineering", badge:"aiBadge", btn:"aiBtn" },
-{ name:"Web Development", badge:"webBadge", btn:"webBtn" },
-{ name:"Python Programming", badge:"pythonBadge", btn:"pythonBtn" }
-];
+  if(completed){
+    window.showSection("documentsSection", document.querySelectorAll(".nav-link")[2]);
+    return;
+  }
 
-programs.forEach(item=>{
-const badge = document.getElementById(item.badge);
-const btn = document.getElementById(item.btn);
-if(!badge || !btn) return;
+  if(alreadyApplied){
+    window.showSection("projectSection", document.querySelectorAll(".nav-link")[3]);
+    return;
+  }
 
-if(!selected){
-badge.innerText="Available";
-btn.innerText="Apply Now";
-btn.disabled=false;
-btn.style.opacity="1";
-return;
+  await saveStudent({
+    selectedProgram: "AI & Prompt Engineering",
+    applicationStatus: "Applied",
+    offerLetterStatus: "Issued",
+    offerLetterId: studentData.offerLetterId || generateId("OL"),
+    progress: 50,
+    appliedAt: new Date().toISOString()
+  });
+
+  toast("Applied successfully. Offer letter generated.");
+  window.showSection("documentsSection", document.querySelectorAll(".nav-link")[2]);
 }
 
-if(selected === item.name){
-if(payment === "Approved"){
-badge.innerText="Active";
-btn.innerText="Active Internship";
-btn.disabled=true;
-btn.style.opacity=".75";
-return;
-}
-if(payment === "Pending Approval"){
-badge.innerText="Pending Approval";
-btn.innerText="Waiting Approval";
-btn.disabled=true;
-btn.style.opacity=".75";
-return;
-}
-if(payment === "Payment Required"){
-badge.innerText="Payment Required";
-btn.innerText="Complete Payment";
-btn.disabled=false;
-btn.style.opacity="1";
-return;
-}
-badge.innerText="Applied";
-btn.innerText="Continue";
-btn.disabled=false;
-btn.style.opacity="1";
-return;
-}
+async function completeInternship(){
+  const titleEl = document.getElementById("projectTitle");
+  const linkEl = document.getElementById("projectLink");
+  const descEl = document.getElementById("projectDescription");
+  const title = titleEl ? titleEl.value.trim() : "AI Prompt Engineering Learning";
+  const link = linkEl ? linkEl.value.trim() : "";
+  const description = descEl ? descEl.value.trim() : "";
 
-badge.innerText="Locked";
-btn.innerText="Locked";
-btn.disabled=true;
-btn.style.opacity=".55";
-});
-}
+  if(!(studentData.applicationStatus === "Applied" || studentData.applicationStatus === "Completed")){
+    toast("Apply for the internship first.");
+    window.showSection("internshipSection", document.querySelectorAll(".nav-link")[1]);
+    return;
+  }
 
-document.querySelectorAll(".unlockBtn").forEach(btn=>{
-btn.addEventListener("click",async()=>{
-selectedProgram= btn.dataset.program;
-if(document.getElementById("selectedProgramText")) document.getElementById("selectedProgramText").innerText= selectedProgram;
+  if(!title || !description){
+    toast("Learning title aur summary bhar de.");
+    return;
+  }
 
-await setDoc(
-doc(db,"students",currentUserId),
-{ selectedProgram:selectedProgram, applicationStatus:"Applied", paymentStatus:"Payment Required", progress:10 },
-{ merge:true }
-);
+  const updates = {
+    applicationStatus: "Completed",
+    progress: 100,
+    certificateStatus: "Issued",
+    completionLetterStatus: "Issued",
+    certificateId: studentData.certificateId || generateId("IF"),
+    completionLetterId: studentData.completionLetterId || generateId("CL"),
+    completedAt: new Date().toISOString(),
+    learningTitle: title,
+    learningLink: link,
+    learningSummary: description
+  };
 
-if(document.getElementById("internshipStatusCard")) document.getElementById("internshipStatusCard").innerText= "Payment Required";
-window.showSection("paymentSection", document.querySelectorAll(".nav-link")[2]);
-toast("Application submitted for " + selectedProgram + ". Complete enrollment payment.");
-});
-});
+  await saveStudent(updates);
 
-document.getElementById("submitPaymentBtn").addEventListener("click",async()=>{
-const txn= document.getElementById("transactionId").value.trim();
-if(!selectedProgram){
-toast("Select internship first.");
-return;
-}
-if(!txn){
-toast("Enter transaction ID.");
-return;
-}
+  if(firebaseReady && firebaseDb){
+    try{
+      await fb.addDoc(fb.collection(firebaseDb,"projects"),{
+        studentId: currentUserId,
+        program: "AI & Prompt Engineering",
+        projectTitle: title,
+        projectLink: link,
+        projectDescription: description,
+        status: "Completed",
+        submittedAt: new Date()
+      });
+    }catch(e){ console.warn("Project log skipped:", e); }
+  }
 
-try{
-await setDoc(
-doc(db,"students",currentUserId),
-{ selectedProgram:selectedProgram, transactionId:txn, paymentStatus:"Pending Approval", offerLetterStatus:"Pending", progress:20 },
-{ merge:true }
-);
+  if(titleEl) titleEl.value = "";
+  if(linkEl) linkEl.value = "";
+  if(descEl) descEl.value = "";
 
-if(document.getElementById("internshipStatusCard")) document.getElementById("internshipStatusCard").innerText= "Pending Approval";
-toast("Payment submitted successfully. Waiting for admin approval.");
-window.location.href = "payment-pending.html";
-document.getElementById("transactionId").value="";
-}catch(error){
-toast(error.message);
-}
-});
-
-document.getElementById("submitProjectBtn").addEventListener("click",async()=>{
-const title= document.getElementById("projectTitle").value.trim();
-const link= document.getElementById("projectLink").value.trim();
-const description= document.getElementById("projectDescription").value.trim();
-
-if(!title || !link){
-toast("Fill all fields.");
-return;
-}
-
-try{
-await addDoc(
-collection(db,"projects"),
-{ studentId:currentUserId, projectTitle:title, projectLink:link, projectDescription:description, program:selectedProgram, status:"Pending Review", submittedAt:new Date() }
-);
-toast("Project submitted successfully.");
-document.getElementById("projectTitle").value="";
-document.getElementById("projectLink").value="";
-document.getElementById("projectDescription").value="";
-}catch(error){
-toast(error.message);
-}
-});
-
-function setupAIAssistant(){
-const responseBox = document.getElementById("aiResponse");
-const questionBox = document.getElementById("aiQuestion");
-if(!responseBox) return;
-
-function reply(text){
-responseBox.innerHTML = text;
-}
-
-document.getElementById("resumeReviewBtn")?.addEventListener("click",()=>{
-reply(`
-<b>Resume Review Tips:</b><br><br>
-✅ Add your name, email and LinkedIn/GitHub.<br>
-✅ Mention your BCA / course details clearly.<br>
-✅ Add 2-3 projects with tech stack.<br>
-✅ Use keywords like HTML, CSS, JavaScript, Python, Firebase, AI tools.<br>
-✅ Keep resume to 1 page.
-`);
-});
-
-document.getElementById("projectIdeaBtn")?.addEventListener("click",()=>{
-reply(`
-<b>Project Ideas:</b><br><br>
-1. AI Resume Analyzer<br>
-2. Student Internship Portal<br>
-3. Smart Library Management System<br>
-4. Certificate Verification System<br>
-5. AI Chatbot for Career Guidance
-`);
-});
-
-document.getElementById("interviewBtn")?.addEventListener("click",()=>{
-reply(`
-<b>Common Interview Questions:</b><br><br>
-1. Tell me about yourself.<br>
-2. Explain your best project.<br>
-3. What is HTML, CSS and JavaScript?<br>
-4. What is Firebase?<br>
-5. Why should we select you for this internship?
-`);
-});
-
-document.getElementById("careerBtn")?.addEventListener("click",()=>{
-reply(`
-<b>Career Guidance:</b><br><br>
-Focus on one track first: Web Development, Python, AI tools, or Data Analytics.<br><br>
-Build 2 strong projects, upload them on GitHub, and add them to your resume.
-`);
-});
-
-document.getElementById("askAiBtn")?.addEventListener("click",()=>{
-if(!questionBox) return;
-const q = questionBox.value.trim();
-if(!q){
-reply("Please type your question first.");
-return;
-}
-reply(
-"<b>Your Question:</b> " + q + "<br><br>" +
-"<b>AI Assistant:</b><br>" +
-"This assistant can guide you with resumes, projects, interviews and internship preparation. Please choose a quick action above or ask a specific question."
-);
-});
+  toast("Internship completed. Certificate and completion letter issued.");
+  window.showSection("certificateSection", document.querySelectorAll(".nav-link")[4]);
 }
 
 async function loadAnnouncements(){
-const container= document.getElementById("announcementList");
-if(!container) return;
+  const container = document.getElementById("announcementList");
+  if(!container) return;
+  container.innerHTML = "<p>No announcements available.</p>";
 
-try {
-const snapshot= await getDocs(collection(db,"announcements"));
-container.innerHTML="";
-snapshot.forEach(doc=>{
-const data=doc.data();
-container.innerHTML+=`
-<div class="notice">
-<h3 style="margin-bottom:8px;">${data.title || ''}</h3>
-<p>${data.message || ''}</p>
-</div>`;
+  if(firebaseReady && firebaseDb){
+    try{
+      const snapshot = await fb.getDocs(fb.collection(firebaseDb,"announcements"));
+      container.innerHTML = "";
+      snapshot.forEach(d => {
+        const data = d.data();
+        container.innerHTML += `<div class="notice"><h3 style="margin-bottom:8px;">${data.title || ""}</h3><p>${data.message || ""}</p></div>`;
+      });
+      if(container.innerHTML === "") container.innerHTML = "<p>No announcements available.</p>";
+    }catch(e){
+      container.innerHTML = "<p>No announcements available.</p>";
+    }
+  }
+}
+
+async function initFirebase(){
+  try{
+    const config = await import("./firebase-config.js");
+    const authMod = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js");
+    const fireMod = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+
+    firebaseAuth = config.auth;
+    firebaseDb = config.db;
+    fb = { ...authMod, ...fireMod };
+    firebaseReady = true;
+
+    authMod.onAuthStateChanged(firebaseAuth, async(user) => {
+      if(!user){ window.location.href = "login.html"; return; }
+      currentUserId = user.uid;
+      try{
+        const ref = fireMod.doc(firebaseDb, "students", user.uid);
+        let snap = await fireMod.getDoc(ref);
+        if(!snap.exists()){
+          await fireMod.setDoc(ref, {
+            email: user.email,
+            createdAt: new Date(),
+            applicationStatus: "Not Applied",
+            progress: 0
+          }, { merge:true });
+          snap = await fireMod.getDoc(ref);
+        }
+        studentData = { ...getLocalData(), ...(snap.exists() ? snap.data() : {}) };
+        if(!studentData.email) studentData.email = user.email || "";
+        localStorage.setItem("internforge_dashboard_data", JSON.stringify(studentData));
+        updateUI(studentData);
+        loadAnnouncements();
+      }catch(e){
+        console.error("Dashboard load error:", e);
+        studentData = getLocalData();
+        if(!studentData.email) studentData.email = user.email || "";
+        updateUI(studentData);
+        toast("Firestore permission/config issue. Dashboard local mode me chal raha hai.");
+      }
+    });
+  }catch(error){
+    console.warn("Firebase not loaded, using local mode:", error);
+    firebaseReady = false;
+    studentData = getLocalData();
+    updateUI(studentData);
+    loadAnnouncements();
+  }
+}
+
+function bindButtons(){
+  document.getElementById("aiBtn")?.addEventListener("click", applyForInternship);
+  document.getElementById("submitProjectBtn")?.addEventListener("click", completeInternship);
+  document.getElementById("logoutBtn")?.addEventListener("click", async() => {
+    try{ if(firebaseReady && firebaseAuth) await fb.signOut(firebaseAuth); }
+    catch(e){}
+    window.location.href = "login.html";
+  });
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  bindButtons();
+  updateUI(getLocalData());
+  initFirebase();
 });
-
-if(container.innerHTML===""){
-container.innerHTML= "<p>No announcements available.</p>";
-}
-} catch(err) {
-container.innerHTML= "<p>Error loading announcements.</p>";
-}
-}
-
-document.getElementById("logoutBtn").addEventListener("click",async()=>{
-await signOut(auth);
-window.location.href="login.html";
-});
-
-function startOfferTimer(){
-const timer = document.getElementById("offerTimer");
-if(!timer) return;
-const endTime = new Date("2026-06-18T23:59:59").getTime();
-
-setInterval(()=>{
-const now = new Date().getTime();
-const distance = endTime - now;
-
-if(distance <= 0){
-timer.innerText = "Offer Expired";
-return;
-}
-
-const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-timer.innerText = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
-},1000);
-}
-
-startOfferTimer();
 </script>
 
 </body>
