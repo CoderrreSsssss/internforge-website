@@ -18,7 +18,7 @@ padding: 20px;
 .letter-container {
 background: white;
 width: 100%;
-max-width: 800px;
+max-width: 850px;
 padding: 50px;
 box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 border-top: 8px solid #0056d2;
@@ -54,20 +54,29 @@ color: #1e293b;
 font-size: 15px;
 }
 .signature-section {
-margin-top: 50px;
+margin-top: 55px;
 display: flex;
 justify-content: space-between;
+gap: 30px;
 }
 .sig {
 text-align: center;
 font-size: 14px;
 color: #64748b;
+min-width: 220px;
+}
+.signature-name {
+font-family: "Brush Script MT", "Segoe Script", cursive;
+font-size: 31px;
+color: #0f172a;
+line-height: 1;
+margin-bottom: 8px;
 }
 .sig-line {
-width: 150px;
+width: 190px;
 height: 1px;
 background: #cbd5e1;
-margin-bottom: 8px;
+margin: 8px auto;
 }
 .actions {
 margin-top: 30px;
@@ -89,6 +98,20 @@ font-size: 18px;
 font-weight: bold;
 color: #475569;
 }
+.verify-note{
+margin-top:25px;
+padding:14px;
+background:#f8fafc;
+border:1px solid #e5e7eb;
+border-radius:12px;
+font-size:13px;
+color:#475569;
+}
+@media print{
+body{background:white;padding:0;}
+.actions{display:none;}
+.letter-container{box-shadow:none;display:block;}
+}
 </style>
 </head>
 <body>
@@ -103,24 +126,46 @@ color: #475569;
 </div>
 <div class="meta-info">
 <b>Document ID:</b> <span id="docId">-</span><br>
-<b>Date:</b> <span id="docDate">-</span>
+<b>Date:</b> <span id="docDate">-</span><br>
+<b>Mode:</b> Online
 </div>
 </div>
+
 <div class="content">
 <p>Dear <b id="candidateName">-</b>,</p>
-<p>We are pleased to offer you an internship position at InternForge under the program <b id="programName">-</b>. Based on your application and technical review background alignment, we believe your skills align perfectly with our workspace expectations.</p>
-<p>Your 4-week structured tenure will begin immediately. During this time, you will be expected to complete all targeted modules and submit your portfolio project artifacts before the final certificate and completion documentation generation phase.</p>
-<p>We look forward to seeing your project execution work.</p>
+
+<p>We are pleased to offer you a <b>30-minute online internship</b> opportunity at InternForge under the program <b id="programName">AI & Prompt Engineering</b>.</p>
+
+<p>This offer letter confirms your enrollment in the self-paced internship program. The internship is designed to introduce you to practical prompt writing, role prompting, structured output generation and basic AI productivity workflows.</p>
+
+<p>After completing the internship module from your dashboard, your completion certificate will be generated with a unique verification ID.</p>
+
+<p>We welcome you to InternForge and wish you a productive learning experience.</p>
+
 <br>
 <p>Best Regards,<br><b>InternForge Team</b></p>
 </div>
+
 <div class="signature-section">
-<div></div>
 <div class="sig">
+<div class="signature-name">Maman Singh</div>
 <div class="sig-line"></div>
-Authorized Signatory
+<b>Maman Singh</b><br>
+Coordinator
+</div>
+
+<div class="sig">
+<div class="signature-name">Dhruv Khurana</div>
+<div class="sig-line"></div>
+<b>Dhruv Khurana</b><br>
+Director & CEO
 </div>
 </div>
+
+<div class="verify-note">
+This document can be verified from the InternForge Verification Portal using the Document ID mentioned above.
+</div>
+
 <div class="actions">
 <button onclick="window.location.href='dashboard.html'" class="btn" style="background:#64748b; margin-right: 10px;">Back to Dashboard</button>
 <button onclick="window.print()" class="btn">Print / Save PDF</button>
@@ -130,7 +175,13 @@ Authorized Signatory
 <script type="module">
 import { auth, db } from "./firebase-config.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+function generateId(prefix) {
+const year = new Date().getFullYear();
+const rand = Math.floor(100000 + Math.random() * 900000);
+return `${prefix}-${year}-${rand}`;
+}
 
 onAuthStateChanged(auth, async(user)=>{
 if(!user){
@@ -138,24 +189,40 @@ window.location.href = "login.html";
 return;
 }
 try {
-const snap = await getDoc(doc(db, "students", user.uid));
-if(snap.exists()){
-const data = snap.data();
-if(data.paymentStatus !== "Approved"){
-alert("Access Denied: Payment Verification Required.");
+const ref = doc(db, "students", user.uid);
+let snap = await getDoc(ref);
+
+if(!snap.exists()){
 window.location.href = "dashboard.html";
 return;
 }
+
+let data = snap.data();
+
+if(data.applicationStatus !== "Applied" && data.applicationStatus !== "Completed"){
+alert("Access Denied: Apply for the internship first.");
+window.location.href = "dashboard.html";
+return;
+}
+
+if(!data.offerLetterId){
+await setDoc(ref, {
+offerLetterId: generateId("OL"),
+offerLetterStatus: "Issued",
+selectedProgram: "AI & Prompt Engineering"
+}, { merge: true });
+snap = await getDoc(ref);
+data = snap.data();
+}
+
 document.getElementById("loading").style.display = "none";
 document.getElementById("letter").style.display = "block";
 document.getElementById("candidateName").innerText = data.name || "Intern";
-document.getElementById("programName").innerText = data.selectedProgram || "Assigned Track";
+document.getElementById("programName").innerText = data.selectedProgram || "AI & Prompt Engineering";
 document.getElementById("docId").innerText = data.offerLetterId || "OL-PENDING";
-document.getElementById("docDate").innerText = new Date().toLocaleDateString();
-} else {
-window.location.href = "dashboard.html";
-}
+document.getElementById("docDate").innerText = new Date().toLocaleDateString("en-IN", { day:"2-digit", month:"long", year:"numeric" });
 } catch(e) {
+console.error(e);
 window.location.href = "dashboard.html";
 }
 });
